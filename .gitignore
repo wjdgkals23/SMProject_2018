@@ -1,0 +1,24 @@
+# JetBrains project files
+backend/.idea
+
+# NPM
+backend/node_modules
+
+# NativeScript application
+
+backend/package-lock.json
+backend/README.md
+
+
+# JetBrains project files
+frontend/.idea
+
+# NPM
+frontend/node_modules
+
+# NativeScript application
+frontend/hooks
+frontend/platforms
+
+frontend/package-lock.json
+frontend/README.md
