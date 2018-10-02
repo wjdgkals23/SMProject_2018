@@ -5,7 +5,7 @@
         <GridLayout rows="*,60">
             <ScrollView row="0">
                 <WrapLayout orientation="horizontal">
-                    <GridLayout v-for="item in data" width="50%" height="150" rows="2*,*">
+                    <GridLayout v-for="item in posts" width="50%" height="150" rows="2*,*">
                         <Image
                                 :src="item.src"
                                 stretch="aspectFill"
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+    import _ from 'lodash'
+    import { mapState } from 'vuex'
     export default {
         data() {
             return {
@@ -59,9 +61,10 @@
         },
         methods:{
             talk: function(){
-                console.log("talk");
+                console.log('talk');
             }
-        }
+        },
+        computed: _.extend({}, mapState(['posts']))
     }
 </script>
 

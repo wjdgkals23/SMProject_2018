@@ -1,4 +1,4 @@
-#Fronted
+# Fronted
     ## NativeScript-Vue Application
 
     > A native application built with NativeScript-Vue
@@ -20,8 +20,8 @@
     ```
 
 
-#Backend
-    ##  Node.js Express.js Application
+# Backend
+    ## Node.js Express.js Application
 
 
     ``` bash
