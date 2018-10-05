@@ -1,4 +1,5 @@
 # JetBrains project files
+/.idea
 backend/.idea
 
 # NPM

@@ -38,6 +38,8 @@
 <script>
     import _ from 'lodash'
     import { mapState } from 'vuex'
+    import axios from 'axios'
+    import * as http from "http";
     export default {
         data() {
             return {
@@ -61,10 +63,15 @@
         },
         methods:{
             talk: function(){
-                console.log('talk');
+                axios.get('http://10.0.2.2:3000/temp')
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
-        },
-        computed: _.extend({}, mapState(['posts']))
+        }
     }
 </script>
 
