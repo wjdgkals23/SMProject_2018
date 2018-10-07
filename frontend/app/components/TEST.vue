@@ -1,33 +1,16 @@
 <template>
     <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!"/>
+        <ActionBar title="Route"/>
         <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
         <GridLayout rows="*,60">
             <ScrollView row="0">
                 <WrapLayout orientation="horizontal">
-                    <GridLayout v-for="item in posts" width="50%" height="150" rows="2*,*">
-                        <Image
-                                :src="item.src"
-                                stretch="aspectFill"
-                                row="0"
-                                width="100%"
-                        ></Image>
-                        <Label
-                                row="1"
-                                :text=item.title
-                                horizontalAlignment="center"
-                                verticalAlignment="bottom"
-                                backgroundColor="rgb(81,197,247, 0.8)"
-                                padding="10"
-                                fontSize="13"
-                                color="white"
-                        ></Label>
-                    </GridLayout>
+
                 </WrapLayout>
             </ScrollView>
             <StackLayout orientation="horizontal" row="1" id="navigation">
                 <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="talk"/>
-                <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="$navigateTo(test)"/>
+                <Label width="25%" class="fa" :text="'fa-heart' | fonticon" />
                 <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
                 <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
             </StackLayout>
@@ -38,10 +21,9 @@
 <script>
     import _ from 'lodash'
     import { mapState } from 'vuex'
-    import axios from 'axios'
-    import test from './TEST'
+    import axios from 'axios';
     export default {
-        name: "App",
+        name: 'TEST',
         data() {
             return {
                 msg: 'Hello World!',
@@ -59,8 +41,7 @@
                     {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
                     {title:"foot", src: "~/assets/images/NativeScript-Vue.png"}
                 ],
-                busy: true,
-                test: test
+                busy: true
             }
         },
         methods:{

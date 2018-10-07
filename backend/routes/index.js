@@ -8,7 +8,7 @@ var conn = mysql.createConnection(db);
 /* GET home page. */
 router.get('/temp', function(req, res, next) {
     console.log("here");
-  var sql = "SELECT * FROM TEST";
+  var sql = "SELECT * FROM clothing_tag";
   conn.query(sql, function(err, results){
     if(err){
         console.log(err);
