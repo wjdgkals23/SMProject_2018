@@ -3,34 +3,8 @@
         <ActionBar title="Welcome to NativeScript-Vue!"/>
         <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
         <GridLayout rows="*,60">
-            <ScrollView row="0">
-                <WrapLayout orientation="horizontal">
-                    <GridLayout v-for="item in posts" width="50%" height="150" rows="2*,*">
-                        <Image
-                                :src="item.src"
-                                stretch="aspectFill"
-                                row="0"
-                                width="100%"
-                        ></Image>
-                        <Label
-                                row="1"
-                                :text=item.title
-                                horizontalAlignment="center"
-                                verticalAlignment="bottom"
-                                backgroundColor="rgb(81,197,247, 0.8)"
-                                padding="10"
-                                fontSize="13"
-                                color="white"
-                        ></Label>
-                    </GridLayout>
-                </WrapLayout>
-            </ScrollView>
-            <StackLayout orientation="horizontal" row="1" id="navigation">
-                <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="talk"/>
-                <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="$navigateTo(test)"/>
-                <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
-                <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
-            </StackLayout>
+            <test :imgdata="data"></test>
+            <bottom-navigation></bottom-navigation>
         </GridLayout>
     </Page>
 </template>
@@ -39,40 +13,20 @@
     import _ from 'lodash'
     import { mapState } from 'vuex'
     import axios from 'axios'
-    import test from './TEST'
+    import BottomNavigation from './BottomNavigation'
+    import Test from './TEST'
     export default {
         name: "App",
+        components: { BottomNavigation, Test },
         data() {
             return {
                 msg: 'Hello World!',
-                data:[
-                    {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"foot", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"foot", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"foot", src: "~/assets/images/NativeScript-Vue.png"}
-                ],
                 busy: true,
-                test: test
+                data: null, // 이곳에다 데이터 바인딩하면 이미지 데이터 변동
             }
         },
         methods:{
-            talk: function(){
-                axios.get('http://10.0.2.2:3000/temp')
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
+
         }
     }
 </script>

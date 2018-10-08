@@ -1,29 +1,32 @@
 <template>
-    <Page>
-        <ActionBar title="Route"/>
-        <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
-        <GridLayout rows="*,60">
-            <ScrollView row="0">
-                <WrapLayout orientation="horizontal">
-
-                </WrapLayout>
-            </ScrollView>
-            <StackLayout orientation="horizontal" row="1" id="navigation">
-                <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="talk"/>
-                <Label width="25%" class="fa" :text="'fa-heart' | fonticon" />
-                <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
-                <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
-            </StackLayout>
-        </GridLayout>
-    </Page>
+    <ScrollView row="0">
+        <WrapLayout orientation="horizontal">
+            <GridLayout v-for="item in img_list" width="50%" height="150" rows="2*,*">
+                <Image
+                        :src="item.src"
+                        stretch="aspectFill"
+                        row="0"
+                        width="100%"
+                ></Image>
+                <Label
+                        row="1"
+                        :text=item.title
+                        horizontalAlignment="center"
+                        verticalAlignment="bottom"
+                        backgroundColor="rgb(81,197,247, 0.8)"
+                        padding="10"
+                        fontSize="13"
+                        color="white"
+                ></Label>
+            </GridLayout>
+        </WrapLayout>
+    </ScrollView>
 </template>
 
 <script>
-    import _ from 'lodash'
-    import { mapState } from 'vuex'
-    import axios from 'axios';
     export default {
         name: 'TEST',
+        props: ['imgdata'],
         data() {
             return {
                 msg: 'Hello World!',
@@ -41,18 +44,20 @@
                     {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
                     {title:"foot", src: "~/assets/images/NativeScript-Vue.png"}
                 ],
-                busy: true
+                busy: true,
             }
         },
         methods:{
-            talk: function(){
-                axios.get('http://10.0.2.2:3000/temp')
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+
+        },
+        computed: {
+            img_list: function(){
+                if(this.imgdata == null){
+                    return this.data;
+                }
+                else{
+                    return this.imgdata;
+                }
             }
         }
     }
