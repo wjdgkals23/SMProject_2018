@@ -1,32 +1,43 @@
 <template>
     <StackLayout orientation="horizontal" row="1" id="navigation">
         <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="$navigateTo(router_list.one)" />
-        <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="$navigateTo(router_list.two)"/>
+        <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="talk()"/>
         <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
         <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
+        <!-- 각각의 라벨 터치 할때마다 최상위 부모의 currentView 값 수정 -->
     </StackLayout>
 </template>
 
 <script>
     import _ from 'lodash'
     import { mapState } from 'vuex'
+    import { apiPath } from '../lib/httpconfig'
     import axios from 'axios'
     import app from './App'
-    import test from './TEST'
     export default {
         name: "BottomNavigation",
         data(){
             return{
                 router_list: {
-                    one: app,
-                    two: test
+                    one: app
+                    // two: test
                 }
             }
         },
         methods: {
             talk: function(){
-                axios.get('http://10.0.2.2:3000/temp')
+                console.log("test");
+                axios.get(apiPath.android+'/temp')
                     .then(function (response) {
+                        console.log("");
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                axios.get('http://127.0.0.1:3000/temp')
+                    .then(function (response) {
+                        console.log("");
                         console.log(response);
                     })
                     .catch(function (error) {

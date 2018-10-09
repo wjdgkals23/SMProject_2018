@@ -13,6 +13,7 @@ router.get('/temp', function(req, res, next) {
     if(err){
         console.log(err);
         console.log(err.fatal);
+        res.send(err);
     }
     else{
         console.log(results);

@@ -1,32 +1,37 @@
 <template>
     <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!"/>
+        <ActionBar :title="pid_name" v-on:click="talk" />
         <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
-        <GridLayout rows="*,60">
-            <test :imgdata="data"></test>
-            <bottom-navigation></bottom-navigation>
-        </GridLayout>
+        <component :is="currentView"></component>
     </Page>
 </template>
 
 <script>
-    import _ from 'lodash'
-    import { mapState } from 'vuex'
     import axios from 'axios'
-    import BottomNavigation from './BottomNavigation'
-    import Test from './TEST'
+    import TotalPid from './TotalPid'
     export default {
         name: "App",
-        components: { BottomNavigation, Test },
+        components: { TotalPid },
         data() {
             return {
                 msg: 'Hello World!',
                 busy: true,
                 data: null, // 이곳에다 데이터 바인딩하면 이미지 데이터 변동
+                currentView: TotalPid,
+                pid_name: "Total"
             }
         },
         methods:{
-
+            talk: function(){
+                axios.get('http://10.0.2.2:3000/temp')
+                    .then(function (response) {
+                        console.log("");
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
     }
 </script>
