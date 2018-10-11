@@ -26,19 +26,19 @@
         },
         methods: {
             talk: function(){
-                console.log("test");
+                // console.log("test");
                 axios.get(apiPath.android+'/temp')
                     .then(function (response) {
                         console.log("");
-                        console.log(response);
+                        console.log(response.data);
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
-                axios.get('http://127.0.0.1:3000/temp')
+                axios.get(apiPath.ios+'/temp')
                     .then(function (response) {
                         console.log("");
-                        console.log(response);
+                        console.log(response.data);
                     })
                     .catch(function (error) {
                         console.log(error);

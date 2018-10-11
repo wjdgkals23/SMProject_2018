@@ -11,6 +11,7 @@
     import _ from 'lodash'
     import { mapState } from 'vuex'
     import axios from 'axios'
+    // import { mapstate } from ''
     import BottomNavigation from './BottomNavigation'
     import ImageView from './ImageView'
     export default {
@@ -38,7 +39,8 @@
         },
         methods:{
 
-        }
+        },
+        // computed: _.mapState{asdas}
     }
 </script>
 
