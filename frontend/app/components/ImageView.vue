@@ -1,32 +1,24 @@
 <template>
     <ScrollView row="0">
-        <WrapLayout orientation="horizontal">
-            <GridLayout v-for="item in img_list" width="50%" height="150" rows="2*,*">
-                <Image
-                        :src="item.src"
-                        stretch="aspectFill"
-                        row="0"
-                        width="100%"
-                ></Image>
-                <Label
-                        row="1"
-                        :text=item.title
-                        horizontalAlignment="center"
-                        verticalAlignment="bottom"
-                        backgroundColor="rgb(81,197,247, 0.8)"
-                        padding="10"
-                        fontSize="13"
-                        color="white"
-                ></Label>
-            </GridLayout>
+        <WrapLayout orientation="horizontal" padding="5">
+            <CardView class="cardStyle" margin="6" elevation="40" radius="5" v-for="item in img_list" width="45%">
+                <GridLayout rows="auto, auto" columns="auto, auto, *">
+                    <Image :src="item.src" stretch="aspectFill" colSpan="3" row="0" />
+                    <Label class="fa" :text="'fa-heart' | fonticon" row="1" colSpan="3" padding="10"/>
+                </GridLayout>
+            </CardView>
         </WrapLayout>
     </ScrollView>
 </template>
 
 <script>
+    import CardView from 'nativescript-cardview'
     export default {
         name: 'ImageView',
         props: ['imgdata'],
+        components: {
+            CardView
+        },
         data() {
             return {
                 msg: 'Hello World!',
@@ -53,6 +45,11 @@
 </script>
 
 <style scoped>
+    .cardStyle {
+        background-color: #3489db;
+        color: #fff;
+    }
+
     ActionBar {
         background-color: #53ba82;
         color: #ffffff;
