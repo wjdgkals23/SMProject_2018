@@ -4,7 +4,7 @@
             <CardView class="cardStyle" margin="6" elevation="40" radius="5" v-for="item in img_list" width="45%">
                 <GridLayout rows="auto, auto" columns="auto, auto, *">
                     <Image :src="item.src" stretch="aspectFill" colSpan="3" row="0" />
-                    <Label class="fa" :text="'fa-heart' | fonticon" row="1" colSpan="3" padding="10"/>
+                    <Label class="fa" :text="'fa-heart' | fonticon" row="1" colSpan="3" padding="10" background="#fff" color="red"/>
                 </GridLayout>
             </CardView>
         </WrapLayout>
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-    import CardView from 'nativescript-cardview'
+    // import CardView from 'nativescript-cardview'
     export default {
         name: 'ImageView',
         props: ['imgdata'],
         components: {
-            CardView
+            // CardView
         },
         data() {
             return {

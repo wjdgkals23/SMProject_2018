@@ -11,9 +11,9 @@
 <script>
     import _ from 'lodash'
     import { mapState } from 'vuex'
-    import { apiPath } from '../lib/httpconfig'
+    import { apiPath } from '../../lib/httpconfig'
     import axios from 'axios'
-    import app from './App'
+    import app from '../App'
     export default {
         name: "BottomNavigation",
         data(){
@@ -35,14 +35,14 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-                axios.get(apiPath.ios+'/temp')
-                    .then(function (response) {
-                        console.log("");
-                        console.log(response.data);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                // axios.get(apiPath.ios+'/temp')
+                //     .then(function (response) {
+                //         console.log("");
+                //         console.log(response.data);
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
             }
         }
     }

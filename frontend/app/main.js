@@ -21,7 +21,6 @@ Vue.config.silent = (TNS_ENV === 'production')
 
 Vue.registerElement("CardView", () => require("nativescript-cardview").CardView);
 
-
 new Vue({
     store,
     render: h => h('frame', [h(App)]),

@@ -1,37 +1,27 @@
 <template>
     <Page>
-        <ActionBar :title="pid_name" v-on:click="talk" />
+        <ActionBar :title="pid_name" />
         <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
-        <component :is="currentView"></component>
+        <component v-on:changepeed="changepeed(val)" :is="currentView"></component>
     </Page>
 </template>
 
 <script>
-    import axios from 'axios'
-    import TotalPid from './TotalPid'
+    import TotalPeed from './TotalPeed'
     export default {
         name: "App",
-        components: { TotalPid },
+        components: { TotalPeed },
         data() {
             return {
                 msg: 'Hello World!',
                 busy: true,
                 data: null, // 이곳에다 데이터 바인딩하면 이미지 데이터 변동
-                currentView: TotalPid,
+                currentView: TotalPeed,
                 pid_name: "Total"
             }
         },
         methods:{
-            talk: function(){
-                axios.get('http://10.0.2.2:3000/temp')
-                    .then(function (response) {
-                        console.log("");
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
+
         }
     }
 </script>

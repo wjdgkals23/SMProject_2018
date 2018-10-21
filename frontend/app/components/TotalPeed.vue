@@ -12,8 +12,8 @@
     import { mapState } from 'vuex'
     import axios from 'axios'
     // import { mapstate } from ''
-    import BottomNavigation from './BottomNavigation'
-    import ImageView from './ImageView'
+    import BottomNavigation from './navi/BottomNavigation'
+    import ImageView from './imageview/ImageView'
     export default {
         name: "TotalPid",
         components: { ImageView, BottomNavigation },
