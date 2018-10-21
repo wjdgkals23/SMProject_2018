@@ -1,6 +1,8 @@
 <template>
     <Page>
-        <ActionBar :title="pid_name" />
+        <ActionBar :title="pid_name">
+            <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />
+        </ActionBar>
         <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
         <component v-on:changepeed="changepeed(val)" :is="currentView"></component>
     </Page>
@@ -8,9 +10,10 @@
 
 <script>
     import TotalPeed from './TotalPeed'
+    import UserPeed from './UserPeed'
     export default {
         name: "App",
-        components: { TotalPeed },
+        components: { TotalPeed, UserPeed },
         data() {
             return {
                 msg: 'Hello World!',
