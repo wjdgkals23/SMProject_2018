@@ -1,7 +1,7 @@
 <template>
     <StackLayout orientation="horizontal" row="1" id="navigation">
-        <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="$navigateTo(router_list.one)" />
-        <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="talk()"/>
+        <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="peedch(1)" />
+        <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="peedch(2)"/>
         <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
         <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
         <!-- 각각의 라벨 터치 할때마다 최상위 부모의 currentView 값 수정 -->
@@ -21,10 +21,14 @@
                 router_list: {
                     one: app
                     // two: test
-                }
+                },
+                peed: 'main'
             }
         },
         methods: {
+            peedch: function(val) {
+                this.$emit('peedch', val);
+            },
             talk: function(){
                 // console.log("test");
                 axios.get(apiPath.android+'/temp')

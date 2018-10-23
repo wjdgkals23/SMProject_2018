@@ -4,7 +4,7 @@
             <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />
         </ActionBar>
         <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
-        <component v-on:changepeed="changepeed(val)" :is="currentView"></component>
+        <component @peedch="peedch" :is="currentView"></component>
     </Page>
 </template>
 
@@ -24,7 +24,12 @@
             }
         },
         methods:{
-
+            peedch: function(message) {
+                if(message==1)
+                    this.currentView = UserPeed;
+                else if(message==2)
+                    this.currentView = TotalPeed;
+            }
         }
     }
 </script>

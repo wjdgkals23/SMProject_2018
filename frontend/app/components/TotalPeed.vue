@@ -2,7 +2,7 @@
     <GridLayout columns="*" rows="*">
         <GridLayout rows="*,60">
             <image-view :imgdata="data"></image-view>
-            <bottom-navigation></bottom-navigation>
+            <bottom-navigation @peedch="ch"></bottom-navigation>
         </GridLayout>
     </GridLayout>
 </template>
@@ -15,7 +15,7 @@
     import BottomNavigation from './navi/BottomNavigation'
     import ImageView from './imageview/ImageView'
     export default {
-        name: "TotalPid",
+        name: "TotalPeed",
         components: { ImageView, BottomNavigation },
         data() {
             return {
@@ -38,7 +38,9 @@
             }
         },
         methods:{
-
+            ch: function(message) {
+                this.$emit('peedch', message);
+            }
         },
         // computed: _.mapState{asdas}
     }
