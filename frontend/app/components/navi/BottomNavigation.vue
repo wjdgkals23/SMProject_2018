@@ -13,21 +13,18 @@
     import { mapState } from 'vuex'
     import { apiPath } from '../../lib/httpconfig'
     import axios from 'axios'
-    import app from '../App'
+    import Constant from '../../constant'
+
     export default {
         name: "BottomNavigation",
         data(){
             return{
-                router_list: {
-                    one: app
-                    // two: test
-                },
-                peed: 'main'
+
             }
         },
         methods: {
             peedch: function(val) {
-                this.$emit('peedch', val);
+                this.$store.dispatch(Constant.PEEDCH, val);
             },
             talk: function(){
                 // console.log("test");
@@ -39,14 +36,14 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-                // axios.get(apiPath.ios+'/temp')
-                //     .then(function (response) {
-                //         console.log("");
-                //         console.log(response.data);
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
+                axios.get(apiPath.ios+'/temp')
+                    .then(function (response) {
+                        console.log("");
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     }

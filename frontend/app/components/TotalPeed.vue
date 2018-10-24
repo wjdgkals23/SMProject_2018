@@ -1,7 +1,7 @@
 <template>
     <GridLayout columns="*" rows="*">
         <GridLayout rows="*,60">
-            <image-view :imgdata="data"></image-view>
+            <image-view :imgdata="posts"></image-view>
             <bottom-navigation @peedch="ch"></bottom-navigation>
         </GridLayout>
     </GridLayout>
@@ -20,29 +20,15 @@
         data() {
             return {
                 msg: 'Hello World!',
-                busy: true,
-                data: [
-                    {title:"head", src: "~/assets/images/NativeScript-Vue.png", width: '50%', height: 'auto'},
-                    {title:"body", src: "~/assets/images/NativeScript-Vue.png", width: '50%', height: 'auto'},
-                    {title:"leg", src: "~/assets/images/NativeScript-Vue.png", width: '50%', height: 'auto'},
-                    {title:"foot", src: "~/assets/images/NativeScript-Vue.png", width: '50%', height: 'auto'},
-                    {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"foot", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-                    {title:"foot", src: "~/assets/images/NativeScript-Vue.png"}
-                ], // 데이터 바인딩하면 이미지 데이터 변동
+                busy: true
             }
         },
         methods:{
-            ch: function(message) {
-                this.$emit('peedch', message);
-            }
+
         },
-        // computed: _.mapState{asdas}
+        computed : _.extend({
+
+        },mapState([ 'posts' ]))
     }
 </script>
 

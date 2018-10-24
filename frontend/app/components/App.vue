@@ -11,6 +11,9 @@
 <script>
     import TotalPeed from './TotalPeed'
     import UserPeed from './UserPeed'
+    import Constant from '../constant'
+    import { mapState, mapMutations } from 'vuex'
+    import _ from 'lodash'
     export default {
         name: "App",
         components: { TotalPeed, UserPeed },
@@ -19,18 +22,19 @@
                 msg: 'Hello World!',
                 busy: true,
                 data: null, // 이곳에다 데이터 바인딩하면 이미지 데이터 변동
-                currentView: TotalPeed,
-                pid_name: "Total"
+                pid_name: "Total",
+                // currentView: TotalPeed
+
             }
         },
-        methods:{
-            peedch: function(message) {
-                if(message==1)
-                    this.currentView = UserPeed;
-                else if(message==2)
-                    this.currentView = TotalPeed;
+        computed : _.extend({
+            currentView: function(){
+                if(this.peedmanager == 1)
+                    return TotalPeed;
+                else
+                    return UserPeed;
             }
-        }
+        },mapState([ 'peedmanager' ]))
     }
 </script>
 

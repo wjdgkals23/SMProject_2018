@@ -13,5 +13,5 @@ export default {
             {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
             {title:"foot", src: "~/assets/images/NativeScript-Vue.png"}
         ],
-    currentView: null
+    peedmanager: 1
 }

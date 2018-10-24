@@ -1,3 +1,4 @@
 export default {
-    GETIMG: 'getimg'
+    GETIMG: 'getimg',
+    PEEDCH: 'peedch'
 }
