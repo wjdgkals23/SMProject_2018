@@ -3,7 +3,7 @@
         <WrapLayout orientation="horizontal" padding="5">
             <CardView class="cardStyle" margin="6" elevation="40" radius="5" v-for="item in img_list" width="45%">
                 <GridLayout rows="auto, auto" columns="auto, auto, *">
-                    <Image :src="item.src" stretch="aspectFill" colSpan="3" row="0" />
+                    <Image :src="item.src" stretch="aspectFill" colSpan="3" row="0" @tap="edit(item.src)"/>
                     <Label class="fa" :text="'fa-heart' | fonticon" row="1" colSpan="3" padding="10" background="#fff" color="red"/>
                 </GridLayout>
             </CardView>
@@ -13,6 +13,9 @@
 
 <script>
     // import CardView from 'nativescript-cardview'
+    const PhotoEdit = require('nativescript-photo-editor').PhotoEditor;
+    const PhotoEditorControl = require('nativescript-photo-editor').PhotoEditorControl;
+    const imgs = require('tns-core-modules/image-source').ImageSource;
     export default {
         name: 'ImageView',
         props: ['imgdata'],
@@ -26,10 +29,30 @@
                     {title:"none", src: "~/assets/images/NativeScript-Vue.png"},
                 ],
                 busy: true,
+                result: null,
+                pe: new PhotoEdit(),
+                imagesource: imgs,
+                pec: PhotoEditorControl,
             }
         },
+        mounted() {
+            // this.pe = new PhotoEdit();
+        },
         methods:{
-
+            edit: function(src) {
+                // console.log(this.pec.Crop);
+                this.pe.editPhoto({
+                    imageSource: src,
+                    hiddenControls: [
+                        // PhotoEditorControl.Save,
+                        // this.pec.Crop,
+                    ],
+                }).then(function(img){
+                    console.log(img);
+                }).catch(function(e){
+                    console.log(e);
+                })
+            }
         },
         computed: {
             img_list: function(){

@@ -13,7 +13,7 @@
                     <Label text="third" height="500" backgroundColor="#1c6b48"/>
                 </StackLayout>
             </ScrollView>
-            <bottom-navigation @peedch="ch"></bottom-navigation>
+            <bottom-navigation></bottom-navigation>
         </GridLayout>
     </GridLayout>
 </template>
@@ -24,9 +24,7 @@
         name: "UserPeed",
         components: { BottomNavigation },
         methods:{
-            ch: function(message) {
-                this.$emit('peedch', message);
-            }
+
         },
     }
 </script>

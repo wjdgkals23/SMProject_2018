@@ -2,7 +2,7 @@
     <GridLayout columns="*" rows="*">
         <GridLayout rows="*,60">
             <image-view :imgdata="posts"></image-view>
-            <bottom-navigation @peedch="ch"></bottom-navigation>
+            <bottom-navigation></bottom-navigation>
         </GridLayout>
     </GridLayout>
 </template>

@@ -3,8 +3,8 @@
         <ActionBar :title="pid_name">
             <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />
         </ActionBar>
-        <ActivityIndicator :busy=busy @busyChange="onBusyChanged" />
-        <component @peedch="peedch" :is="currentView"></component>
+        <!--<ActivityIndicator :busy=busy @busyChange="onBusyChanged" />-->
+        <component :is="currentView"></component>
     </Page>
 </template>
 
