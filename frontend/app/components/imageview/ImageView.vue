@@ -16,6 +16,7 @@
     const PhotoEdit = require('nativescript-photo-editor').PhotoEditor;
     const PhotoEditorControl = require('nativescript-photo-editor').PhotoEditorControl;
     const imgs = require('tns-core-modules/image-source').ImageSource;
+    const ffor = require('tns-core-modules/image-source').fromFileOrResource;
     export default {
         name: 'ImageView',
         props: ['imgdata'],
@@ -41,17 +42,19 @@
         methods:{
             edit: function(src) {
                 // console.log(this.pec.Crop);
+                let imageSource = ffor(src);
                 this.pe.editPhoto({
-                    imageSource: src,
+                    imageSource: imageSource,
                     hiddenControls: [
                         // PhotoEditorControl.Save,
                         // this.pec.Crop,
                     ],
-                }).then(function(img){
-                    console.log(img);
-                }).catch(function(e){
-                    console.log(e);
-                })
+                }).then((ImageSource) => {
+                    // Here you can save newImage, send it to your backend or simply display it in your app
+                    console.log(ImageSource);
+                }).catch((e) => {
+                    console.error(e);
+                });
             }
         },
         computed: {
