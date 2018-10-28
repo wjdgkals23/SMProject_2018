@@ -1,17 +1,17 @@
 export default {
     posts: [
-            {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"foot", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"foot", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"head", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"body", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"leg", src: "~/assets/images/NativeScript-Vue.png"},
-            {title:"foot", src: "~/assets/images/NativeScript-Vue.png"}
+            {title:"오버사이즈 스트라이프 셔츠", src: "~/assets/images/test.jpeg"},
+            {title:"head", src: "~/assets/images/test2.jpeg"},
+            {title:"head", src: "~/assets/images/test2.jpeg"},
+            {title:"head", src: "~/assets/images/test.jpeg"},
+            {title:"head", src: "~/assets/images/test.jpeg"},
+            {title:"head", src: "~/assets/images/test2.jpeg"},
+            {title:"head", src: "~/assets/images/test2.jpeg"},
+            {title:"head", src: "~/assets/images/test.jpeg"},
+            {title:"head", src: "~/assets/images/test.jpeg"},
+            {title:"head", src: "~/assets/images/test2.jpeg"},
+            {title:"head", src: "~/assets/images/test2.jpeg"},
+            {title:"head", src: "~/assets/images/test.jpeg"},
         ],
     peedmanager: 1
 }

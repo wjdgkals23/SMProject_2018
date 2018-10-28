@@ -1,8 +1,8 @@
 <template>
     <Page>
-        <ActionBar :title="pid_name">
-            <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />
-        </ActionBar>
+        <!--<ActionBar :title="pid_name">-->
+            <!--<NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />-->
+        <!--</ActionBar>-->
         <!--<ActivityIndicator :busy=busy @busyChange="onBusyChanged" />-->
         <component :is="currentView"></component>
     </Page>

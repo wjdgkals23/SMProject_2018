@@ -1,13 +1,25 @@
 <template>
-    <ScrollView row="0">
-        <WrapLayout orientation="horizontal" padding="5">
-            <CardView class="cardStyle" margin="6" elevation="40" radius="5" v-for="item in img_list" width="45%">
-                <GridLayout rows="auto, auto" columns="auto, auto, *">
-                    <Image :src="item.src" stretch="aspectFill" colSpan="3" row="0" @tap="edit(item.src)"/>
-                    <Label class="fa" :text="'fa-heart' | fonticon" row="1" colSpan="3" padding="10" background="#fff" color="red"/>
-                </GridLayout>
-            </CardView>
-        </WrapLayout>
+    <ScrollView>
+        <GridLayout columns="*,*">
+            <StackLayout col="0">
+                <CardView class="cardStyle" elevation="40" radius="15" v-for="item in first_col">
+                    <AbsoluteLayout>
+                        <Image class="img" width="100%" :src="item.src" stretch="aspectFill" @tap="edit(item.src)"/>
+                        <Label top="20px" left="20px" class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>
+                        <!--<Label class="title" :text="item.title" color="purple"/>-->
+                    </AbsoluteLayout>
+                </CardView>
+            </StackLayout>
+            <StackLayout col="1">
+                <CardView class="cardStyle" elevation="40" radius="15" v-for="item in second_col">
+                    <AbsoluteLayout>
+                        <Image class="img" width="100%" :src="item.src" stretch="aspectFill" @tap="edit(item.src)"/>
+                        <Label top="20px" left="20px" class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>
+                        <!--<Label class="title" left="20px" :text="item.title" color="purple"/>-->
+                    </AbsoluteLayout>
+                </CardView>
+            </StackLayout>
+        </GridLayout>
     </ScrollView>
 </template>
 
@@ -36,8 +48,8 @@
                 pec: PhotoEditorControl,
             }
         },
-        mounted() {
-            // this.pe = new PhotoEdit();
+        created() {
+            this.pe = new PhotoEdit();
         },
         methods:{
             edit: function(src) {
@@ -58,12 +70,34 @@
             }
         },
         computed: {
-            img_list: function(){
+            first_col: function(){
                 if(this.imgdata == null){
                     return this.data;
                 }
                 else{
-                    return this.imgdata;
+                    let img_list = this.imgdata;
+                    let firstcol = [];
+                    for(let i in img_list){
+                        if(i % 2 == 1){
+                            firstcol.push(img_list[i])
+                        }
+                    }
+                    return firstcol;
+                }
+            },
+            second_col: function(){
+                if(this.imgdata == null){
+                    return this.data;
+                }
+                else{
+                    let img_list = this.imgdata;
+                    let secondcol = [];
+                    for(let i in img_list){
+                        if(i % 2 == 0){
+                            secondcol.push(img_list[i])
+                        }
+                    }
+                    return secondcol;
                 }
             }
         }
@@ -72,8 +106,15 @@
 
 <style scoped>
     .cardStyle {
-        background-color: #3489db;
-        color: #fff;
+        /*color: #fff;*/
+        width: 92%;
+        padding: 4%;
+        margin-top: 25px;
+        font-size: 35px;
+    }
+
+    .img {
+        border-radius: 15px;
     }
 
     ActionBar {

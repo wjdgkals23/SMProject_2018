@@ -1,8 +1,8 @@
 <template>
     <StackLayout orientation="horizontal" row="1" id="navigation">
-        <Label width="25%" class="fa" :text="'fa-eye' | fonticon" @tap="peedch(1)" />
-        <Label width="25%" class="fa" :text="'fa-heart' | fonticon" @tap="peedch(2)"/>
-        <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
+        <Label width="25%" class="fa" :text="'fa-th' | fonticon" @tap="peedch(1)" />
+        <Label width="25%" class="fa" :text="'fa-thumbs-up' | fonticon" @tap="peedch(2)"/>
+        <Label width="25%" class="fa" :text="'fa-shopping-cart' | fonticon" />
         <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
         <!-- 각각의 라벨 터치 할때마다 최상위 부모의 currentView 값 수정 -->
     </StackLayout>
@@ -51,13 +51,13 @@
 
 <style scoped>
     #navigation {
-        background-color: aquamarine;
+        background-color: white;
     }
 
     #navigation Label {
         text-align:center;
-        font-size: 25%;
-        color: darkslategray;
+        font-size: 30%;
+        color: purple;
         vertical-align: middle;
         /*hover*/
     }
