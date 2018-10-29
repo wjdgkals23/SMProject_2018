@@ -14,6 +14,8 @@
     import Constant from '../constant'
     import { mapState, mapMutations } from 'vuex'
     import _ from 'lodash'
+
+    const font = require('tns-core-modules/ui/styling/');
     export default {
         name: "App",
         components: { TotalPeed, UserPeed },

@@ -1,11 +1,11 @@
 <template>
-    <StackLayout orientation="horizontal" row="1" id="navigation">
-        <Label width="25%" class="fa" :text="'fa-th' | fonticon" @tap="peedch(1)" />
-        <Label width="25%" class="fa" :text="'fa-thumbs-up' | fonticon" @tap="peedch(2)"/>
-        <Label width="25%" class="fa" :text="'fa-shopping-cart' | fonticon" />
-        <Label width="25%" class="fa" :text="'fa-user' | fonticon" />
+    <FlexboxLayout justifyContent="space-around" row="1" id="navigation">
+        <Image src="~/assets/images/icon/menu.png" stretch="aspectFit" @tap="peedch(1)"/>
+        <Image src="~/assets/images/icon/thumbs.png" stretch="aspectFit" @tap="peedch(2)"/>
+        <Image src="~/assets/images/icon/cart.png" stretch="aspectFit" />
+        <Image src="~/assets/images/icon/person.png" stretch="aspectFit" />
         <!-- 각각의 라벨 터치 할때마다 최상위 부모의 currentView 값 수정 -->
-    </StackLayout>
+    </FlexboxLayout>
 </template>
 
 <script>
@@ -52,13 +52,14 @@
 <style scoped>
     #navigation {
         background-color: white;
+        padding: 20px;
     }
 
-    #navigation Label {
-        text-align:center;
-        font-size: 30%;
+    #navigation Image {
+        /*text-align:center;*/
+        /*padding: 10px;*/
         color: purple;
-        vertical-align: middle;
+        /*vertical-align: middle;*/
         /*hover*/
     }
 </style>
