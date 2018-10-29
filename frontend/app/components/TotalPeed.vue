@@ -1,8 +1,11 @@
 <template>
     <GridLayout columns="*" rows="*">
-        <GridLayout rows="*,60">
-            <image-view :imgdata="posts"></image-view>
-            <bottom-navigation></bottom-navigation>
+        <GridLayout rows="*,55">
+            <image-view row="0" :imgdata="posts"></image-view>
+            <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
+                <Image src="~/assets/images/icon/plus.png" stretch="aspectFit" @tap="peedch(3)"/>
+            </GridLayout>
+            <bottom-navigation row="1"></bottom-navigation>
         </GridLayout>
     </GridLayout>
 </template>
@@ -10,6 +13,7 @@
 <script>
     import _ from 'lodash'
     import { mapState } from 'vuex'
+    import Constant from '../constant'
     import axios from 'axios'
     // import { mapstate } from ''
     import BottomNavigation from './navi/BottomNavigation'
@@ -24,7 +28,9 @@
             }
         },
         methods:{
-
+            peedch: function(val) {
+                this.$store.dispatch(Constant.PEEDCH, val);
+            }
         },
         computed : _.extend({
 

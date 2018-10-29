@@ -1,7 +1,7 @@
 <template>
     <GridLayout columns="*" rows="*">
-        <GridLayout rows="*,60">
-            <ScrollView orientation="vertical">
+        <GridLayout rows="*,55">
+            <ScrollView orientation="vertical" row="0">
                 <StackLayout backgroundColor="#3c495e">
                     <CardView width="90%" padding="5%">
                         <GridLayout columns="*,2*" rows="80" backgroundColor="#3c495e">
@@ -13,13 +13,14 @@
                     <Label text="third" height="500" backgroundColor="#1c6b48"/>
                 </StackLayout>
             </ScrollView>
-            <bottom-navigation></bottom-navigation>
+            <bottom-navigation row="1"></bottom-navigation>
         </GridLayout>
     </GridLayout>
 </template>
 
 <script>
     import BottomNavigation from './navi/BottomNavigation'
+    // import Upload
     export default {
         name: "UserPeed",
         components: { BottomNavigation },

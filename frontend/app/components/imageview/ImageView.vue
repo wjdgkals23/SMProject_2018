@@ -1,45 +1,8 @@
 <template>
     <ScrollView>
         <GridLayout columns="*,*" class="mybold">
-            <StackLayout col="0">
-                <CardView class="cardStyle" elevation="40" radius="15" v-for="item in first_col">
-                    <GridLayout rows="*" columns="*" margin="0">
-                        <Image class="img" :src="item.src" stretch="aspectFill" />
-                        <GridLayout verticalAlignment="bottom">
-                            <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                                <Label class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>
-                            </StackLayout>
-                        </GridLayout>
-                        <GridLayout verticalAlignment="top">
-                            <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="8" paddingRight="16">
-                                <Label class="titletext" :text="item.title" textWrap="true"/>
-                            </StackLayout>
-                        </GridLayout>
-                    </GridLayout>
-                </CardView>
-            </StackLayout>
-            <StackLayout col="1">
-                <CardView class="cardStyle" elevation="40" radius="15" v-for="item in second_col">
-                    <!--<AbsoluteLayout>-->
-                        <!--<Image class="img" width="100%" :src="item.src" stretch="aspectFill" @tap="edit(item.src)"/>-->
-                        <!--<Label top="20px" left="20px" class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>-->
-                        <!--&lt;!&ndash;<Label class="title" left="20px" :text="item.title" color="purple"/>&ndash;&gt;-->
-                    <!--</AbsoluteLayout>-->
-                    <GridLayout rows="*" columns="*" margin="0">
-                            <Image class="img" :src="item.src" stretch="aspectFill" />
-                        <GridLayout verticalAlignment="bottom">
-                            <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="10" paddingRight="16">
-                                <Label class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>
-                            </StackLayout>
-                        </GridLayout>
-                        <GridLayout verticalAlignment="top">
-                            <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="8" paddingRight="16">
-                                <Label class="titletext" :text="item.title" textWrap="true"/>
-                            </StackLayout>
-                        </GridLayout>
-                    </GridLayout>
-                </CardView>
-            </StackLayout>
+            <image-col :coldata="first_col" col="0"></image-col>
+            <image-col :coldata="second_col" col="1"></image-col>
         </GridLayout>
     </ScrollView>
 </template>
@@ -50,11 +13,13 @@
     const PhotoEditorControl = require('nativescript-photo-editor').PhotoEditorControl;
     const imgs = require('tns-core-modules/image-source').ImageSource;
     const ffor = require('tns-core-modules/image-source').fromFileOrResource;
+    import ImageCol from "./ImageCol"
     export default {
         name: 'ImageView',
         props: ['imgdata'],
         components: {
             // CardView
+            ImageCol
         },
         data() {
             return {
@@ -126,47 +91,5 @@
 </script>
 
 <style scoped>
-    .cardStyle {
-        /*color: #fff;*/
-        width: 92%;
-        padding: 4%;
-        margin-top: 25px;
-        font-size: 35px;
-        /*font-family: THEmpgtB;*/
-        /*font-family: THELu;*/
-    }
 
-    .img {
-        border-radius: 15px;
-    }
-
-    .titletext {
-        color: #ffffff;
-        font-size: 20%;
-        margin: 0;
-    }
-
-    ActionBar {
-        background-color: #53ba82;
-        color: #ffffff;
-    }
-
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20px;
-        color: #333333;
-    }
-
-    #navigation {
-        background-color: aquamarine;
-    }
-
-    #navigation Label {
-        text-align:center;
-        font-size: 25%;
-        color: darkslategray;
-        vertical-align: middle;
-        /*hover*/
-    }
 </style>

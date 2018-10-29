@@ -1,5 +1,5 @@
 <template>
-    <Page>
+    <Page :actionBarHidden="abmanager">
         <!--<ActionBar :title="pid_name">-->
             <!--<NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />-->
         <!--</ActionBar>-->
@@ -11,57 +11,39 @@
 <script>
     import TotalPeed from './TotalPeed'
     import UserPeed from './UserPeed'
+    import UploadPage from './UploadPage'
     import Constant from '../constant'
     import { mapState, mapMutations } from 'vuex'
     import _ from 'lodash'
+    // const page = require('tns-core-modules/ui/page');
 
-    const font = require('tns-core-modules/ui/styling/');
     export default {
         name: "App",
-        components: { TotalPeed, UserPeed },
+        components: { TotalPeed, UserPeed, UploadPage },
         data() {
             return {
                 msg: 'Hello World!',
                 busy: true,
                 data: null, // 이곳에다 데이터 바인딩하면 이미지 데이터 변동
                 pid_name: "Total",
-                // currentView: TotalPeed
-
             }
+        },
+        created() {
+          this.actionbarmanager = false;
         },
         computed : _.extend({
             currentView: function(){
                 if(this.peedmanager == 1)
                     return TotalPeed;
-                else
+                else if(this.peedmanager == 2)
                     return UserPeed;
+                else if(this.peedmanager == 3)
+                    return UploadPage;
             }
-        },mapState([ 'peedmanager' ]))
+        },mapState([ 'peedmanager', 'abmanager' ]))
     }
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: #53ba82;
-        color: #ffffff;
-    }
 
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20px;
-        color: #333333;
-    }
-
-    #navigation {
-        background-color: aquamarine;
-    }
-
-    #navigation Label {
-        text-align:center;
-        font-size: 25%;
-        color: darkslategray;
-        vertical-align: middle;
-        /*hover*/
-    }
 </style>
