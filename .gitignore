@@ -1,16 +1,9 @@
 # JetBrains project files
-backend/.idea
 
-# NPM
-backend/node_modules
+/.gitignore
+/.idea
 
 # NativeScript application
-
-backend/package-lock.json
-backend/README.md
-
-backend/config/db.js
-
 
 # JetBrains project files
 frontend/.idea
