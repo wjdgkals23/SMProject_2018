@@ -13,6 +13,29 @@ export default {
         {title:"head", src: "~/assets/images/test2.jpeg"},
         {title:"head", src: "~/assets/images/test.jpeg"},
     ],
+    tags: {
+        clothing: [
+            {name: "청바지"},
+            {name: "티셔츠"},
+            {name: "코트"},
+            {name: "슬랙스"},
+            {name: "후드코트"},
+            {name: "ma-1"},
+            {name: "맨투맨"},
+            {name: "옥스퍼드 구두"},
+            {name: "가죽자켓"},
+            {name: "베스트"},
+            {name: "후리스"},
+        ],
+        style: [
+            {name: "캐쥬얼"},
+            {name: "밀리터리"},
+            {name: "오피스"},
+            {name: "걸리쉬"},
+            {name: "템포러리"},
+            {name: "포멀"},
+        ],
+    },
     peedmanager: 1,
     abmanager: true
 }
