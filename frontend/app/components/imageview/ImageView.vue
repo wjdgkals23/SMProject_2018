@@ -56,7 +56,7 @@
             }
         },
         computed: {
-            first_col: function(){
+            first_col(){
                 if(this.imgdata == null){
                     return this.data;
                 }
@@ -71,7 +71,7 @@
                     return firstcol;
                 }
             },
-            second_col: function(){
+            second_col(){
                 if(this.imgdata == null){
                     return this.data;
                 }

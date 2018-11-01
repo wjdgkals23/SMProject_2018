@@ -32,13 +32,13 @@
           this.actionbarmanager = false;
         },
         computed : _.extend({
-            currentView: function(){
+            currentView(){
                 if(this.peedmanager == 1)
                     return TotalPeed;
                 else if(this.peedmanager == 2)
                     return UserPeed;
-                else if(this.peedmanager == 3)
-                    return UploadPage;
+                // else if(this.peedmanager == 3)
+                //     return UploadPage;
             }
         },mapState([ 'peedmanager', 'abmanager' ]))
     }

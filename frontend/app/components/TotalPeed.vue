@@ -3,7 +3,7 @@
         <GridLayout rows="*,55">
             <image-view row="0" :imgdata="posts"></image-view>
             <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
-                <Image src="~/assets/images/icon/plus.png" stretch="aspectFit" @tap="peedch(3)"/>
+                <Image src="~/assets/images/icon/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
             </GridLayout>
             <bottom-navigation row="1"></bottom-navigation>
         </GridLayout>
@@ -18,13 +18,15 @@
     // import { mapstate } from ''
     import BottomNavigation from './navi/BottomNavigation'
     import ImageView from './imageview/ImageView'
+    import UploadPage from './UploadPage'
     export default {
         name: "TotalPeed",
-        components: { ImageView, BottomNavigation },
+        components: { ImageView, BottomNavigation, UploadPage },
         data() {
             return {
                 msg: 'Hello World!',
-                busy: true
+                busy: true,
+                uploadpage: UploadPage
             }
         },
         methods:{

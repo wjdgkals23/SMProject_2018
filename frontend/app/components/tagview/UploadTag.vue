@@ -72,15 +72,11 @@
           this.tagdata = this.tags;
         },
         methods: {
-            addtag: function(name) {
-                // console.log(name);
-                let obj = {
-                    name: name
-                }
-                this.selectedtag.push(obj);
+            addtag(name) {
+                return this.selectedtag.push({ name: name});
             },
-            deletetag: function(num) {
-                this.selectedtag.splice(num,1);
+            deletetag(num) {
+                return this.selectedtag.splice(num,1);
             },
             stylebind(item) {
                 if(item.type == "cloth")
@@ -122,10 +118,11 @@
     .styletag {
         border-color: purple;
         color: purple;
-        background-color: white;
+        background-color: #e0d0ea;
         margin: 10px;
         font-size: 12px;
         border-radius: 10px;
+        /*box-shadow: 3px mediumpurple;*/
     }
 
     .selectedtag {

@@ -30,7 +30,8 @@ export default {
             {name: "오피스", type: "style"},
             {name: "걸리쉬", type: "style"},
             {name: "템포러리", type: "style"},
-            {name: "포멀", type: "style"}
+            {name: "포멀", type: "style"},
+            {name: "temp", type: "style"}
     ],
     peedmanager: 1,
     abmanager: true
