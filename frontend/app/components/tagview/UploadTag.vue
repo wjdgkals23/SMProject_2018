@@ -51,6 +51,7 @@
             return {
                 selectedtag: [],
                 searchkeyword: "",
+                uploadcontent: "",
                 tagdata: null,
             }
         },

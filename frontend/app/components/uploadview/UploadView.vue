@@ -15,16 +15,27 @@
                 </GridLayout>
             </GridLayout>
         </CardView>
-        <StackLayout>
-            <Image :src="imagesource" stretch="aspectFit"/>
-        </StackLayout>
+        <GridLayout rows="*" columns="*" :Visibility="visible">
+            <Label text="PreView" />
+        </GridLayout>
+        <ScrollView orientation="horizontal" :Visibility="preview">
+            <GridLayout rows="100" columns="*">
+                <StackLayout orientation="horizontal">
+                    <CardView class="cardStyle" elevation="40" radius="15" v-for="item in imagesource">
+                        <GridLayout rows="*" columns="*" margin="0">
+                            <Image class="img" :src="item.thumb" stretch="aspectFill" />
+                        </GridLayout>
+                    </CardView>
+                </StackLayout>
+            </GridLayout>
+        </ScrollView>
     </StackLayout>
 </template>
 
 <script>
-    const permissions = require( "nativescript-permissions" );
-    const imagepicker = require("nativescript-imagepicker");
-    const platformModule = require("tns-core-modules/platform");
+    import { imgpickerfunc } from '../../lib/imgpicker'
+    import { imgpickers } from '../../lib/radimgpicker'
+    // import { PickerModel } from "../../lib/rad";
 
     export default {
         name: "UploadView",
@@ -33,61 +44,40 @@
                 uploadtitle: null,
                 uploadcontent: null,
                 titlestyle: "style1",
-                imagesource: "~/assets/images/btn/imageupload.png",
+                imagesource: [],
             }
         },
+        created(){
+
+        },
         methods: {
-            uploadimage(){
-
+            uploadimage() {
                 let that = this;
-                let context = imagepicker.create({
-                    mode: "multiple"
-                });
-
-                if (platformModule.device.os === "Android" && platformModule.device.sdkVersion >= 23) {
-                    permissions.requestPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE, "I need these permissions to read from storage")
-                        .then(() => {
-                            console.log("Permissions granted!");
-                            // startSelection(context);
-                            context.authorize().then(() => {
-                                return context.present();
-                            }).then((selection) => {
-                                // console.log(selection);
-                                selection.forEach((selected_item) => {
-                                    console.log(selected_item);
-                                    that.imagesource = selected_item;
-                                    selected_item.getImageAsync().then((source) => {
-                                        console.log(source);
-                                    })
-                                })
-
-                            })
-                        })
-                        .catch(() => {
-                            console.log("Uh oh, no permissions - plan B time!");
-                        });
-                } else {
-                    permissions.requestPermission().then(() => {
-                        context.authorize().then(() => {
-                            return context.present();
-                        }).then((selection) => {
-                            console.log(selection);
-                            selection.forEach((selected_item) => {
-                                console.log(selected_item);
-                                that.imagesource = selected_item;
-                                // selected_item.getImageAsync().then((source) => {
-                                //     console.log(source);
-                                // })
-                            })
-
-                        }).catch((e) => {
-                            console.log(e);
-                        });
-                    })
-                }
-
+                return (imgpickerfunc(that));
             }
-        }
+        },
+        computed: {
+            visible() {
+                if(this.imagesource.lenbits === 0)
+                    return "collapse";
+                else
+                    return "visible";
+            },
+            preview() {
+                if(this.imagesource.lenbits === 0)
+                    return "visible";
+                else
+                    return "collapse";
+            }
+        },
+        // watch: {
+        //     imagesource: function() {
+        //         console.log("item!!!!");
+        //         for(let item in this.imagesource){
+        //             console.log(this.imagesource);
+        //         }
+        //     }
+        // }
     }
 </script>
 
@@ -121,5 +111,19 @@
         height: 90%;
         padding: 5px;
         margin-top: 5px;
+    }
+
+    .cardStyle {
+        /*color: #fff;*/
+        width: 92%;
+        padding: 4%;
+        font-size: 35px;
+        /*font-family: THEmpgtB;*/
+        /*font-family: THELu;*/
+    }
+
+    .img {
+        border-radius: 15px;
+        margin-right: 5px;
     }
 </style>

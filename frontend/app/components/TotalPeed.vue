@@ -19,6 +19,7 @@
     import BottomNavigation from './navi/BottomNavigation'
     import ImageView from './imageview/ImageView'
     import UploadPage from './UploadPage'
+    // import axios from 'axios';
     export default {
         name: "TotalPeed",
         components: { ImageView, BottomNavigation, UploadPage },
@@ -32,6 +33,11 @@
         methods:{
             peedch: function(val) {
                 this.$store.dispatch(Constant.PEEDCH, val);
+            },
+            test: function() {
+                axios.get("http://52.78.178.50/api/test/con").then((response) => {
+                    console.log(response);
+                })
             }
         },
         computed : _.extend({
