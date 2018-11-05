@@ -23,7 +23,7 @@
                 <StackLayout orientation="horizontal">
                     <CardView class="cardStyle" elevation="40" radius="15" v-for="item in imagesource">
                         <GridLayout rows="*" columns="*" margin="0">
-                            <Image class="img" :src="item.thumb" stretch="aspectFill" />
+                            <Image class="img" :src="item.name" stretch="aspectFill" @tap="getinfo(item.name)" />
                         </GridLayout>
                     </CardView>
                 </StackLayout>
@@ -34,8 +34,11 @@
 
 <script>
     import { imgpickerfunc } from '../../lib/imgpicker'
-    import { imgpickers } from '../../lib/radimgpicker'
+    // import { imgpickers } from '../../lib/radimgpicker'
     // import { PickerModel } from "../../lib/rad";
+    const imgs = require('tns-core-modules/image-source').ImageSource;
+    const ffor = require('tns-core-modules/image-source').fromFileOrResource;
+    const fs = require("tns-core-modules/file-system");
 
     export default {
         name: "UploadView",
@@ -45,6 +48,7 @@
                 uploadcontent: null,
                 titlestyle: "style1",
                 imagesource: [],
+                counter: 0
             }
         },
         created(){
@@ -54,6 +58,9 @@
             uploadimage() {
                 let that = this;
                 return (imgpickerfunc(that));
+            },
+            getinfo(src) {
+                console.log(src);
             }
         },
         computed: {

@@ -7,6 +7,7 @@ const permissions = require( "nativescript-permissions" );
 const imagepicker = require("nativescript-imagepicker");
 const platformModule = require("tns-core-modules/platform");
 const fs = require("tns-core-modules/file-system");
+const imageAssetModule = require("tns-core-modules/image-asset/image-asset");
 
 function startSelection(context, vue) {
     context
@@ -16,35 +17,19 @@ function startSelection(context, vue) {
             return context.present();
         })
         .then(function (selection) {
-            console.log("here1");
-            console.log(selection);
+            let counter = 0;
             selection.forEach(function (selected_item) {
-                console.log("there");
-                selected_item.getImageAsync().then(function (imagesource) {
-                    console.log("iam");
-                    let localPath = null;
-
-                    if (platformModule.device.os === "Android") {
-                        console.log("here2");
-                        console.log(selected_item.android);
-                        localPath = selected_item.android;
-                    } else {
-                        // selected_item.ios for iOS is PHAsset and not path - so we are creating own path
-                        let folder = fs.knownFolders.documents();
-                        let path = fs.path.join(folder.path, "Test" + counter + ".png");
-                        let saved = imagesource.saveToFile(path, "png");
-
-                        localPath = path;
-                    }
-                    console.log("here3");
-                    console.log(localPath);
-
-                    if (localPath) {
-                        let task = sendImages("Image" + counter + ".png", localPath);
-                        vue.imagesource.push(fromObject({ thumb: imagesource, uri: "Image" + counter + ".png", uploadTask: task }));
-                    }
-                    // counter++;
-                })
+                if (platformModule.device.os === "Android") {
+                    console.log("android platform");
+                    vue.imagesource.push({ name: selected_item});
+                }
+                else {
+                    console.log("ios platform");
+                    vue.imagesource.push({ name: selected_item});
+                    // let asset = new imageAssetModule.ImageAsset(selected_item);
+                    // vue.imagesource.push({ name:asset });
+                }
+                counter++;
             });
         }).catch(function (e) {
         console.log(e.eventName);
@@ -68,20 +53,11 @@ function imgpickerfunc(vue) {
             });
     } else {
         permissions.requestPermission().then(() => {
-            context.authorize().then(() => {
-                return context.present();
-            }).then((selection) => {
-                console.log(selection);
-                selection.forEach((selected) => {
-                    let temp = {};
-                    temp.name = selected;
-                    vue.imagesource.push(temp);
-                })
-
-            }).catch((e) => {
-                console.log(e);
-            });
-        })
+            console.log("Permissions granted!");
+            startSelection(context,vue);
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 }
 
