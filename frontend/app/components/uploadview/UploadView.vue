@@ -34,11 +34,20 @@
 
 <script>
     import { imgpickerfunc } from '../../lib/imgpicker'
-    // import { imgpickers } from '../../lib/radimgpicker'
-    // import { PickerModel } from "../../lib/rad";
+    import axios from 'axios'
     const imgs = require('tns-core-modules/image-source').ImageSource;
     const ffor = require('tns-core-modules/image-source').fromFileOrResource;
     const fs = require("tns-core-modules/file-system");
+    const platformModule = require("tns-core-modules/platform");
+    const bghttpModule = require("nativescript-background-http");
+    const session = bghttpModule.session("image-upload");
+
+    function extractImageName(fileUri) {
+        let pattern = /[^/]*$/;
+        let imageName = fileUri.match(pattern);
+
+        return imageName;
+    }
 
     export default {
         name: "UploadView",
@@ -60,7 +69,28 @@
                 return (imgpickerfunc(that));
             },
             getinfo(src) {
-                console.log(src);
+                if (platformModule.device.os === "Android") {
+                    let request = {
+                        url: "http://52.78.178.50/api/test/img",
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/octet-stream",
+                            "File-Name": src.android
+                        },
+                        description: "{ 'uploading': " + src.android + " }"
+                    };
+
+                    let task = session.uploadFile(src.android, request);
+
+                    task.on("complete", (event) => {
+                        console.log(event);
+                    });
+
+                    console.log("done");
+                }
+                else {
+                    console.log(src.ios);
+                }
             }
         },
         computed: {
@@ -77,14 +107,6 @@
                     return "collapse";
             }
         },
-        // watch: {
-        //     imagesource: function() {
-        //         console.log("item!!!!");
-        //         for(let item in this.imagesource){
-        //             console.log(this.imagesource);
-        //         }
-        //     }
-        // }
     }
 </script>
 

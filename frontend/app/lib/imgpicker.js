@@ -9,6 +9,55 @@ const platformModule = require("tns-core-modules/platform");
 const fs = require("tns-core-modules/file-system");
 const imageAssetModule = require("tns-core-modules/image-asset/image-asset");
 
+const bghttpModule = require("nativescript-background-http");
+const session = bghttpModule.session("image-upload");
+const axios = require('axios');
+
+let imageName = null;
+
+function logEvent(e) {
+    console.log("currentBytes: " + e.currentBytes);
+    console.log("totalBytes: " + e.totalBytes);
+    console.log("eventName: " + e.eventName);
+}
+
+function extractImageName(fileUri) {
+    let pattern = /[^/]*$/;
+    let imageName = fileUri.match(pattern);
+
+    return imageName;
+}
+
+function sendImages(uri, fileUri) {
+    console.log(fileUri);
+    imageName = extractImageName(fileUri);
+    console.log(imageName);
+
+    let request = {
+        url: "http://52.78.178.50/api/test/img",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/octet-stream",
+            "File-Name": imageName
+        },
+        description: "{ 'uploading': " + imageName + " }"
+    };
+
+    let task = session.uploadFile(fileUri, request);
+
+    task.on("progress", logEvent);
+    task.on("error", logEvent);
+    task.on("complete", logEvent);
+
+    function logEvent(e) {
+        console.log("currentBytes: " + e.currentBytes);
+        console.log("totalBytes: " + e.totalBytes);
+        console.log("eventName: " + e.eventName);
+    }
+
+    return task;
+}
+
 function startSelection(context, vue) {
     context
         .authorize()
@@ -19,9 +68,12 @@ function startSelection(context, vue) {
         .then(function (selection) {
             let counter = 0;
             selection.forEach(function (selected_item) {
+                let localPath = null;
                 if (platformModule.device.os === "Android") {
                     console.log("android platform");
                     vue.imagesource.push({ name: selected_item});
+                    // let task = sendImages("Image" + counter + ".jpg", localPath);
+                    // task();
                 }
                 else {
                     console.log("ios platform");
