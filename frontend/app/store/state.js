@@ -33,6 +33,14 @@ export default {
             {name: "포멀", type: "style"},
             {name: "temp", type: "style"}
     ],
+    DetailPageData: {
+        Image: [],
+        title: "",
+        content: "",
+        author: "",
+        likecount: 0,
+        comment: []
+    },
     peedmanager: 1,
     abmanager: true
 }

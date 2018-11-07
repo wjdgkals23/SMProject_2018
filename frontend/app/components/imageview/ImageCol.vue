@@ -1,8 +1,8 @@
 <template>
     <StackLayout>
-        <CardView class="cardStyle" elevation="40" radius="15" v-for="item in data">
+        <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data">
             <GridLayout rows="*" columns="*" margin="0">
-                <Image class="img" :src="item.src" stretch="aspectFill" />
+                <Image class="img" :src="item.src" stretch="aspectFill" @tap="setdetailpagedata(index), $navigateTo(page)"/>
                 <GridLayout verticalAlignment="bottom">
                     <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
                         <Label class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+    import DetailPage from '../DetailPage'
+    import Constant from '../../constant'
     export default {
         name: "ImageCol",
         props: ['coldata'],
@@ -28,6 +30,12 @@
         data: function() {
             return {
                 data: null,
+                page: DetailPage,
+            }
+        },
+        methods : {
+            setdetailpagedata(index) {
+                this.$store.dispatch(Constant.SDP, index);
             }
         }
     }

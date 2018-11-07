@@ -70,22 +70,29 @@
             },
             getinfo(src) {
                 if (platformModule.device.os === "Android") {
+                    // // console.log(src);
+                    // formdata.append("file", src);
+                    // axios({
+                    //     method: 'post',
+                    //     url: 'http://10.0.2.2:3000/api/test/img',
+                    //     data: formdata,
+                    //     config: { headers: {'Content-Type': 'multipart/form-data' } }
+                    // }).then((res)=> {
+                    //     console.log(res);
+                    // })
                     let request = {
-                        url: "http://52.78.178.50/api/test/img",
+                        url: "http://10.0.2.2:3000/api/test/img",
                         method: "POST",
                         headers: {
                             "Content-Type": "application/octet-stream",
-                            "File-Name": src.android
+                            "File-Name": "temp.png"
                         },
-                        description: "{ 'uploading': " + src.android + " }"
+                        description: "{ 'uploading': " + "temp.png" + " }"
                     };
-
-                    let task = session.uploadFile(src.android, request);
-
+                    let task = session.uploadFile(src, request);
                     task.on("complete", (event) => {
                         console.log(event);
                     });
-
                     console.log("done");
                 }
                 else {

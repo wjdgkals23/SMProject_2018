@@ -8,6 +8,8 @@ const imagepicker = require("nativescript-imagepicker");
 const platformModule = require("tns-core-modules/platform");
 const fs = require("tns-core-modules/file-system");
 const imageAssetModule = require("tns-core-modules/image-asset/image-asset");
+const ffor = require('tns-core-modules/image-source').fromFileOrResource;
+
 
 const bghttpModule = require("nativescript-background-http");
 const session = bghttpModule.session("image-upload");
@@ -71,7 +73,21 @@ function startSelection(context, vue) {
                 let localPath = null;
                 if (platformModule.device.os === "Android") {
                     console.log("android platform");
-                    vue.imagesource.push({ name: selected_item});
+                    let temp_source = imageSource.fromFile(selected_item.android);
+                    let folder = fs.knownFolders.documents();
+                    let temp_path = fs.path.join(folder.path, "test.png");
+                    console.log(temp_path);
+                    let saved = temp_source.saveToFile(temp_path, "png");
+                    if(saved){
+                        console.log("download success");
+                    }
+                    // console.log(selected_item);
+                    // let source = ffor(selected_item.android);
+                    // console.log(source);
+                    // let folder = fs.knownFolders.documents();
+                    // let path = fs.path.join(folder.path, "Test" + counter + ".png");
+                    // selected_item.saveToFile(path, "png");
+                    vue.imagesource.push({ name: temp_path});
                     // let task = sendImages("Image" + counter + ".jpg", localPath);
                     // task();
                 }

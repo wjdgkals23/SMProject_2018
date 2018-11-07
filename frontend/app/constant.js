@@ -1,4 +1,6 @@
 export default {
     GETIMG: 'getimg',
-    PEEDCH: 'peedch'
+    PEEDCH: 'peedch',
+    SDP: 'setdetailpagedata', //Set Detail Page
+    RSDP: 'resetdetailpagedata'
 }
