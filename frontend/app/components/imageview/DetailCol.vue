@@ -1,35 +1,53 @@
 <template>
     <StackLayout>
-        <GridLayout rows="60" columns="80,*"class="content" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="8">
+        <!-- 작가 -->
+        <GridLayout rows="60" columns="80,*"class="content" paddingTop="0" paddingBottom="8" paddingLeft="16" paddingRight="8">
             <GridLayout row="0" col="0">
-                <Image class="img" src="~/assets/images/icon/person.png"></Image>
+                <Image class="img" src="~/assets/images/author.png"></Image>
             </GridLayout>
             <GridLayout row="0" col="1" verticalAlignment="center">
                 <Label class="authortext mylight" :text="first.author" textWrap="true"/>
             </GridLayout>
         </GridLayout>
-        <CardView class="cardStyle">
-            <GridLayout rows="*,*" columns="*" margin="0">
+        <!-- 상세 설명 및 사진 -->
+        <CardView class="topcardStyle">
+            <GridLayout rows="*" columns="*" margin="0">
                 <GridLayout row="0">
                     <Image class="img" :src="first.src" stretch="aspectFill" />
-                    <GridLayout verticalAlignment="top">
-                        <StackLayout paddingTop="8">
-                            <Label class="titletext" :text="first.title" textWrap="true"/>
-                        </StackLayout>
-                    </GridLayout>
+                    <StackLayout>
+                        <FlexboxLayout alignItems="flex-start" v-for="(item,index) in first.title">
+                            <StackLayout :class="textbind(index)">
+                                <Label :order="index" class="titletext" :text="item" />
+                            </StackLayout>
+                        </FlexboxLayout>
+                    </StackLayout>
                 </GridLayout>
             </GridLayout>
         </CardView>
         <GridLayout class="content" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="8">
             <Label class="authortext mytext" :text="first.content" textWrap="true"/>
         </GridLayout>
-        <CardView class="cardStyle" v-for="item in data">
-            <GridLayout rows="*" columns="*">
-                <StackLayout>
-                    <Image class="img" :src="item.src" stretch="aspectFill" />
-                </StackLayout>
-            </GridLayout>
-        </CardView>
+        <!-- 잔여 이미지 -->
+        <GridLayout rows="*,*" columns="*" v-for="item in data">
+            <StackLayout class="cardStyle">
+                <Image class="img" :src="item.src" stretch="aspectFill" />
+            </StackLayout>
+        </GridLayout>
+        <GridLayout class="content" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="8">
+            <Label class="authortext mytext" :text="first.content" textWrap="true"/>
+        </GridLayout>
+        <GridLayout rows="*" columns="*">
+            <StackLayout row="0">
+                <!-- 태그 리스트 뷰 -->
+                <FlexboxLayout justifyContent="flex-start" flexWrap="wrap"  paddingTop="5" paddingLeft="15" paddingRight="15" >
+                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in tag" >
+                        <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
+                            <Label :text="item.name" />
+                        </StackLayout>
+                    </CardView>
+                </FlexboxLayout>
+            </StackLayout>
+        </GridLayout>
     </StackLayout>
 </template>
 
@@ -41,28 +59,54 @@
             // console.log(this.coldata.Image[0]);
             this.first = {
                 src: this.coldata.Image[0].src,
-                title: this.coldata.title,
+                title: this.coldata.title.split(" "),
                 content: this.coldata.content,
                 author: this.coldata.author
             }
             this.coldata.Image.splice(0,1);
             console.log(this.coldata.Image);
             this.data = this.coldata.Image;
+            this.tag = this.coldata.tag;
         },
         data: function() {
             return {
                 data: null,
                 first: {},
+                tag: null
+            }
+        },
+        methods: {
+            stylebind(item) {
+                if(item.type == "cloth")
+                    return "clothtag"
+                else
+                    return "styletag"
+            },
+            textbind(index) {
+                if(index == 0){
+                    return "mytext";
+                }
+                else{
+                    return "mybold";
+                }
             }
         }
     }
 </script>
 
 <style scoped>
-    .cardStyle {
+    .topcardStyle {
         /*color: #fff;*/
         width: 92%;
         padding: 4%;
+        font-size: 35px;
+        /*font-family: THEmpgtB;*/
+        /*font-family: THELu;*/
+    }
+    .cardStyle {
+        /*color: #fff;*/
+        width: 100%;
+        /*padding: 4%;*/
         margin-top: 25px;
         font-size: 35px;
         /*font-family: THEmpgtB;*/
@@ -75,7 +119,8 @@
 
     .titletext {
         color: #6a1495;
-        font-size: 25%;
+        font-size: 35%;
+        letter-spacing: 0.2mm;
         margin: 0;
     }
 
@@ -88,6 +133,25 @@
     .content {
         margin-top: 10px;
         margin-bottom: 20px;
+    }
+
+    .clothtag {
+        border-color: purple;
+        color: white;
+        background-color: purple;
+        margin: 10px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+
+    .styletag {
+        border-color: purple;
+        color: purple;
+        background-color: #e0d0ea;
+        margin: 10px;
+        font-size: 12px;
+        border-radius: 10px;
+        /*box-shadow: 3px mediumpurple;*/
     }
 
 </style>

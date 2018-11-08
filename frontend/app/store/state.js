@@ -39,7 +39,8 @@ export default {
         content: "",
         author: "",
         likecount: 0,
-        comment: []
+        comment: [],
+        tag: []
     },
     peedmanager: 1,
     abmanager: true

@@ -23,7 +23,7 @@
                 <StackLayout orientation="horizontal">
                     <CardView class="cardStyle" elevation="40" radius="15" v-for="item in imagesource">
                         <GridLayout rows="*" columns="*" margin="0">
-                            <Image class="img" :src="item.name" stretch="aspectFill" @tap="getinfo(item.name)" />
+                            <Image class="img" :src="item.name" stretch="aspectFill" @tap="getinfo(item.base64)" />
                         </GridLayout>
                     </CardView>
                 </StackLayout>
@@ -34,13 +34,18 @@
 
 <script>
     import { imgpickerfunc } from '../../lib/imgpicker'
-    import axios from 'axios'
+    import * as http from "http";
     const imgs = require('tns-core-modules/image-source').ImageSource;
     const ffor = require('tns-core-modules/image-source').fromFileOrResource;
     const fs = require("tns-core-modules/file-system");
     const platformModule = require("tns-core-modules/platform");
     const bghttpModule = require("nativescript-background-http");
     const session = bghttpModule.session("image-upload");
+
+    const config = {
+        headers: { 'Content-Type': 'multipart/form-data', "File-Name": "temp.png" }
+    }
+
 
     function extractImageName(fileUri) {
         let pattern = /[^/]*$/;
@@ -70,33 +75,37 @@
             },
             getinfo(src) {
                 if (platformModule.device.os === "Android") {
-                    // // console.log(src);
-                    // formdata.append("file", src);
-                    // axios({
-                    //     method: 'post',
-                    //     url: 'http://10.0.2.2:3000/api/test/img',
-                    //     data: formdata,
-                    //     config: { headers: {'Content-Type': 'multipart/form-data' } }
-                    // }).then((res)=> {
-                    //     console.log(res);
-                    // })
-                    let request = {
+                    console.log(src);
+                    let formdata = new FormData();
+                    console.log("temp");
+                    formdata.append("img", src);
+                    http.request({
                         url: "http://10.0.2.2:3000/api/test/img",
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/octet-stream",
-                            "File-Name": "temp.png"
-                        },
-                        description: "{ 'uploading': " + "temp.png" + " }"
-                    };
-                    let task = session.uploadFile(src, request);
-                    task.on("complete", (event) => {
-                        console.log(event);
+                        headers: { "Content-Type": "application/json" },
+                        content: src
+                    }).then(response => {
+                        console.log(response);
+                    }, error => {
+                        console.error(error);
                     });
-                    console.log("done");
+                    // axios.post("http://10.0.2.2:3000/api/test/img", formdata, config).then((res) => {
+                    //     console.log(res);
+                    // })
+                    // let request = {
+                    //     url: "http://10.0.2.2:3000/api/test/img",
+                    //     method: "POST",
+                    //     headers: config.headers,
+                    //     description: "{ 'uploading': " + "temp.png" + " }"
+                    // };
+                    // let task = session.uploadFile(formdata, request);
+                    // task.on("complete", (event) => {
+                    //     console.log(event);
+                    // });
+                    // console.log("done");
                 }
                 else {
-                    console.log(src.ios);
+                    console.log(src);
                 }
             }
         },

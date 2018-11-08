@@ -1,16 +1,8 @@
 const imageSource = require("tns-core-modules/image-source");
-const frameModule = require("tns-core-modules/ui/frame");
-const Observable = require("tns-core-modules/data/observable").Observable;
-const fromObject = require("tns-core-modules/data/observable").fromObject;
-const ObservableArray = require("tns-core-modules/data/observable-array").ObservableArray;
 const permissions = require( "nativescript-permissions" );
 const imagepicker = require("nativescript-imagepicker");
 const platformModule = require("tns-core-modules/platform");
 const fs = require("tns-core-modules/file-system");
-const imageAssetModule = require("tns-core-modules/image-asset/image-asset");
-const ffor = require('tns-core-modules/image-source').fromFileOrResource;
-
-
 const bghttpModule = require("nativescript-background-http");
 const session = bghttpModule.session("image-upload");
 const axios = require('axios');
@@ -75,27 +67,30 @@ function startSelection(context, vue) {
                     console.log("android platform");
                     let temp_source = imageSource.fromFile(selected_item.android);
                     let folder = fs.knownFolders.documents();
-                    let temp_path = fs.path.join(folder.path, "test.png");
+                    let temp_path = fs.path.join(folder.path, "test"+ vue.imagesource.length +".png");
                     console.log(temp_path);
                     let saved = temp_source.saveToFile(temp_path, "png");
+                    let base64 = temp_source.toBase64String("png", 50);
+
                     if(saved){
                         console.log("download success");
                     }
-                    // console.log(selected_item);
-                    // let source = ffor(selected_item.android);
-                    // console.log(source);
-                    // let folder = fs.knownFolders.documents();
-                    // let path = fs.path.join(folder.path, "Test" + counter + ".png");
-                    // selected_item.saveToFile(path, "png");
-                    vue.imagesource.push({ name: temp_path});
-                    // let task = sendImages("Image" + counter + ".jpg", localPath);
-                    // task();
+
+                    vue.imagesource.push({ name: temp_path, base64: base64});
                 }
                 else {
                     console.log("ios platform");
-                    vue.imagesource.push({ name: selected_item});
-                    // let asset = new imageAssetModule.ImageAsset(selected_item);
-                    // vue.imagesource.push({ name:asset });
+                    imageSource.fromAsset(selected_item).then((image) => {
+                        const ios_folder = fs.knownFolders.documents().path;
+                        const ios_fileName = "test"+ vue.imagesource.length +".png";
+                        const ios_path = fs.path.join(ios_folder, ios_fileName);
+                        const ios_saved = image.saveToFile(ios_path, "png");
+                        const ios_base64 = image.toBase64String("png", 50)
+                        if(ios_saved){
+                            console.log("download success");
+                            vue.imagesource.push({ name: ios_path, base64: ios_base64});
+                        }
+                    })
                 }
                 counter++;
             });

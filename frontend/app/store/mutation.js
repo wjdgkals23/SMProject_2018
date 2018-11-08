@@ -21,7 +21,15 @@ export default {
         state.DetailPageData.author = "Jeong Yeon Ho";
         state.DetailPageData.likecount = 3004;
         state.DetailPageData.title = "오버사이즈 스트라이프 셔츠"
-        state.DetailPageData.content = "오버사이즈 스트라이프 셔츠에요 이쁘죠 맞아요 존나 잘만듬요."
+        state.DetailPageData.content = "오버사이즈 스트라이프 셔츠에요 이쁘죠 맞아요 존나 잘만듬요. 깔끔함이 포인트 입니다."
+        state.DetailPageData.tag = [
+            {name: "청바지", type: "cloth"},
+            {name: "티셔츠", type: "cloth"},
+            {name: "코트", type: "cloth"},
+            {name: "슬랙스", type: "cloth"},
+            {name: "후드코트", type: "cloth"},
+            {name: "걸리쉬", type: "style"},
+        ]
     },
     [Constant.RSDP] : (state, payload) => {
         state.DetailPageData = null;
@@ -31,7 +39,8 @@ export default {
             content: "",
             author: "",
             likecount: 0,
-            comment: []
+            comment: [],
+            tag: []
         };
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <Page :actionBarHidden="abmanager">
         <ScrollView>
-            <GridLayout columns="*" rows="*" class="mylight">
+            <GridLayout columns="*" rows="*" class="mylight" paddingBottom="30">
                 <GridLayout rows="50,*,*" columns="*,*" style="margin-top:30px">
                     <GridLayout row="0" col="0" verticalAlignment="top" horizontalAlignment="left" width="10%">
                         <StackLayout paddingTop="8" paddingLeft="10">
