@@ -12,6 +12,9 @@
                     <GridLayout columns="*" class="mybold">
                         <detail-col col="0" :coldata="DetailPageData"></detail-col>
                     </GridLayout>
+                    <GridLayout columns="*" class="mytext" paddingTop="10" paddingLeft="8" paddingRight="8">
+                        <detail-comment :imgdata="commentpreview"></detail-comment>
+                    </GridLayout>
                 </StackLayout>
             </GridLayout>
         </ScrollView>
@@ -19,14 +22,22 @@
 </template>
 
 <script>
-    import DetailCol from "./imageview/DetailCol"
-    import { mapState, mapMutations } from 'vuex'
-    import _ from 'lodash'
-    import Constant from "../constant"
+    import DetailCol from "./imageview/DetailCol";
+    import DetailComment from './commentview/DetailComment'
+    import { mapState, mapMutations } from 'vuex';
+    import _ from 'lodash';
+    import Constant from "../constant";
     export default {
         name: "DetailPage",
-        components: { DetailCol },
+        components: { DetailCol, DetailComment },
+        data: function() {
+            return {
+                commentpreview: null,
+            }
+        },
         created() {
+            console.log(this.DetailPageData.Image.length);
+            this.commentpreview = this.DetailPageData.Image;
             console.log(this.DetailPageData.author);
         },
         computed: _.extend({

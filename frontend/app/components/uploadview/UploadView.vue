@@ -8,7 +8,7 @@
             </GridLayout>
             <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="right" width="23%">
                 <StackLayout paddingTop="8" paddingRight="10">
-                    <Image verticalAlignment="center" src="~/assets/images/btn/upload.png" stretch="aspectFit" @tap="sendimage"/>
+                    <Image verticalAlignment="center" src="~/assets/images/btn/upload.png" stretch="aspectFit" @tap="send"/>
                 </StackLayout>
             </GridLayout>
         </GridLayout>
@@ -79,7 +79,7 @@
                 let that = this;
                 return (imgpickerfunc(that));
             },
-            sendimage() {
+            send() {
                 if (platformModule.device.os === "Android") {
                     sendimage(this.imagesource, apiPath.android);
                 }

@@ -63,14 +63,18 @@
                 content: this.coldata.content,
                 author: this.coldata.author
             }
-            this.coldata.Image.splice(0,1);
-            console.log(this.coldata.Image);
-            this.data = this.coldata.Image;
+            console.log(this.coldata.Image.length);
+            for(let item in this.coldata.Image) {
+                console.log(item);
+                if(item !== '0') {
+                    this.data.push(this.coldata.Image[item]);
+                }
+            }
             this.tag = this.coldata.tag;
         },
         data: function() {
             return {
-                data: null,
+                data: [],
                 first: {},
                 tag: null
             }
