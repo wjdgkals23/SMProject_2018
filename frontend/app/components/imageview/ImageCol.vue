@@ -2,15 +2,17 @@
     <StackLayout>
         <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data">
             <GridLayout rows="*" columns="*" margin="0">
-                <Image class="img" :src="item.src" stretch="aspectFill" @tap="setdetailpagedata(index), $navigateTo(page)"/>
+                <Image class="img" :src="item.data.src" stretch="aspectFill" @tap="setdetailpagedata(item.index), $navigateTo(page)"/>
                 <GridLayout verticalAlignment="bottom">
-                    <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                        <Label class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple"/>
+                    <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
+                        <Label class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple" v-show="item.data.like" @tap="clicklike(item.index)" />
+                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!item.data.like" @tap="clicklike(item.index)" />
+                        <Label class="mytext, likecnt" :text="item.data.likecnt" paddingTop="8" paddingLeft="5" />
                     </StackLayout>
                 </GridLayout>
                 <GridLayout verticalAlignment="top">
                     <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="8" paddingRight="16">
-                        <Label class="titletext" :text="item.title" textWrap="true"/>
+                        <Label class="titletext" :text="item.data.title" textWrap="true"/>
                     </StackLayout>
                 </GridLayout>
             </GridLayout>
@@ -36,6 +38,9 @@
         methods : {
             setdetailpagedata(index) {
                 this.$store.dispatch(Constant.SDP, index);
+            },
+            clicklike(index){
+                this.$store.dispatch(Constant.CL, index);
             }
         }
     }
@@ -60,6 +65,11 @@
         color: #ffffff;
         font-size: 20%;
         margin: 0;
+    }
+
+    .likecnt {
+        font-size: 20%;
+        color: #6a1495;
     }
 
 </style>

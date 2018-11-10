@@ -16,4 +16,8 @@ export default {
         console.log("### RESET DETAIL PAGE");
         store.commit(Constant.RSDP, payload);
     },
+    [Constant.CL] : (store, payload) => {
+        console.log("### CLICK LIKE", payload);
+        store.commit(Constant.CL, payload);
+    },
 }

@@ -65,7 +65,7 @@
                     let firstcol = [];
                     for(let i in img_list){
                         if(i % 2 == 1){
-                            firstcol.push(img_list[i])
+                            firstcol.push({ data: img_list[i], index: i });
                         }
                     }
                     return firstcol;
@@ -80,7 +80,7 @@
                     let secondcol = [];
                     for(let i in img_list){
                         if(i % 2 == 0){
-                            secondcol.push(img_list[i])
+                            secondcol.push({ data: img_list[i], index: i })
                         }
                     }
                     return secondcol;

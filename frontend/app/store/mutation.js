@@ -42,5 +42,8 @@ export default {
             comment: [],
             tag: []
         };
+    },
+    [Constant.CL] : (state, payload) => {
+        state.posts[payload].like = !state.posts[payload].like;
     }
 }
