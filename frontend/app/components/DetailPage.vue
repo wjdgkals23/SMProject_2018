@@ -4,7 +4,7 @@
             <GridLayout columns="*" rows="*" class="mylight" paddingBottom="20">
                 <StackLayout>
                     <GridLayout columns="*" rows="70">
-                        <GridLayout horizontalAlignment="right" width="15%" margin="0">
+                        <GridLayout horizontalAlignment="right" width="15%" margin="0" paddingTop="10">
                             <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 40px" @tap="resetdetailpagedata(),$navigateBack()" />
                             <!--<Image src="~/assets/images/btn/cancel.png" stretch="aspectFit" @tap="resetdetailpagedata(),$navigateBack()"/>-->
                         </GridLayout>
@@ -13,7 +13,7 @@
                         <detail-col col="0" :coldata="DetailPageData"></detail-col>
                     </GridLayout>
                     <GridLayout columns="*" class="mytext" paddingTop="10" paddingLeft="8" paddingRight="8">
-                        <detail-comment :imgdata="commentpreview"></detail-comment>
+                        <detail-comment :imgdata="commentpreview" :comment="DetailPageData.comment"></detail-comment>
                     </GridLayout>
                 </StackLayout>
             </GridLayout>

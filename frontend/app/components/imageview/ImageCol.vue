@@ -5,7 +5,7 @@
                 <Image class="img" :src="item.data.src" stretch="aspectFill" @tap="setdetailpagedata(item.index), $navigateTo(page)"/>
                 <GridLayout verticalAlignment="bottom">
                     <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                        <Label class="fa" :text="'fa-thumbs-o-up' | fonticon" color="purple" v-show="item.data.like" @tap="clicklike(item.index)" />
+                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="item.data.like" @tap="clicklike(item.index)" />
                         <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!item.data.like" @tap="clicklike(item.index)" />
                         <Label class="mytext, likecnt" :text="item.data.likecnt" paddingTop="8" paddingLeft="5" />
                     </StackLayout>

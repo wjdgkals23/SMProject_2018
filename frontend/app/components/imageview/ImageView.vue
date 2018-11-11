@@ -1,6 +1,6 @@
 <template>
     <ScrollView>
-        <GridLayout columns="*,*" class="mybold">
+        <GridLayout columns="*,*" class="mybold" paddingBottom="15">
             <image-col :coldata="first_col" col="0"></image-col>
             <image-col :coldata="second_col" col="1"></image-col>
         </GridLayout>

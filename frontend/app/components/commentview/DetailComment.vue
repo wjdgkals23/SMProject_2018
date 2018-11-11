@@ -1,5 +1,6 @@
 <template>
     <StackLayout>
+        <!-- 이미지 선택 -->
         <GridLayout rows="*" columns="*" >
             <Label text="제안할 이미지를 선택하세요." @tap="send"/>
         </GridLayout>
@@ -14,7 +15,8 @@
                 </StackLayout>
             </GridLayout>
         </ScrollView>
-        <ScrollView orientation="horizontal" >
+        <!-- 수정된 이미지 뷰 -->
+        <ScrollView orientation="horizontal" v-show="editcnt">
             <GridLayout rows="100" columns="*" paddingTop="6">
                 <StackLayout orientation="horizontal">
                     <CardView elevation="40" v-for="item in editimage">
@@ -25,6 +27,29 @@
                 </StackLayout>
             </GridLayout>
         </ScrollView>
+        <!-- 댓글 뷰 -->
+        <GridLayout rows="100,*">
+            <!-- 댓글 작성바 -->
+            <GridLayout row="0" columns="2*,10*,2*" paddingTop="15" width="100%">
+                <StackLayout col="0" horizontalAlignment="stretch" verticalAlignment="center" paddingLeft="0">
+                    <Image src="~/assets/images/icon/camera.png" width="100%" />
+                </StackLayout>
+                <StackLayout col="1" horizontalAlignment="left" padding="1">
+                    <CardView elevation="0">
+                        <StackLayout>
+                            <TextView v-model="writecomment" verticalAlignment="center" text="댓글을 작성하세요" editable="true" class="tagsearch"/>
+                        </StackLayout>
+                    </CardView>
+                </StackLayout>
+                <StackLayout col="2" horizontalAlignment="stretch" verticalAlignment="center" paddingLeft="3">
+                    <Image src="~/assets/images/btn/commentupload.png" width="100%" />
+                </StackLayout>
+            </GridLayout>
+            <StackLayout row="1">
+                <!-- 댓글 리스트 뷰 -->
+                <GridLayout ></GridLayout>
+            </StackLayout>
+        </GridLayout>
     </StackLayout>
 </template>
 
@@ -40,10 +65,12 @@
 
     export default {
         name: "DetailComment",
-        props: [ 'imgdata' ],
+        props: [ 'imgdata', 'comment' ],
         data: function() {
             return {
-                editimage: []
+                editimage: [],
+                writecomment: "",
+
             }
         },
         created() {
@@ -90,6 +117,11 @@
                     sendimage(this.editimage, apiPath.ios);
                 }
             }
+        },
+        computed: {
+            editcnt: function(){
+                return this.editimage.length==0 ? false : true;
+            }
         }
     }
 </script>
@@ -98,5 +130,14 @@
     .cardStyle {
         /*color: #fff;*/
         margin-right: 5px;
+    }
+
+    .tagsearch {
+        background: #e0d0ea;
+        font-size: 20px;
+        width: 100%;
+        height: 95%;
+        border-radius: 15px;
+        /*padding-top: ;*/
     }
 </style>

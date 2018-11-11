@@ -30,6 +30,8 @@ export default {
             {name: "후드코트", type: "cloth"},
             {name: "걸리쉬", type: "style"},
         ]
+        state.DetailPageData.comment.push({ id: "nayekim", content: "왼쪽 가슴 아래에 포켓하나 더 있으면 좋을거같아요!!", have_img: true, src: "~/assets/images/source_1.jpg"});
+        state.DetailPageData.comment.push({ id: "haminjeong", content: "잘 만드셨네요!!!!", have_img: false });
     },
     [Constant.RSDP] : (state, payload) => {
         state.DetailPageData = null;
