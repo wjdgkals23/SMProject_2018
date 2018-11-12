@@ -15,9 +15,10 @@ export default {
     [Constant.SDP] : (state, payload) => {
         console.log("#########payload ", payload);
         // CHANGE DB CONNECT
-        state.DetailPageData.Image.push({src:"~/assets/images/test.jpeg"});
-        state.DetailPageData.Image.push({src:"~/assets/images/source_1.jpg"});
-        state.DetailPageData.Image.push({src:"~/assets/images/source_2.jpg"});
+        state.DetailPageData.id = payload;
+        state.DetailPageData.Image.push({src:"~/assets/images/test.jpeg", checked: false });
+        state.DetailPageData.Image.push({src:"~/assets/images/source_1.jpg", checked: false });
+        state.DetailPageData.Image.push({src:"~/assets/images/source_2.jpg", checked: false});
         state.DetailPageData.author = "Jeong Yeon Ho";
         state.DetailPageData.likecount = 3004;
         state.DetailPageData.title = "오버사이즈 스트라이프 셔츠"
@@ -31,7 +32,7 @@ export default {
             {name: "걸리쉬", type: "style"},
         ]
         state.DetailPageData.comment.push({ id: "nayekim", content: "왼쪽 가슴 아래에 포켓하나 더 있으면 좋을거같아요!!", have_img: true, src: "~/assets/images/source_1.jpg"});
-        state.DetailPageData.comment.push({ id: "haminjeong", content: "잘 만드셨네요!!!!", have_img: false });
+        state.DetailPageData.comment.push({ id: "hamin jeong", content: "잘 만드셨네요!!!!", have_img: false });
     },
     [Constant.RSDP] : (state, payload) => {
         state.DetailPageData = null;
@@ -47,5 +48,8 @@ export default {
     },
     [Constant.CL] : (state, payload) => {
         state.posts[payload].like = !state.posts[payload].like;
+    },
+    [Constant.WC] : (state,payload) => {
+        state.DetailPageData.comment.push(payload);
     }
 }

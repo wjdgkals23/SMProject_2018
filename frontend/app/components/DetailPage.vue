@@ -13,7 +13,7 @@
                         <detail-col col="0" :coldata="DetailPageData"></detail-col>
                     </GridLayout>
                     <GridLayout columns="*" class="mytext" paddingTop="10" paddingLeft="8" paddingRight="8">
-                        <detail-comment :imgdata="commentpreview" :comment="DetailPageData.comment"></detail-comment>
+                        <detail-comment :imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"></detail-comment>
                     </GridLayout>
                 </StackLayout>
             </GridLayout>

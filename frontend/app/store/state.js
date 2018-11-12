@@ -1,4 +1,5 @@
 export default {
+    id: "hamin",
     posts: [
         {title:"오버사이즈 스트라이프 셔츠", src: "~/assets/images/test.jpeg", like: false, likecnt: 3200},
         {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
@@ -34,6 +35,7 @@ export default {
             {name: "temp", type: "style"}
     ],
     DetailPageData: {
+        id: null,
         Image: [],
         title: "",
         content: "",

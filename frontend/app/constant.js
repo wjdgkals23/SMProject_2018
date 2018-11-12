@@ -4,4 +4,5 @@ export default {
     SDP: 'setdetailpagedata', //Set Detail Page
     RSDP: 'resetdetailpagedata',
     CL: 'clicklike',
+    WC: 'writecomment',
 }

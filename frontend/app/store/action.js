@@ -20,4 +20,8 @@ export default {
         console.log("### CLICK LIKE", payload);
         store.commit(Constant.CL, payload);
     },
+    [Constant.WC] : (store, payload) => {
+        console.log("### WRITE COMMENT", payload);
+        store.commit(Constant.WC, payload);
+    },
 }
