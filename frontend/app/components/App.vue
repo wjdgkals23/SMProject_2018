@@ -12,14 +12,15 @@
     import TotalPeed from './TotalPeed'
     import UserPeed from './UserPeed'
     import UploadPage from './UploadPage'
+    import LoginPage from './LoginPage'
     import Constant from '../constant'
-    import { mapState, mapMutations } from 'vuex'
     import _ from 'lodash'
+    import { mapState, mapMutations } from 'vuex'
     // const page = require('tns-core-modules/ui/page');
 
     export default {
         name: "App",
-        components: { TotalPeed, UserPeed, UploadPage },
+        components: { TotalPeed, UserPeed, UploadPage, LoginPage },
         data() {
             return {
                 msg: 'Hello World!',
@@ -37,6 +38,8 @@
                     return TotalPeed;
                 else if(this.peedmanager == 2)
                     return UserPeed;
+                else if(this.peedmanager == 3)
+                    return LoginPage;
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;
             }

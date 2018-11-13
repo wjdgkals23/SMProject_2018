@@ -44,6 +44,6 @@ export default {
         comment: [],
         tag: []
     },
-    peedmanager: 1,
+    peedmanager: 3,
     abmanager: true
 }
