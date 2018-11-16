@@ -48,6 +48,12 @@ export default {
     },
     [Constant.CL] : (state, payload) => {
         state.posts[payload].like = !state.posts[payload].like;
+        if(state.posts[payload].like){
+            state.posts[payload].likecnt -= 1;
+        }
+        else {
+            state.posts[payload].likecnt += 1;
+        }
     },
     [Constant.WC] : (state,payload) => {
         state.DetailPageData.comment.push(payload);

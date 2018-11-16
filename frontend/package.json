@@ -27,7 +27,6 @@
     "nativescript-oauth2": "^1.1.1",
     "nativescript-permissions": "^1.2.3",
     "nativescript-photo-editor": "^1.0.3",
-    "nativescript-social-login": "^4.0.1",
     "nativescript-socket.io": "^0.9.0",
     "nativescript-socketio": "^3.2.1",
     "nativescript-theme-core": "^1.0.4",

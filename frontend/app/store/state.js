@@ -1,5 +1,13 @@
 export default {
     id: "hamin",
+    // login init
+    namecard: {
+        name: "정연호",
+        email: "wjddusgh@gmail.com",
+        university: "Sejong Univ",
+        major: "Fashion Design"
+    //    login init
+    },
     posts: [
         {title:"오버사이즈 스트라이프 셔츠", src: "~/assets/images/test.jpeg", like: false, likecnt: 3200},
         {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
@@ -13,6 +21,7 @@ export default {
         {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
         {title:"head", src: "~/assets/images/test2.jpeg", like: false, likecnt: 3200},
         {title:"head", src: "~/assets/images/test.jpeg", like: true, likecnt: 3200},
+    //    login init
     ],
     tags: [
             {name: "청바지", type: "cloth"},
@@ -33,6 +42,7 @@ export default {
             {name: "템포러리", type: "style"},
             {name: "포멀", type: "style"},
             {name: "temp", type: "style"}
+    //        login init ? 가지고 있기??
     ],
     DetailPageData: {
         id: null,
@@ -42,8 +52,11 @@ export default {
         author: "",
         likecount: 0,
         comment: [],
-        tag: []
+        tag: [],
+        like: true,
+        likecnt: 4334,
+    //    page select init
     },
-    peedmanager: 3,
+    peedmanager: 1,
     abmanager: true
 }

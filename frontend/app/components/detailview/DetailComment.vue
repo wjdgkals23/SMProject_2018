@@ -4,6 +4,7 @@
         <GridLayout rows="*" columns="*" >
             <Label text="제안할 이미지를 선택하세요." @tap="send"/>
         </GridLayout>
+        <!-- 수정 가능한 이미지 뷰 -->
         <ScrollView orientation="horizontal" >
             <GridLayout rows="100" columns="*" paddingTop="6">
                 <StackLayout orientation="horizontal">
@@ -20,23 +21,24 @@
             </GridLayout>
         </ScrollView>
         <!-- 댓글 뷰 -->
-        <GridLayout rows="100,*">
+        <GridLayout rows="50,*">
             <!-- 댓글 작성바 -->
-            <GridLayout row="0" columns="*,11*,2*" paddingTop="15" width="100%">
-                <StackLayout col="0" horizontalAlignment="stretch" verticalAlignment="top" paddingLeft="0">
+            <GridLayout row="0" columns="*,9*,2*" paddingTop="15" paddingLeft="10" paddingRight="5" width="100%">
+                <StackLayout col="0" horizontalAlignment="center" verticalAlignment="center" paddingLeft="0">
                     <Image src="~/assets/images/icon/camera.png" width="100%" />
                 </StackLayout>
-                <StackLayout col="1" horizontalAlignment="left" padding="1">
+                <StackLayout col="1" horizontalAlignment="right" padding="1" paddingLeft="5">
                     <CardView elevation="0">
                         <StackLayout>
                             <TextView v-model="writecomment" verticalAlignment="center" text="댓글을 작성하세요" editable="true" class="tagsearch"/>
                         </StackLayout>
                     </CardView>
                 </StackLayout>
-                <StackLayout col="2" horizontalAlignment="stretch" verticalAlignment="center" paddingLeft="3">
+                <StackLayout col="2" horizontalAlignment="left" verticalAlignment="center" paddingLeft="3">
                     <Image src="~/assets/images/btn/commentupload.png" width="100%" @tap="commentwrite"/>
                 </StackLayout>
             </GridLayout>
+            <!-- 수정한 이미지 뷰 -->
             <ScrollView row="1" orientation="horizontal" v-show="editcnt">
                 <GridLayout rows="100" columns="*" paddingTop="6">
                     <StackLayout orientation="horizontal">
@@ -49,12 +51,12 @@
                 </GridLayout>
             </ScrollView>
         </GridLayout>
-        <!-- 수정된 이미지 뷰 -->
-        <GridLayout rows="*" columns="*" paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30">
-            <ScrollView>
-                <CardView class="cardStyle" radius="15" >
+        <!-- 댓글 리스트 -->
+        <GridLayout rows="500" columns="*" paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30">
+            <CardView class="cardStyle" radius="15" >
+                <ScrollView>
                     <StackLayout>
-                        <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment">
+                        <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
                             <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
                                 <Label :text="item.id" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
@@ -66,8 +68,8 @@
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
-                </CardView>
-            </ScrollView>
+                </ScrollView>
+            </CardView>
         </GridLayout>
     </StackLayout>
 </template>
