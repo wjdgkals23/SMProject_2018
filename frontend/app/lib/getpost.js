@@ -1,11 +1,10 @@
 import axios from "axios";
+import Constant from "../constant";
 
-function postget(apiPath) {
+function postget(apiPath, vue) {
     axios.get(apiPath + "/api/total_feed/fetch")
         .then(function (response) {
-            console.log("data");
-            console.log(response.data);
-            return response.data;
+            vue.$store.dispatch(Constant.GETPOST, response);
         }).catch(function (error) {
             console.log(error);
         }

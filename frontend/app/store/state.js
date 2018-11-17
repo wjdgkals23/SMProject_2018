@@ -9,9 +9,8 @@ export default {
         major: "Fashion Design"
     //    login init
     },
-    posts: [
-        {title:"오버사이즈 스트라이프 셔츠", src: "~/assets/images/test.jpeg", like: false, like_count: 3200},
-    ],
+    firstcol: [],
+    secondcol: [],
     tags: [
             {name: "청바지", type: "cloth"},
             {name: "티셔츠", type: "cloth"},

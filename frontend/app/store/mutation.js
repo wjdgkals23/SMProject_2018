@@ -3,17 +3,20 @@ import {postget} from "../lib/getpost";
 import axios from 'axios';
 
 export default {
-    // [Constant.REQUEST] : async (state) => {
-    //     let res = await postget("http://127.0.0.1:3000");
-    //     this.$store.dispatch(Constant.GETPOST, res);
-    // },
     [Constant.GETPOST] : (state, payload) => {
-        console.log("mutation");
-        console.log(payload);
         for(let item in payload.data){
-            console.log(item);
-            payload.data[item].like = true;
-            state.posts.push(payload.data[item]);
+            if( item%2 === 0 ) {
+                console.log(item, "firstcol");
+                payload.data[item].like = true;
+                payload.data[item].src = "~/assets/images/test.jpeg";
+                state.secondcol.push(payload.data[item]);
+            }
+            else {
+                console.log(item, "secondcol");
+                payload.data[item].like = true;
+                payload.data[item].src = "~/assets/images/test.jpeg";
+                state.firstcol.push(payload.data[item]);
+            }
         }
     },
     [Constant.PEEDCH] : (state,payload) => {
@@ -59,12 +62,23 @@ export default {
         };
     },
     [Constant.CL] : (state, payload) => {
-        state.posts[payload].like = !state.posts[payload].like;
-        if(state.posts[payload].like){
-            state.posts[payload].like_count -= 1;
+        if(payload.colnum == "1"){
+            state.firstcol[payload.index].like = !state.firstcol[payload.index].like;
+            if(state.firstcol[payload.index].like) {
+                state.firstcol[payload.index].like_count --;
+            }
+            else{
+                state.firstcol[payload.index].like_count ++;
+            }
         }
-        else {
-            state.posts[payload].like_count += 1;
+        else{
+            state.secondcol[payload.index].like = !state.secondcol[payload.index].like;
+            if(state.secondcol[payload.index].like) {
+                state.secondcol[payload.index].like_count --;
+            }
+            else{
+                state.secondcol[payload.index].like_count ++;
+            }
         }
     },
     [Constant.WC] : (state,payload) => {
