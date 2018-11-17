@@ -10,19 +10,7 @@ export default {
     //    login init
     },
     posts: [
-        {title:"오버사이즈 스트라이프 셔츠", src: "~/assets/images/test.jpeg", like: false, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test.jpeg", like: false, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test.jpeg", like: false, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test2.jpeg", like: false, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test.jpeg", like: true, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test.jpeg", like: false, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test2.jpeg", like: true, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test2.jpeg", like: false, likecnt: 3200},
-        {title:"head", src: "~/assets/images/test.jpeg", like: true, likecnt: 3200},
-    //    login init
+        {title:"오버사이즈 스트라이프 셔츠", src: "~/assets/images/test.jpeg", like: false, like_count: 3200},
     ],
     tags: [
             {name: "청바지", type: "cloth"},
@@ -55,7 +43,7 @@ export default {
         comment: [],
         tag: [],
         like: true,
-        likecnt: 4334,
+        like_count: 4334,
     //    page select init
     },
     peedmanager: 1,

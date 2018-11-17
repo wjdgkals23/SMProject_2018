@@ -1,8 +1,20 @@
 import Constant from '../constant'
+import {postget} from "../lib/getpost";
+import axios from 'axios';
 
 export default {
-    [Constant.GETIMG] : (state,payload) => {
-        console.log("temp");
+    // [Constant.REQUEST] : async (state) => {
+    //     let res = await postget("http://127.0.0.1:3000");
+    //     this.$store.dispatch(Constant.GETPOST, res);
+    // },
+    [Constant.GETPOST] : (state, payload) => {
+        console.log("mutation");
+        console.log(payload);
+        for(let item in payload.data){
+            console.log(item);
+            payload.data[item].like = true;
+            state.posts.push(payload.data[item]);
+        }
     },
     [Constant.PEEDCH] : (state,payload) => {
         if(payload==1)
@@ -49,10 +61,10 @@ export default {
     [Constant.CL] : (state, payload) => {
         state.posts[payload].like = !state.posts[payload].like;
         if(state.posts[payload].like){
-            state.posts[payload].likecnt -= 1;
+            state.posts[payload].like_count -= 1;
         }
         else {
-            state.posts[payload].likecnt += 1;
+            state.posts[payload].like_count += 1;
         }
     },
     [Constant.WC] : (state,payload) => {

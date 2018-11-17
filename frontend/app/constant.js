@@ -1,5 +1,6 @@
 export default {
-    GETIMG: 'getimg',
+    REQUEST: 'requestpost',
+    GETPOST: 'getpost',
     PEEDCH: 'peedch',
     SDP: 'setdetailpagedata', //Set Detail Page
     RSDP: 'resetdetailpagedata',

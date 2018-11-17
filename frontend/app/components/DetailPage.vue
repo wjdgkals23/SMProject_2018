@@ -56,7 +56,7 @@
         },
         computed: _.extend({
             likecnt() {
-                return "좋아요 " + this.DetailPageData.likecnt + "개";
+                return "좋아요 " + this.DetailPageData.like_count + "개";
             }
         },mapState([ 'DetailPageData', 'abmanager' ])),
         methods:{
@@ -66,10 +66,10 @@
             clicklike(){
                 this.DetailPageData.like = !this.DetailPageData.like;
                 if(!this.DetailPageData.like) {
-                    this.DetailPageData.likecnt += 1;
+                    this.DetailPageData.like_count += 1;
                 }
                 else{
-                    this.DetailPageData.likecnt -= 1;
+                    this.DetailPageData.like_count -= 1;
                 }
             }
         }

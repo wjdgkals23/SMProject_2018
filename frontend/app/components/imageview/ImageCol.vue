@@ -2,17 +2,17 @@
     <StackLayout>
         <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data">
             <GridLayout rows="*" columns="*" margin="0">
-                <Image class="img" :src="item.data.src" stretch="aspectFill" @tap="setdetailpagedata(item.index), $navigateTo(page)"/>
+                <Image class="img" :src="item.src" stretch="aspectFill" @tap="setdetailpagedata(item.index), $navigateTo(page)"/>
                 <GridLayout verticalAlignment="bottom">
                     <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="item.data.like" @tap="clicklike(item.index)" />
-                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!item.data.like" @tap="clicklike(item.index)" />
-                        <Label class="mytext, likecnt" :text="item.data.likecnt" paddingTop="8" paddingLeft="5" />
+                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="item.like" @tap="clicklike(0)" />
+                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!item.like" @tap="clicklike(0)" />
+                        <Label class="mytext, likecnt" :text="item.like_count" paddingTop="8" paddingLeft="5" />
                     </StackLayout>
                 </GridLayout>
                 <GridLayout verticalAlignment="top">
                     <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="8" paddingRight="16">
-                        <Label class="titletext" :text="item.data.title" textWrap="true"/>
+                        <Label class="titletext" :text="item.title" textWrap="true"/>
                     </StackLayout>
                 </GridLayout>
             </GridLayout>
@@ -23,6 +23,7 @@
 <script>
     import DetailPage from '../DetailPage'
     import Constant from '../../constant'
+
     export default {
         name: "ImageCol",
         props: ['coldata'],

@@ -1,10 +1,16 @@
 import Constant from '../constant';
+import { apiPath } from "../lib/httpconfig";
+const platformModule = require('tns-core-modules/platform');
 import axios from 'axios';
+import {postget} from "../lib/getpost";
 
 export default {
     [Constant.LOGIN] : (store, payload) => {
         // 로그인 정보 보내고 받고 처리
-        console.log("### LOGIN");
+    },
+    [Constant.GETPOST] : async (store, payload) => {
+        console.log("### GETPOST");
+        store.commit(Constant.GETPOST, payload);
     },
     [Constant.PEEDCH] : (store, payload) => {
         console.log("### PEEDCH");

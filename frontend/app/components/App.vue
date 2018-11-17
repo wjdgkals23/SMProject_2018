@@ -30,7 +30,7 @@
             }
         },
         created() {
-          this.actionbarmanager = false;
+            this.actionbarmanager = false;
         },
         computed : _.extend({
             currentView(){
