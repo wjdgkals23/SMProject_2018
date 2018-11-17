@@ -1,5 +1,6 @@
 <template>
     <GridLayout rows="*,*" columns="*">
+        <!-- 뒤로 가기 및 업로드 -->
         <GridLayout row="0" rows="*" columns="*,*">
             <GridLayout row="0" col="0" verticalAlignment="top" horizontalAlignment="left" width="10%">
                 <StackLayout paddingTop="8" paddingLeft="10">
@@ -12,6 +13,7 @@
                 </StackLayout>
             </GridLayout>
         </GridLayout>
+        <!-- 제목 및 내용 작성 -->
         <StackLayout row="1" backgroundColor="white" padding="10" id="upload">
             <TextField :text="uploadtitle" hint="제목" editable="true" class="titlestyle"/>
             <CardView class="cardStyle" elevation="0" radius="15">
@@ -21,27 +23,35 @@
                             <TextView :text="uploadcontent" hint="내용을 작성하는 칸입니다" editable="true" class="contentstyle"/>
                         </StackLayout>
                     </GridLayout>
-                    <GridLayout verticalAlignment="bottom" horizontalAlignment="left">
-                        <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16" width="18%" style="border-bottom: solid 1px purple">
-                            <Image src="~/assets/images/btn/imageupload.png" stretch="aspectFit" @tap="uploadimage"/>
-                        </StackLayout>
-                    </GridLayout>
                 </GridLayout>
             </CardView>
-            <GridLayout rows="*" columns="*" :Visibility="visible">
-                <Label text="PreView" />
-            </GridLayout>
-            <ScrollView orientation="horizontal" :Visibility="preview">
-                <GridLayout rows="100" columns="*">
-                    <StackLayout orientation="horizontal">
-                        <CardView class="cardStyle" elevation="40" radius="15" v-for="item in imagesource">
-                            <GridLayout rows="*" columns="*" margin="0">
-                                <Image class="img" :src="item.src" stretch="aspectFill" />
-                            </GridLayout>
-                        </CardView>
+            <!-- 이미지 업로드 -->
+            <GridLayout rows="*" columns="65,*">
+                <GridLayout row="0" col="0" rows="*" columns="*" verticalAlignment="center" horizontalAlignment="center" paddingLeft="5" paddingRight="5">
+                    <StackLayout row="0" col="0" style="border-bottom: solid 1px purple">
+                        <Image src="~/assets/images/btn/imageupload.png" stretch="aspectFit" @tap="uploadimage"/>
                     </StackLayout>
                 </GridLayout>
-            </ScrollView>
+                <!-- 선택된 이미지 뷰 -->
+                <GridLayout row="0" col="1" rows="40,*" columns="*" paddingLeft="5" >
+                    <GridLayout row="0" col="0" paddingLeft="5">
+                        <Label text="선택한 이미지" />
+                    </GridLayout>
+                    <GridLayout row="1" col="0">
+                        <ScrollView orientation="horizontal" >
+                            <GridLayout rows="100" columns="*">
+                                <StackLayout orientation="horizontal">
+                                    <CardView class="cardStyle" elevation="40" radius="15" v-for="item in imagesource">
+                                        <GridLayout rows="*" columns="*" margin="0">
+                                            <Image class="img" :src="item.src" stretch="aspectFill" />
+                                        </GridLayout>
+                                    </CardView>
+                                </StackLayout>
+                            </GridLayout>
+                        </ScrollView>
+                    </GridLayout>
+                </GridLayout>
+            </GridLayout>
         </StackLayout>
     </GridLayout>
 </template>
@@ -52,13 +62,6 @@
     import axios from 'axios';
     import { apiPath } from "../../lib/httpconfig";
     const platformModule = require("tns-core-modules/platform");
-
-    function extractImageName(fileUri) {
-        let pattern = /[^/]*$/;
-        let imageName = fileUri.match(pattern);
-
-        return imageName;
-    }
 
     export default {
         name: "UploadView",

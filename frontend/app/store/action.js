@@ -1,8 +1,10 @@
 import Constant from '../constant';
+import axios from 'axios';
 
 export default {
     [Constant.LOGIN] : (store, payload) => {
-        console.log("### LOGIN");npm
+        // 로그인 정보 보내고 받고 처리
+        console.log("### LOGIN");
     },
     [Constant.PEEDCH] : (store, payload) => {
         console.log("### PEEDCH");

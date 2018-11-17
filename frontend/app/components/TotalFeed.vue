@@ -1,4 +1,5 @@
 <template>
+    <!-- 전체 피드 -->
     <GridLayout columns="*" rows="*">
         <GridLayout rows="*,55">
             <image-view row="0" :imgdata="posts"></image-view>
@@ -21,7 +22,7 @@
     import UploadPage from './UploadPage'
     // import axios from 'axios';
     export default {
-        name: "TotalPeed",
+        name: "TotalFeed",
         components: { ImageView, BottomNavigation, UploadPage },
         data() {
             return {

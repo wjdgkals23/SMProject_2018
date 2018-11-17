@@ -22,7 +22,7 @@
     import BottomNavigation from './navi/BottomNavigation'
     // import Upload
     export default {
-        name: "UserPeed",
+        name: "UserFeed",
         components: { BottomNavigation },
         methods:{
 

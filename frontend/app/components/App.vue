@@ -9,8 +9,8 @@
 </template>
 
 <script>
-    import TotalPeed from './TotalPeed'
-    import UserPeed from './UserPeed'
+    import TotalFeed from './TotalFeed'
+    import UserFeed from './UserFeed'
     import UploadPage from './UploadPage'
     import LoginPage from './LoginPage'
     import Constant from '../constant'
@@ -20,7 +20,7 @@
 
     export default {
         name: "App",
-        components: { TotalPeed, UserPeed, UploadPage, LoginPage },
+        components: { TotalFeed, UserFeed, UploadPage, LoginPage },
         data() {
             return {
                 msg: 'Hello World!',
@@ -35,9 +35,9 @@
         computed : _.extend({
             currentView(){
                 if(this.peedmanager == 1)
-                    return TotalPeed;
+                    return TotalFeed;
                 else if(this.peedmanager == 2)
-                    return UserPeed;
+                    return UserFeed;
                 else if(this.peedmanager == 3)
                     return LoginPage;
                 // else if(this.peedmanager == 3)

@@ -1,5 +1,6 @@
 export default {
-    id: "hamin",
+    id_num: 2,
+    id: "super",
     // login init
     namecard: {
         name: "정연호",

@@ -1,4 +1,5 @@
 <template>
+    <!-- App 컴포넌트 화면 전환 -->
     <FlexboxLayout justifyContent="space-around" row="1" id="navigation">
         <Image src="~/assets/images/icon/menu.png" stretch="aspectFit" @tap="peedch(1)"/>
         <Image src="~/assets/images/icon/thumbs.png" stretch="aspectFit" @tap="peedch(2)"/>
@@ -25,25 +26,6 @@
         methods: {
             peedch: function(val) {
                 this.$store.dispatch(Constant.PEEDCH, val);
-            },
-            talk: function(){
-                // console.log("test");
-                axios.get(apiPath.android+'/temp')
-                    .then(function (response) {
-                        console.log("");
-                        console.log(response.data);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                axios.get(apiPath.ios+'/temp')
-                    .then(function (response) {
-                        console.log("");
-                        console.log(response.data);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
             }
         }
     }
