@@ -4,20 +4,25 @@ import axios from 'axios';
 
 export default {
     [Constant.GETPOST] : (state, payload) => {
+        let like_cnt = Object.keys(payload.data[0])[3];
+        console.log(like_cnt);
         for(let item in payload.data){
             if( item%2 === 0 ) {
-                console.log(item, "firstcol");
                 payload.data[item].like = true;
-                payload.data[item].src = "~/assets/images/test.jpeg";
+                // payload.data[item].src = "~/assets/images/test.jpeg";
+                payload.data[item].like_count = payload.data[item][like_cnt];
                 state.secondcol.push(payload.data[item]);
             }
             else {
-                console.log(item, "secondcol");
                 payload.data[item].like = true;
-                payload.data[item].src = "~/assets/images/test.jpeg";
+                payload.data[item].like_count = payload.data[item][like_cnt];
                 state.firstcol.push(payload.data[item]);
             }
         }
+    },
+    [Constant.CLEANPOST] : (state) => {
+        state.firstcol = [];
+        state.secondcol = [];
     },
     [Constant.PEEDCH] : (state,payload) => {
         if(payload==1)

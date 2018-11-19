@@ -1,11 +1,11 @@
 <template>
-    <StackLayout>
-        <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data">
+    <StackLayout paddingBottom="10">
+        <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data" >
             <GridLayout rows="*" columns="*" margin="0">
-                <Image class="img" :src="item.src" stretch="aspectFill" @tap="setdetailpagedata(index), $navigateTo(page)"/>
+                <Image class="img" :src="item.url" stretch="aspectFill" @tap="setdetailpagedata(index), $navigateTo(page)"/>
                 <GridLayout verticalAlignment="bottom">
                     <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="item.like" @tap="clicklike(index)" />
+                        <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="gray" v-show="item.like" @tap="clicklike(index)" />
                         <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!item.like" @tap="clicklike(index)" />
                         <Label class="mytext, likecnt" :text="item.like_count" paddingTop="8" paddingLeft="5" />
                     </StackLayout>

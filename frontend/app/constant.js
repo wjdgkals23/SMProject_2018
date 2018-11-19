@@ -1,6 +1,7 @@
 export default {
     REQUEST: 'requestpost',
     GETPOST: 'getpost',
+    CLEANPOST: 'cleanpost',
     PEEDCH: 'peedch',
     SDP: 'setdetailpagedata', //Set Detail Page
     RSDP: 'resetdetailpagedata',

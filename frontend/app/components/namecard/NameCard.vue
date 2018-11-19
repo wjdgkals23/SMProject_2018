@@ -1,18 +1,18 @@
 <template>
-    <GridLayout rows="110" columns="*" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="16">
-        <CardView class="cardStyle" elevation="80" row="0" col="0" radius="15">
-            <GridLayout rows="45,*" columns="105,*,100">
+    <CardView class="cardStyle" elevation="30" row="0" col="0" radius="15" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="16">
+        <GridLayout rows="110" columns="*">
+            <GridLayout rows="45,*" columns="110,*,100">
                 <GridLayout paddingLeft="10" row="0" rowSpan="2" col="0" horizontalAlignment="center" verticalAlignment="center">
                     <Label class="mytext name" :text="namecard.name"></Label>
                 </GridLayout>
-                <GridLayout row="0" col="1" horizontalAlignment="left" verticalAlignment="bottom">
+                <GridLayout row="0" col="1" horizontalAlignment="center" verticalAlignment="bottom">
                     <Label class="mytext info" :text="namecard.email"></Label>
                 </GridLayout>
-                <GridLayout row="1" col="1" rows="*,*" horizontalAlignment="center" verticalAlignment="top">
-                    <GridLayout row="0" horizontalAlignment="center" verticalAlignment="bottom">
+                <GridLayout row="1" col="1" rows="*,*" horizontalAlignment="center" verticalAlignment="top" >
+                    <GridLayout row="0" horizontalAlignment="right" verticalAlignment="bottom">
                         <Label class="mytext info" :text="namecard.university"></Label>
                     </GridLayout>
-                    <GridLayout row="1" horizontalAlignment="center" verticalAlignment="bottom">
+                    <GridLayout row="1" horizontalAlignment="right" verticalAlignment="bottom">
                         <Label class="mytext info" :text="namecard.major"></Label>
                     </GridLayout>
                 </GridLayout>
@@ -20,8 +20,8 @@
                     <Image class="img" src="~/assets/images/author.png"></Image>
                 </GridLayout>
             </GridLayout>
-        </CardView>
-    </GridLayout>
+        </GridLayout>
+    </CardView>
 </template>
 
 <script>
@@ -43,6 +43,9 @@
         /*color: #fff;*/
         background: #f4f4f4;
         border-radius: 5px;
+        width: 92%;
+        padding: 4%;
+        margin-top: 25px;
     }
     .name {
         font-size: 35%;

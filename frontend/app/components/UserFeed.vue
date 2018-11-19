@@ -2,15 +2,32 @@
     <GridLayout columns="*" rows="*">
         <GridLayout rows="*,55">
             <ScrollView orientation="vertical" row="0">
-                <StackLayout backgroundColor="#3c495e">
-                    <CardView width="90%" padding="5%">
-                        <GridLayout columns="*,2*" rows="80" backgroundColor="#3c495e">
-                            <Label text="0,0" row="0" col="0" backgroundColor="#43b883"/>
-                            <Label text="0,1" row="0" col="1" backgroundColor="#1c6b48"/>
+                <StackLayout backgroundColor="#ffffff">
+                    <name-card></name-card>
+                    <GridLayout rows="55" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="10">
+                        <GridLayout row="0" rows="*" columns="30,20,170,30" verticalAlignment="center" horizontalAlignment="center">
+                            <GridLayout row="0" col="0" verticalAlignment="center" horizontalAlignment="center">
+                                <Label class="dropdown mytext">/</Label>
+                            </GridLayout>
+                            <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
+                                <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" ></Label>
+                            </GridLayout>
+                            <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="right">
+                                <DropDown class="dropdown mytext"
+                                          :items="items"
+                                          :selectedIndex="selecteditem"
+                                          @selectedIndexChanged="change"
+                                          @closed="closed"
+                                ></DropDown >
+                            </GridLayout>
+                            <GridLayout row="0" col="3" verticalAlignment="center" horizontalAlignment="center">
+                                <Label class="dropdown mytext">/</Label>
+                            </GridLayout>
                         </GridLayout>
-                    </CardView>
-                    <Label text="second" height="500" backgroundColor="#289062"/>
-                    <Label text="third" height="500" backgroundColor="#1c6b48"/>
+                    </GridLayout>
+                    <image-view v-show="changefd(0)" firstcol="0" secondcol="1"></image-view>
+                    <collabo-list v-show="changefd(1)"></collabo-list>
+                    <buy-list v-show="changefd(2)"></buy-list>
                 </StackLayout>
             </ScrollView>
             <bottom-navigation row="1"></bottom-navigation>
@@ -20,16 +37,57 @@
 
 <script>
     import BottomNavigation from './navi/BottomNavigation'
+    import NameCard from './namecard/NameCard'
+    import ImageView from './imageview/ImageView'
+    import BuyList from './userview/BuyList'
+    import CollaboList from './userview/CollaboList'
     // import Upload
     export default {
         name: "UserFeed",
-        components: { BottomNavigation },
+        components: { BottomNavigation, NameCard, ImageView, BuyList, CollaboList },
+        data() {
+            return {
+                items : [
+                    "관심 게시물",
+                    "콜라보",
+                    "구입 목록"
+                ],
+                selecteditem : 0,
+                buffer : null,
+            }
+        },
         methods:{
-
+            change(arg) {
+                console.log(arg.oldIndex);
+                this.buffer = arg.newIndex;
+            },
+            closed() {
+                console.log(this.selecteditem);
+                console.log("피드 체인지")
+                this.selecteditem = this.buffer;
+            },
+            changefd(val) {
+                return this.selecteditem == val;
+            }
         },
     }
 </script>
 
 <style scoped>
+    .dropdown {
+        background: white;
+        color: #6a1495;
+        font-size: 25px;
+        text-align: center;
+    }
+    .cardStyle {
+        /*color: #fff;*/
+        width: 92%;
+        padding: 4%;
+        margin-top: 25px;
+        font-size: 35px;
+        /*font-family: THEmpgtB;*/
+        /*font-family: THELu;*/
+    }
 
 </style>

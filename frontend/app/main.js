@@ -20,6 +20,7 @@ if(TNS_ENV !== 'production') {
 Vue.config.silent = (TNS_ENV === 'production')
 
 Vue.registerElement("CardView", () => require("nativescript-cardview").CardView);
+Vue.registerElement("DropDown", () => require("nativescript-drop-down").DropDown);
 
 new Vue({
     store,

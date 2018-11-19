@@ -16,6 +16,10 @@
     import Constant from '../constant'
     import _ from 'lodash'
     import { mapState, mapMutations } from 'vuex'
+
+    import { postget } from "../lib/getpost";
+    import {apiPath} from "../lib/httpconfig";
+    const platformModule = require("tns-core-modules/platform");
     // const page = require('tns-core-modules/ui/page');
 
     export default {

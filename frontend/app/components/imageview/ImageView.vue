@@ -1,8 +1,8 @@
 <template>
     <ScrollView>
         <GridLayout columns="*,*" class="mybold" paddingBottom="15">
-            <image-col colnum="0" col="0"></image-col>
-            <image-col colnum="1" col="1"></image-col>
+            <image-col :colnum="firstcol" col="0"></image-col>
+            <image-col :colnum="secondcol" col="1"></image-col>
         </GridLayout>
     </ScrollView>
 </template>
@@ -19,6 +19,7 @@
             // CardView
             ImageCol
         },
+        props: [ 'firstcol', 'secondcol' ],
         data() {
             return {
                 msg: 'Hello World!',

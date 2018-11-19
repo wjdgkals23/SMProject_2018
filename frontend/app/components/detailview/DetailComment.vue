@@ -53,23 +53,23 @@
         </GridLayout>
         <!-- 댓글 리스트 -->
         <GridLayout rows="500" columns="*" paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30">
-            <CardView class="cardStyle" radius="15" >
-                <ScrollView>
-                    <StackLayout>
-                        <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
-                            <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
-                                <Label :text="item.id" class="mylight" style="color: #661d7e;"/>
+            <ScrollView>
+                <CardView class="cardStyle" radius="15" >
+                        <StackLayout>
+                            <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
+                                <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
+                                    <Label :text="item.id" class="mylight" style="color: #661d7e;"/>
+                                </GridLayout>
+                                <GridLayout row="0" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
+                                    <TextView :text="item.content" class="textview" style="color: #661d7e;"/>
+                                </GridLayout>
+                                <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
+                                    <Image :src="item.src" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
+                                </GridLayout>
                             </GridLayout>
-                            <GridLayout row="0" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                <TextView :text="item.content" class="textview" style="color: #661d7e;"/>
-                            </GridLayout>
-                            <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                <Image :src="item.src" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
-                            </GridLayout>
-                        </GridLayout>
-                    </StackLayout>
-                </ScrollView>
-            </CardView>
+                        </StackLayout>
+                </CardView>
+            </ScrollView>
         </GridLayout>
     </StackLayout>
 </template>
@@ -170,9 +170,9 @@
 
     .tagsearch {
         background: #e0d0ea;
-        font-size: 20px;
+        font-size: 12px;
         width: 100%;
-        height: 95%;
+        height: 100%;
         border-radius: 15px;
         /*padding-top: ;*/
     }

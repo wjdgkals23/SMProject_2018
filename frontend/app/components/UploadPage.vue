@@ -10,7 +10,7 @@
                         <GridLayout row="0" rows="*" columns="*,*">
                             <GridLayout row="0" col="0" verticalAlignment="top" horizontalAlignment="left" width="10%">
                                 <StackLayout paddingTop="8" paddingLeft="10">
-                                    <Image src="~/assets/images/icon/leftarrow.png" stretch="aspectFit" @tap="$navigateBack" />
+                                    <Image src="~/assets/images/btn/leftarrow.png" stretch="aspectFit" @tap="$navigateBack" />
                                 </StackLayout>
                             </GridLayout>
                             <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="right" width="23%">

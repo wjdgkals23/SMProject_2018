@@ -20,6 +20,7 @@
     "lodash": "^4.17.11",
     "nativescript-background-http": "^3.3.0",
     "nativescript-cardview": "^3.1.1",
+    "nativescript-drop-down": "^4.0.1",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-http-formdata": "^1.1.0",
     "nativescript-imagepicker": "^6.0.4",

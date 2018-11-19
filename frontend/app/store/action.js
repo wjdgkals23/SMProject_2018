@@ -8,9 +8,13 @@ export default {
     [Constant.LOGIN] : (store, payload) => {
         // 로그인 정보 보내고 받고 처리
     },
-    [Constant.GETPOST] : async (store, payload) => {
+    [Constant.GETPOST] : (store, payload) => {
         console.log("### GETPOST");
         store.commit(Constant.GETPOST, payload);
+    },
+    [Constant.CLEANPOST] : (store) => {
+        console.log("### CLEANPOST");
+        store.commit(Constant.CLEANPOST);
     },
     [Constant.PEEDCH] : (store, payload) => {
         console.log("### PEEDCH");
