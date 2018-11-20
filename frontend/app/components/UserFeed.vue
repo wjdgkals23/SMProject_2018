@@ -12,7 +12,7 @@
                             <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
                                 <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" ></Label>
                             </GridLayout>
-                            <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="right">
+                            <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="center">
                                 <DropDown class="dropdown mytext"
                                           :items="items"
                                           :selectedIndex="selecteditem"

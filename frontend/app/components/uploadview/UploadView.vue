@@ -58,7 +58,7 @@
 
 <script>
     import { imgpickerfunc } from '../../lib/imgpicker';
-    import { sendimage } from "../../lib/sendimage";
+    import { sendimage } from "../../lib/senddata";
     import axios from 'axios';
     import { apiPath } from "../../lib/httpconfig";
     const platformModule = require("tns-core-modules/platform");

@@ -118,7 +118,7 @@
     import _ from 'lodash'
 
     import { imgpickerfunc } from '../lib/imgpicker';
-    import { upload } from "../lib/sendimage";
+    import { upload } from "../lib/senddata";
     import axios from 'axios';
     import { apiPath } from "../lib/httpconfig";
     const platformModule = require("tns-core-modules/platform");

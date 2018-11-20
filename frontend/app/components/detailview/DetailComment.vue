@@ -2,7 +2,7 @@
     <StackLayout>
         <!-- 이미지 선택 -->
         <GridLayout rows="*" columns="*" >
-            <Label text="제안할 이미지를 선택하세요." @tap="send"/>
+            <Label text="제안할 이미지를 선택하세요."/>
         </GridLayout>
         <!-- 수정 가능한 이미지 뷰 -->
         <ScrollView orientation="horizontal" >
@@ -75,11 +75,11 @@
 </template>
 
 <script>
-    import { sendimage } from "../../lib/sendimage";
     import { apiPath } from "../../lib/httpconfig";
     import { imgeditor } from "../../lib/imgpicker";
     const platformModule = require("tns-core-modules/platform");
     import Constant from "../../constant";
+    import {upload, uploadcomment} from "../../lib/senddata";
 
     import _ from 'lodash'
     import { mapState } from 'vuex'
@@ -100,14 +100,17 @@
         },
         methods: {
             editphoto(vue, src, index) {
-                imgeditor(vue, src, index)
-            },
-            send() {
-                if (platformModule.device.os === "Android") {
-                    sendimage(this.editimage, apiPath.android);
+                if(this.editimage.length == 1) {
+                    alert({
+                        title: "하나의 댓글에는 하나의 이미지만 제안가능합니다.",
+                        okButtonText: "OK"
+                    }).then(() => {
+                        // console.log("Alert dialog closed");
+                        this.imgdata[index].checked = !this.imgdata[index].checked;
+                    });
                 }
-                else {
-                    sendimage(this.editimage, apiPath.ios);
+                else{
+                    imgeditor(vue, src, index)
                 }
             },
             check(index){
@@ -135,10 +138,18 @@
                 }
                 else{
                     if(this.editimage.length != 0){
-                        this.$store.dispatch(Constant.WC, { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src } );
+                        let data = { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src };
+                        if(platformModule.device.os == "Android") {
+                            uploadcomment(apiPath.android, data);
+                        }
+                        else {
+                            uploadcomment(apiPath.ios, data);
+                        }
+                        this.$store.dispatch(Constant.WC, data);
                         this.cleancomment();
                     }
                     else{
+                        uploadcomment({ id: this.id, content: this.writecomment, have_img: false });
                         this.$store.dispatch(Constant.WC, { id: this.id, content: this.writecomment, have_img: false } );
                         this.cleancomment();
                     }

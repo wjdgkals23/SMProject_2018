@@ -1,4 +1,4 @@
-# Fronted
+# Frontend
     ## NativeScript-Vue Application
 
     > A native application built with NativeScript-Vue
@@ -17,17 +17,4 @@
 
     # Build, watch for changes and run the application
     tns run <platform> --bundle
-    ```
-
-
-# Backend
-    ## Node.js Express.js Application
-
-
-    ``` bash
-        # Install dependencies
-        npm install
-
-        # Start App
-        npm start
     ```
