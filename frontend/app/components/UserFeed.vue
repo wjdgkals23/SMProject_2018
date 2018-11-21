@@ -4,26 +4,20 @@
             <ScrollView orientation="vertical" row="0">
                 <StackLayout backgroundColor="#ffffff">
                     <name-card></name-card>
-                    <GridLayout rows="55" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="10">
-                        <GridLayout row="0" rows="*" columns="30,20,170,30" verticalAlignment="center" horizontalAlignment="center">
-                            <GridLayout row="0" col="0" verticalAlignment="center" horizontalAlignment="center">
-                                <Label class="dropdown mytext">/</Label>
-                            </GridLayout>
-                            <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
-                                <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" ></Label>
-                            </GridLayout>
-                            <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="center">
-                                <DropDown class="dropdown mytext"
-                                          :items="items"
-                                          :selectedIndex="selecteditem"
-                                          @selectedIndexChanged="change"
-                                          @closed="closed"
-                                ></DropDown >
-                            </GridLayout>
-                            <GridLayout row="0" col="3" verticalAlignment="center" horizontalAlignment="center">
-                                <Label class="dropdown mytext">/</Label>
-                            </GridLayout>
-                        </GridLayout>
+                    <GridLayout :rows="height" columns="*" paddingTop="3" verticalAlignment="center" horizontalAlignment="center">
+                        <StackLayout orientation="horizontal" row="0" col="0">
+                            <!--<DropDown :class="dropdownstyle"-->
+                                      <!--:items="items"-->
+                                      <!--:selectedIndex="selecteditem"-->
+                                      <!--@selectedIndexChanged="change"-->
+                                      <!--@closed="closed"-->
+                            <!--&gt;</DropDown >-->
+                            <ListPicker :class="dropdownstyle"
+                                        :items="items"
+                                        v-model="selecteditem"
+                            ></ListPicker>
+                            <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" />
+                        </StackLayout>
                     </GridLayout>
                     <image-view v-show="changefd(0)" firstcol="0" secondcol="1"></image-view>
                     <collabo-list v-show="changefd(1)"></collabo-list>
@@ -41,6 +35,7 @@
     import ImageView from './imageview/ImageView'
     import BuyList from './userview/BuyList'
     import CollaboList from './userview/CollaboList'
+    const platformModule = require("tns-core-modules/platform");
     // import Upload
     export default {
         name: "UserFeed",
@@ -57,9 +52,8 @@
             }
         },
         methods:{
-            change(arg) {
-                console.log(arg.oldIndex);
-                this.buffer = arg.newIndex;
+            change() {
+                console.log(this.selecteditem);
             },
             closed() {
                 console.log(this.selecteditem);
@@ -68,8 +62,26 @@
             },
             changefd(val) {
                 return this.selecteditem == val;
-            }
+            },
         },
+        computed: {
+            dropdownstyle() {
+                if(platformModule.device.os == "Android") {
+                    return "dropdown mylight"
+                }
+                else{
+                    return "dropdown2 mylight"
+                }
+            },
+            height() {
+                if(platformModule.device.os == "Android") {
+                    return "90"
+                }
+                else{
+                    return "75"
+                }
+            }
+        }
     }
 </script>
 
@@ -77,8 +89,17 @@
     .dropdown {
         background: white;
         color: #6a1495;
-        font-size: 25px;
+        font-size: 40px;
         text-align: center;
+        width: 100%;
+        /*padding-left: 50px;*/
+    }
+    .dropdown2 {
+        background: white;
+        color: #6a1495;
+        font-size: 22px;
+        text-align: center;
+        width: 100%;
     }
     .cardStyle {
         /*color: #fff;*/

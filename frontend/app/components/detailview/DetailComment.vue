@@ -138,7 +138,7 @@
                 }
                 else{
                     if(this.editimage.length != 0){
-                        let data = { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src };
+                        let data = { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src, name: this.editimage[0].name };
                         if(platformModule.device.os == "Android") {
                             uploadcomment(apiPath.android, data);
                         }
@@ -149,8 +149,14 @@
                         this.cleancomment();
                     }
                     else{
-                        uploadcomment({ id: this.id, content: this.writecomment, have_img: false });
-                        this.$store.dispatch(Constant.WC, { id: this.id, content: this.writecomment, have_img: false } );
+                        let data = { id: this.id, content: this.writecomment, have_img: false };
+                        if(platformModule.device.os == "Android") {
+                            uploadcomment(apiPath.android, data);
+                        }
+                        else {
+                            uploadcomment(apiPath.ios, data);
+                        }
+                        this.$store.dispatch(Constant.WC, data);
                         this.cleancomment();
                     }
                 //    { id: "nayekim", content: "왼쪽 가슴 아래에 포켓하나 더 있으면 좋을거같아요!!", have_img: true, src: "~/assets/images/source_1.jpg"}

@@ -94,7 +94,7 @@ function imgeditor(vue, src, index) {
             // PhotoEditorControl.Text,
         ],
     }).then((newImage) => {
-        console.log("NEW IMAGE: ", newImage.height, newImage.width)
+        // console.log("NEW IMAGE: ", newImage.height, newImage.width)
         // console.log(newImage.saveToFile());
         let folder = fs.knownFolders.documents();
         let name = "edit"+ Editcount +".png";

@@ -33,16 +33,7 @@
             }
         },
         created() {
-            if(platformModule.device.os === "Android") {
-                console.log("android");
-                this.$store.dispatch(Constant.CLEANPOST);
-                postget(apiPath.android, this);
-            }
-            else {
-                console.log("ios");
-                this.$store.dispatch(Constant.CLEANPOST);
-                postget(apiPath.ios, this);
-            }
+
         },
         methods:{
             peedch: function(val) {

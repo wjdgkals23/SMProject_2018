@@ -40,7 +40,7 @@ export default {
         state.DetailPageData.Image.push({src:"~/assets/images/source_1.jpg", checked: false });
         state.DetailPageData.Image.push({src:"~/assets/images/source_2.jpg", checked: false});
         state.DetailPageData.author = "Jeong Yeon Ho";
-        state.DetailPageData.likecount = 3004;
+        state.DetailPageData.like_count = 3004;
         state.DetailPageData.title = "오버사이즈 스트라이프 셔츠"
         state.DetailPageData.content = "오버사이즈 스트라이프 셔츠에요 이쁘죠 맞아요 존나 잘만듬요. 깔끔함이 포인트 입니다."
         state.DetailPageData.tag = [

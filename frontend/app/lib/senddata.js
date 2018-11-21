@@ -2,10 +2,8 @@ const bghttpModule = require("nativescript-background-http");
 const session = bghttpModule.session("image-upload");
 const axios = require("axios");
 
-let device_api = null;
-let url = null;
 let request = {
-    url: device_api + url,
+    url: "",
     method: "POST",
     headers: {
         "Content-Type": "application/octet-stream",
@@ -16,10 +14,8 @@ let request = {
 function upload(srcs, apipath, textdata) {
 
     let params = [];
-    device_api = apipath;
-    url = "/api/test/img";
 
-    request.url = device_api + url;
+    request.url = apipath + "/api/test/img";
 
     //{ name: "fileToUpload", filename: file, mimeType: 'image/jpeg' }
     params.push({ name: "textdata" , value: JSON.stringify(textdata) });
@@ -41,33 +37,30 @@ function upload(srcs, apipath, textdata) {
 }
 
 function uploadcomment(apipath, data) {
-    // textdata 에는 유저 아이디, comment의 contents 이미지 작성해야함.
     if(data.hasOwnProperty("src")){
+        // 이미지가 포함된 댓글
         let params = [];
-        console.log(apipath);
-        device_api = apipath;
-        url = "/api/test/temp";
-        request.url = device_api + url;
-
-        // { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src }
+        request.url = apipath + "/api/test/temp";
 
         let textdata = {
             id: data.id,
             contents: data.content,
         }
 
-        // ###### 포스트 아이디 포함, 이미지 이름 포함
-
         params.push({ name: "textdata" , value: JSON.stringify(textdata) });
-        params.push({ name: "temp", filename:data.src, mimeType: 'image/png' });
+        params.push({ name: data.name, filename:data.src, mimeType: 'image/png' });
+
+        console.log(JSON.stringify(params));
         let task = session.multipartUpload(params, request);
 
         // task.on("complete", (res) => {
         //     console.log(res);
         // });
+        // 백엔드 작업 완료되면 콜백안에서 this.$store.dispatch(Constant.WC, data); 로 마무리
     }
     else{
-    //    send text data
+    // 이미지 말고 댓글만
+        console.log(JSON.stringify(data));
     }
 }
 

@@ -19,7 +19,9 @@
                             <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
                                 <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="DetailPageData.like" @tap="clicklike" />
                                 <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!DetailPageData.like" @tap="clicklike" />
-                                <Label class="mytext likecnt" :text="likecnt" paddingTop="8" paddingLeft="5" />
+                                <StackLayout paddingTop="14" paddingLeft="5">
+                                    <Label class="mylight likecnt" :text="likecnt" />
+                                </StackLayout>
                             </StackLayout>
                         </GridLayout>
                         <!-- 네임카드 좋아요 -->
