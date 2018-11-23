@@ -1,21 +1,26 @@
 import Constant from '../constant'
 import {postget} from "../lib/getpost";
 import axios from 'axios';
+import { apiPath } from "../lib/httpconfig";
+
 
 export default {
     [Constant.GETPOST] : (state, payload) => {
-        let like_cnt = Object.keys(payload.data[0])[3];
-        console.log(like_cnt);
+        console.log(payload.data);
         for(let item in payload.data){
             if( item%2 === 0 ) {
-                payload.data[item].like = true;
+                console.log(payload.data[item].selectLike);
+                payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
+                console.log(payload.data[item].like);
                 // payload.data[item].src = "~/assets/images/test.jpeg";
-                payload.data[item].like_count = payload.data[item][like_cnt];
+                payload.data[item].like_count = payload.data[item].likeCount;
                 state.secondcol.push(payload.data[item]);
             }
             else {
-                payload.data[item].like = true;
-                payload.data[item].like_count = payload.data[item][like_cnt];
+                console.log(payload.data[item].selectLike);
+                payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
+                console.log(payload.data[item].like);
+                payload.data[item].like_count = payload.data[item].likeCount;
                 state.firstcol.push(payload.data[item]);
             }
         }
@@ -66,23 +71,81 @@ export default {
             tag: []
         };
     },
+    //Server
     [Constant.CL] : (state, payload) => {
+        //FirstCol
         if(payload.colnum == "1"){
-            state.firstcol[payload.index].like = !state.firstcol[payload.index].like;
-            if(state.firstcol[payload.index].like) {
-                state.firstcol[payload.index].like_count --;
+            let data = {
+                userId: state.id_num,
+                postId: state.firstcol[payload.index].postId,
             }
+            state.firstcol[payload.index].like = !state.firstcol[payload.index].like;
+            //DELETE
+            if(state.firstcol[payload.index].like) {
+                console.log(data.postId);
+                axios.post(payload.api + "/api/common/delete_like", data).then((res)=> {
+                    if(res.data.message == "success") {
+                        console.log("delete success");
+                        state.firstcol[payload.index].like_count--;
+                    }
+                    else {
+                        console.log("firstcol" + " " + payload.index + "delete_like fail");
+                    }
+                }).catch((err)=> {
+                    console.log(err);
+                })
+            }
+            //INSERT
             else{
-                state.firstcol[payload.index].like_count ++;
+                console.log(data.postId);
+                axios.post(payload.api + "/api/common/insert_like", data).then((res)=> {
+                    if(res.data.message == "success") {
+                        console.log("insert success");
+                        state.firstcol[payload.index].like_count++;
+                    }
+                    else {
+                        console.log("firstcol" + " " + payload.index + "delete_like fail");
+                    }
+                }).catch((err)=> {
+                    console.log(err);
+                })
             }
         }
         else{
+            let data = {
+                userId: state.id_num,
+                postId: state.secondcol[payload.index].postId,
+            };
             state.secondcol[payload.index].like = !state.secondcol[payload.index].like;
+            //DELETE
             if(state.secondcol[payload.index].like) {
-                state.secondcol[payload.index].like_count --;
+                console.log(data.postId);
+                axios.post(payload.api + "/api/common/delete_like", data).then((res)=> {
+                    if(res.data.message == "success") {
+                        console.log("delete success");
+                        state.secondcol[payload.index].like_count--;
+                    }
+                    else {
+                        console.log("secondcol" + " " + payload.index + "delete_like fail");
+                    }
+                }).catch((err)=> {
+                    console.log(err);
+                })
             }
+            //INSERT
             else{
-                state.secondcol[payload.index].like_count ++;
+                console.log(data.postId);
+                axios.post(payload.api + "/api/common/insert_like", data).then((res)=> {
+                    if(res.data.message == "success") {
+                        console.log("insert success");
+                        state.secondcol[payload.index].like_count++;
+                    }
+                    else{
+                        console.log("secondcol" + " " + payload.index + "insert_like fail");
+                    }
+                }).catch((err)=> {
+                    console.log(err);
+                })
             }
         }
     },

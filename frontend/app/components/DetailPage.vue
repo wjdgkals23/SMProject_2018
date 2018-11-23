@@ -60,12 +60,16 @@
             likecnt() {
                 return "좋아요 " + this.DetailPageData.like_count + "개";
             }
-        },mapState([ 'DetailPageData', 'abmanager' ])),
+        },mapState([ 'DetailPageData', 'abmanager', 'id_num' ])),
         methods:{
             resetdetailpagedata() {
                 this.$store.dispatch(Constant.RSDP);
             },
             clicklike(){
+                // let data = {
+                //     id: this.id_num,
+                //     post_id: this.
+                // }
                 this.DetailPageData.like = !this.DetailPageData.like;
                 if(!this.DetailPageData.like) {
                     this.DetailPageData.like_count += 1;

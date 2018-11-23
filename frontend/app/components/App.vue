@@ -33,17 +33,18 @@
                 pid_name: "Total",
             }
         },
+        //Server
         created() {
             this.actionbarmanager = false;
             if(platformModule.device.os === "Android") {
                 console.log("android");
                 this.$store.dispatch(Constant.CLEANPOST);
-                postget(apiPath.android, this);
+                postget(apiPath.android, this, this.id_num);
             }
             else {
                 console.log("ios");
                 this.$store.dispatch(Constant.CLEANPOST);
-                postget(apiPath.ios, this);
+                postget(apiPath.ios, this, this.id_num);
             }
         },
         computed : _.extend({
@@ -57,7 +58,7 @@
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;
             }
-        },mapState([ 'peedmanager', 'abmanager' ]))
+        },mapState([ 'peedmanager', 'abmanager', 'id_num' ]))
     }
 </script>
 

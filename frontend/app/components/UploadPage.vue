@@ -173,6 +173,7 @@
                 let that = this;
                 return (imgpickerfunc(that));
             },
+            //Server
             send() {
                 console.log(this.title, this.content);
                 let textdata = {
