@@ -27,20 +27,31 @@
         <GridLayout class="content" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="8">
             <Label class="authortext mytext" :text="first.content" textWrap="true"/>
         </GridLayout>
+        <GridLayout rows="20" columns="60,30,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">
+            <GridLayout row="0" col="0" verticalAlignment="center" horizontalAlignment="center">
+                <Image class="img" src="~/assets/images/btn/leftarrow.png"></Image>
+            </GridLayout>
+            <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
+                <Label class="mylight" style="font-size: 25px; color: purple" :text="coldata.version"></Label>
+            </GridLayout>
+            <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="center">
+                <Image class="img" src="~/assets/images/btn/rightarrow.png"></Image>
+            </GridLayout>
+        </GridLayout>
+        <GridLayout rows="150" verticalAlignment="center" horizontalAlignment="center">
+            <Image class="img" src="~/assets/images/versionpannel.png"></Image>
+        </GridLayout>
         <!-- 잔여 이미지 -->
         <GridLayout rows="*,*" columns="*" v-for="item in data">
             <StackLayout class="cardStyle">
                 <Image class="img" :src="item.src" stretch="aspectFill" />
             </StackLayout>
         </GridLayout>
-        <GridLayout class="content" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="8">
-            <Label class="authortext mytext" :text="first.content" textWrap="true"/>
-        </GridLayout>
         <GridLayout rows="*" columns="*">
             <StackLayout row="0">
                 <!-- 태그 리스트 뷰 -->
                 <FlexboxLayout justifyContent="flex-start" flexWrap="wrap"  paddingTop="5" paddingLeft="15" paddingRight="15" >
-                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in tag" >
+                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in coldata.tag" >
                         <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
                             <Label :text="item.name" />
                         </StackLayout>
@@ -70,13 +81,11 @@
                     this.data.push(this.coldata.Image[item]);
                 }
             }
-            this.tag = this.coldata.tag;
         },
         data: function() {
             return {
                 data: [],
                 first: {},
-                tag: null
             }
         },
         methods: {

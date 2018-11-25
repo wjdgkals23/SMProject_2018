@@ -38,12 +38,12 @@ export default {
         title: "",
         content: "",
         author: "",
-        likecount: 0,
         comment: [],
         tag: [],
         like: true,
         like_count: 4334,
     //    page select init
+        version: null,
     },
     peedmanager: 1,
     abmanager: true

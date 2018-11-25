@@ -97,9 +97,9 @@
                             <!-- 태그 리스트 뷰 -->
                             <FlexboxLayout flexWrap="wrap" paddingTop="20" paddingLeft="15" paddingRight="15" v-if="tagshow">
                                 <CardView v-for="item in filteredList">
-                                    <StackLayout :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
+                                    <FlexboxLayout :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
                                         <Label :text="item.name" @tap="addtag(item)"/>
-                                    </StackLayout>
+                                    </FlexboxLayout>
                                 </CardView>
                             </FlexboxLayout>
                         </StackLayout>

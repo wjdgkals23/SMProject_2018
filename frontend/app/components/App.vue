@@ -31,6 +31,7 @@
                 busy: true,
                 data: null, // 이곳에다 데이터 바인딩하면 이미지 데이터 변동
                 pid_name: "Total",
+                apipath: null,
             }
         },
         //Server
@@ -38,14 +39,15 @@
             this.actionbarmanager = false;
             if(platformModule.device.os === "Android") {
                 console.log("android");
-                this.$store.dispatch(Constant.CLEANPOST);
-                postget(apiPath.android, this, this.id_num);
+                this.apipath = apiPath.android;
             }
             else {
                 console.log("ios");
-                this.$store.dispatch(Constant.CLEANPOST);
-                postget(apiPath.ios, this, this.id_num);
+                this.apipath = apiPath.ios;
             }
+            // this.apipath = apiPath.server;
+            this.$store.dispatch(Constant.CLEANPOST);
+            postget(this.apipath, this, this.id_num);
         },
         computed : _.extend({
             currentView(){

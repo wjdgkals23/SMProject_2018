@@ -6,6 +6,7 @@ async function postget(apiPath, vue, id_num) {
     console.log(id_num);
     axios.get(apiPath + "/api/total_feed/get_feed", {params: { user_id: id_num }})
         .then(await function (response) {
+            console.log(response);
             vue.$store.dispatch(Constant.GETPOST, response);
         }).catch(function (error) {
             console.log(error);

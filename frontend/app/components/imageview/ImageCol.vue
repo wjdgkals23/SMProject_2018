@@ -59,6 +59,7 @@
                 else{
                     api = apiPath.ios;
                 }
+                // api = apiPath.server;
                 this.$store.dispatch(Constant.CL, { index: index, colnum: this.colnum, api: api } );
             }
         },

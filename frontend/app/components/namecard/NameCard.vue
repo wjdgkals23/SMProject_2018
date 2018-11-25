@@ -1,22 +1,17 @@
 <template>
     <CardView class="cardStyle" elevation="30" row="0" col="0" radius="15" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="16">
         <GridLayout rows="110" columns="*">
-            <GridLayout rows="45,*" columns="110,*,100">
-                <GridLayout paddingLeft="10" row="0" rowSpan="2" col="0" horizontalAlignment="center" verticalAlignment="center">
-                    <Label class="mytext name" :text="namecard.name"></Label>
-                </GridLayout>
-                <GridLayout row="0" col="1" horizontalAlignment="center" verticalAlignment="bottom">
+            <AbsoluteLayout horizontalAlignment="center" verticalAlignment="center" style="z-index: -1;">
+                <!--<Image src="~/assets/images/btn/leftarrow.png"></Image>-->
+            </AbsoluteLayout>
+            <GridLayout row="0" col="0" columns="2*,*" style="z-index: 1;">
+                <StackLayout col="0" paddingLeft="30" horizontalAlignment="left" verticalAlignment="center">
+                    <Label class="mylight name" :text="namecard.name"></Label>
                     <Label class="mytext info" :text="namecard.email"></Label>
-                </GridLayout>
-                <GridLayout row="1" col="1" rows="*,*" horizontalAlignment="center" verticalAlignment="top" >
-                    <GridLayout row="0" horizontalAlignment="right" verticalAlignment="bottom">
-                        <Label class="mytext info" :text="namecard.university"></Label>
-                    </GridLayout>
-                    <GridLayout row="1" horizontalAlignment="right" verticalAlignment="bottom">
-                        <Label class="mytext info" :text="namecard.major"></Label>
-                    </GridLayout>
-                </GridLayout>
-                <GridLayout paddingRight="5" row="0" rowSpan="2" col="2" horizontalAlignment="center" verticalAlignment="center">
+                    <Label class="mytext info" :text="namecard.university"></Label>
+                    <Label class="mytext info" :text="namecard.major"></Label>
+                </StackLayout>
+                <GridLayout col="1" paddingTop="5" horizontalAlignment="left" verticalAlignment="center">
                     <Image class="img" src="~/assets/images/author.png"></Image>
                 </GridLayout>
             </GridLayout>
@@ -31,9 +26,7 @@
     export default {
         name: "NameCard",
         computed: _.extend({
-                temper() {
-                    return this.namecard.university + " " + this.namecard.major;
-                }
+
             },mapState( [ 'namecard' ] ))
     }
 </script>
@@ -48,7 +41,7 @@
         margin-top: 25px;
     }
     .name {
-        font-size: 35%;
+        font-size: 20%;
         color: #6a1495;
     }
     .info {
