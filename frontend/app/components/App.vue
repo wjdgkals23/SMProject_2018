@@ -11,6 +11,7 @@
 <script>
     import TotalFeed from './TotalFeed'
     import UserFeed from './UserFeed'
+    import InterestFeed from './InterestFeed'
     import UploadPage from './UploadPage'
     import LoginPage from './LoginPage'
     import Constant from '../constant'
@@ -24,7 +25,7 @@
 
     export default {
         name: "App",
-        components: { TotalFeed, UserFeed, UploadPage, LoginPage },
+        components: { TotalFeed, UserFeed, UploadPage, LoginPage, InterestFeed },
         data() {
             return {
                 msg: 'Hello World!',
@@ -54,9 +55,9 @@
                 if(this.peedmanager == 1)
                     return TotalFeed;
                 else if(this.peedmanager == 2)
-                    return UserFeed;
+                    return InterestFeed;
                 else if(this.peedmanager == 3)
-                    return LoginPage;
+                    return UserFeed;
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;
             }

@@ -7,4 +7,5 @@ export default {
     RSDP: 'resetdetailpagedata',
     CL: 'clicklike',
     WC: 'writecomment',
+    STD: 'settagdata',
 }

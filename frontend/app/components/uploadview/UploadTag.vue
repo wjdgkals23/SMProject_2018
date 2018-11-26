@@ -45,7 +45,7 @@
 
 <script>
     import { mapState, mapMutations } from 'vuex'
-    import _ from 'lodash'
+    import _ from 'lodash/lodash.min'
     export default {
         data: function() {
             return {

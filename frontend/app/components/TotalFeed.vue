@@ -36,9 +36,7 @@
 
         },
         methods:{
-            peedch: function(val) {
-                this.$store.dispatch(Constant.PEEDCH, val);
-            }
+
         }
     }
 </script>

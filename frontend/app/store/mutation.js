@@ -152,5 +152,8 @@ export default {
     },
     [Constant.WC] : (state,payload) => {
         state.DetailPageData.comment.push(payload);
+    },
+    [Constant.STD] : (state,payload) => {
+        console.log(payload);
     }
 }

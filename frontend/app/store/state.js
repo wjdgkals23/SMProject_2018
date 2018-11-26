@@ -29,7 +29,7 @@ export default {
             {name: "걸리쉬", type: "style"},
             {name: "템포러리", type: "style"},
             {name: "포멀", type: "style"},
-            {name: "temp", type: "style"}
+            {name: "temp", type: "style"},
     //        login init ? 가지고 있기??
     ],
     DetailPageData: {

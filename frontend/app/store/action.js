@@ -36,4 +36,8 @@ export default {
         console.log("### WRITE COMMENT", payload);
         store.commit(Constant.WC, payload);
     },
+    [Constant.STD] : (store, payload) => {
+        console.log("### SET TAG DATA", payload);
+        store.commit(Constant.STD, payload);
+    }
 }
