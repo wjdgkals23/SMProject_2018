@@ -70,9 +70,9 @@
                                 <Label text="선택된 태그" style="font-size: 20px; color: purple;"/>
                             </StackLayout>
                             <FlexboxLayout flexWrap="wrap" paddingTop="10" paddingLeft="15" paddingRight="15">
-                                <CardView class="selectedtag" radius="10" v-for="(item,index) in selectedtag">
+                                <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in selectedtag">
                                     <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.name" @tap="deletetag(index)"/>
+                                        <Label :text="item.name" @tap="deletetag(index, item.name)"/>
                                     </StackLayout>
                                 </CardView>
                             </FlexboxLayout>
@@ -97,8 +97,11 @@
                             <!-- 태그 리스트 뷰 -->
                             <FlexboxLayout flexWrap="wrap" paddingTop="20" paddingLeft="15" paddingRight="15" v-if="tagshow">
                                 <CardView v-for="item in filteredList">
-                                    <FlexboxLayout :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
+                                    <FlexboxLayout v-if="!item.selected" :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
                                         <Label :text="item.name" @tap="addtag(item)"/>
+                                    </FlexboxLayout>
+                                    <FlexboxLayout v-if="item.selected" class="selectedtag" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
+                                        <Label :text="item.name" />
                                     </FlexboxLayout>
                                 </CardView>
                             </FlexboxLayout>
@@ -142,7 +145,7 @@
         name: "UploadTag",
         computed : _.extend({
             filteredList() {
-                return this.tags.filter(tag => {
+                return this.tags.filter((tag) => {
                     return tag.name.toLowerCase().includes(this.searchkeyword.toLowerCase())
                 })
             },
@@ -158,10 +161,18 @@
         },
         methods: {
             addtag(tag) {
-                return this.selectedtag.push({ name: tag.name , type: tag.type });
+                this.selectedtag.push({ name: tag.name , type: tag.type });
+                tag.selected = !tag.selected;
+                this.searchkeyword = "";
             },
-            deletetag(num) {
-                return this.selectedtag.splice(num,1);
+            deletetag(num, name) {
+                let temp = this.searchkeyword;
+                this.selectedtag.splice(num,1);
+                let index = this.tags.findIndex(function(item) {
+                    return item.name === name;
+                });
+                this.tags[index].selected = !this.tags[index].selected;
+                this.searchkeyword = "";
             },
             stylebind(item) {
                 if(item.type == "cloth")
@@ -232,7 +243,7 @@
     .selectedtag {
         border-color: purple;
         color: white;
-        background-color: darkmagenta;
+        background-color: gray;
         margin: 10px;
         font-size: 12px;
     }
