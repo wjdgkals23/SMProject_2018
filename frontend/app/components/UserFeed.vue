@@ -1,31 +1,28 @@
 <template>
     <GridLayout columns="*" rows="*">
-        <GridLayout rows="*,55">
-            <ScrollView orientation="vertical" row="0">
-                <StackLayout backgroundColor="#ffffff">
-                    <name-card></name-card>
-                    <GridLayout :rows="height" columns="*" paddingTop="3" verticalAlignment="center" horizontalAlignment="center">
-                        <StackLayout orientation="horizontal" row="0" col="0">
-                            <!--<DropDown :class="dropdownstyle"-->
-                                      <!--:items="items"-->
-                                      <!--:selectedIndex="selecteditem"-->
-                                      <!--@selectedIndexChanged="change"-->
-                                      <!--@closed="closed"-->
-                            <!--&gt;</DropDown >-->
-                            <ListPicker :class="dropdownstyle"
-                                        :items="items"
-                                        v-model="selecteditem"
-                            ></ListPicker>
-                            <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" />
-                        </StackLayout>
-                    </GridLayout>
-                    <image-view v-show="changefd(0)" firstcol="0" secondcol="1"></image-view>
-                    <collabo-list v-show="changefd(1)"></collabo-list>
-                    <buy-list v-show="changefd(2)"></buy-list>
-                </StackLayout>
-            </ScrollView>
-            <bottom-navigation row="1"></bottom-navigation>
-        </GridLayout>
+        <ScrollView orientation="vertical" row="0">
+            <StackLayout backgroundColor="#ffffff">
+                <name-card></name-card>
+                <GridLayout :rows="height" columns="*" paddingTop="3" verticalAlignment="center" horizontalAlignment="center">
+                    <StackLayout orientation="horizontal" row="0" col="0">
+                        <!--<DropDown :class="dropdownstyle"-->
+                                  <!--:items="items"-->
+                                  <!--:selectedIndex="selecteditem"-->
+                                  <!--@selectedIndexChanged="change"-->
+                                  <!--@closed="closed"-->
+                        <!--&gt;</DropDown >-->
+                        <ListPicker :class="dropdownstyle"
+                                    :items="items"
+                                    v-model="selecteditem"
+                        ></ListPicker>
+                        <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" />
+                    </StackLayout>
+                </GridLayout>
+                <image-view v-show="changefd(0)" firstcol="0" secondcol="1"></image-view>
+                <collabo-list v-show="changefd(1)"></collabo-list>
+                <buy-list v-show="changefd(2)"></buy-list>
+            </StackLayout>
+        </ScrollView>
     </GridLayout>
 </template>
 

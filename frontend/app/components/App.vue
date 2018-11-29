@@ -4,7 +4,12 @@
             <!--<NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack()" />-->
         <!--</ActionBar>-->
         <!--<ActivityIndicator :busy=busy @busyChange="onBusyChanged" />-->
-        <component :is="currentView"></component>
+        <GridLayout columns="*" rows="*" paddingTop="">
+            <GridLayout rows="*,55">
+                <component row="0" :is="currentView"></component>
+                <bottom-navigation row="1"></bottom-navigation>
+            </GridLayout>
+        </GridLayout>
     </Page>
 </template>
 
@@ -14,8 +19,11 @@
     import InterestFeed from './InterestFeed'
     import UploadPage from './UploadPage'
     import LoginPage from './LoginPage'
+    import SellingFeed from './SellingFeed'
+    import BottomNavigation from './navi/BottomNavigation'
+
     import Constant from '../constant'
-    import _ from 'lodash'
+    import _ from 'lodash/lodash.min';
     import { mapState, mapMutations } from 'vuex'
 
     import { postget } from "../lib/getpost";
@@ -25,7 +33,7 @@
 
     export default {
         name: "App",
-        components: { TotalFeed, UserFeed, UploadPage, LoginPage, InterestFeed },
+        components: { TotalFeed, UserFeed, UploadPage, LoginPage, InterestFeed, SellingFeed, BottomNavigation },
         data() {
             return {
                 msg: 'Hello World!',
@@ -57,6 +65,8 @@
                 else if(this.peedmanager == 2)
                     return InterestFeed;
                 else if(this.peedmanager == 3)
+                    return SellingFeed;
+                else
                     return UserFeed;
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;

@@ -39,5 +39,9 @@ export default {
     [Constant.STD] : (store, payload) => {
         console.log("### SET TAG DATA", payload);
         store.commit(Constant.STD, payload);
+    },
+    [Constant.GSP] : (store, payload) => {
+        console.log("### GET SELLING PRODUCT", payload);
+        store.commit(Constant.GSP, payload);
     }
 }

@@ -9,7 +9,7 @@
 
 <script>
     import ImageCol from "./ImageCol"
-    import _ from 'lodash'
+    import _ from 'lodash/lodash.min';
     import { mapState } from 'vuex'
     import Constant from "../../constant"
 

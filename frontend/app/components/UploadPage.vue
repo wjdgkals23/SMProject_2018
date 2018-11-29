@@ -39,9 +39,9 @@
                                     </StackLayout>
                                 </GridLayout>
                                 <!-- 선택된 이미지 뷰 -->
-                                <GridLayout row="0" col="1" rows="40,*" columns="*" paddingLeft="5" >
+                                <GridLayout row="0" col="1" rows="40,*" columns="*" paddingLeft="10" paddingTop="5">
                                     <GridLayout row="0" col="0" paddingLeft="5">
-                                        <Label text="선택한 이미지" />
+                                        <Label class="mytext" style="color: purple;" text="선택한 이미지" />
                                     </GridLayout>
                                     <GridLayout row="1" col="0">
                                         <ScrollView orientation="horizontal" >
@@ -70,7 +70,7 @@
                                 <Label text="선택된 태그" style="font-size: 20px; color: purple;"/>
                             </StackLayout>
                             <FlexboxLayout flexWrap="wrap" paddingTop="10" paddingLeft="15" paddingRight="15">
-                                <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in selectedtag">
+                                <CardView :class="stylebind(item)" elevation="0" radius="10" v-for="(item,index) in selectedtag">
                                     <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
                                         <Label :text="item.name" @tap="deletetag(index, item.name)"/>
                                     </StackLayout>
@@ -85,7 +85,7 @@
                                 <Label text="태그" style="font-size: 20px; color: purple;"/>
                             </StackLayout>
                             <StackLayout col="1" horizontalAlignment="left">
-                                <CardView elevation="10">
+                                <CardView elevation="0">
                                     <StackLayout>
                                         <SearchBar v-model="searchkeyword" verticalAlignment="center" :text="uploadcontent" editable="true" class="tagsearch"/>
                                     </StackLayout>
@@ -95,14 +95,11 @@
 
                         <StackLayout row="2">
                             <!-- 태그 리스트 뷰 -->
-                            <FlexboxLayout flexWrap="wrap" paddingTop="20" paddingLeft="15" paddingRight="15" v-if="tagshow">
-                                <CardView v-for="item in filteredList">
-                                    <FlexboxLayout v-if="!item.selected" :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.name" @tap="addtag(item)"/>
-                                    </FlexboxLayout>
-                                    <FlexboxLayout v-if="item.selected" class="selectedtag" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.name" />
-                                    </FlexboxLayout>
+                            <FlexboxLayout justifyContent="center" flexWrap="wrap" paddingTop="20" >
+                                <CardView elevation="0" v-for="(item,index) in filteredList" paddingTop="20" paddingLeft="15" paddingRight="15">
+                                    <StackLayout :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
+                                        <Label :text="item.name" @tap="addtag(item, index)"/>
+                                    </StackLayout>
                                 </CardView>
                             </FlexboxLayout>
                         </StackLayout>
@@ -118,12 +115,14 @@
     import UploadView from './uploadview/UploadView'
     import UploadTag from './uploadview/UploadTag'
     import { mapState, mapMutations } from 'vuex'
-    import _ from 'lodash'
+    import _ from 'lodash/lodash.min';
 
     import { imgpickerfunc } from '../lib/imgpicker';
     import { upload } from "../lib/senddata";
     import axios from 'axios';
     import { apiPath } from "../lib/httpconfig";
+    import { tag_sort } from "../lib/sortfunc";
+
     const platformModule = require("tns-core-modules/platform");
 
     export default {
@@ -156,23 +155,26 @@
                     return true;
             }
         },mapState([ 'tags' , 'abmanager' ])),
+        mounted() {
+            this.tags.sort(tag_sort);
+        },
         created(){
             this.tagdata = this.tags;
         },
         methods: {
-            addtag(tag) {
-                this.selectedtag.push({ name: tag.name , type: tag.type });
-                tag.selected = !tag.selected;
-                this.searchkeyword = "";
+            async addtag(item) {
+                let index = await this.tags.findIndex((tag)=> {
+                    return tag.name == item.name;
+                });
+                console.log(index);
+                this.tags.splice(index,1);
+                this.selectedtag.push(item);
             },
             deletetag(num, name) {
-                let temp = this.searchkeyword;
+                let item = this.selectedtag[num];
+                this.tags.push(item);
+                this.tags.sort(tag_sort);
                 this.selectedtag.splice(num,1);
-                let index = this.tags.findIndex(function(item) {
-                    return item.name === name;
-                });
-                this.tags[index].selected = !this.tags[index].selected;
-                this.searchkeyword = "";
             },
             stylebind(item) {
                 if(item.type == "cloth")

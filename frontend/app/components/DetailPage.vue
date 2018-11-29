@@ -41,7 +41,7 @@
     import DetailComment from './detailview/DetailComment'
     import NameCard from './namecard/NameCard'
     import { mapState, mapMutations } from 'vuex';
-    import _ from 'lodash';
+    import _ from 'lodash/lodash.min';
     import Constant from "../constant";
     export default {
         name: "DetailPage",

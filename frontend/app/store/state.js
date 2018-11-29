@@ -11,6 +11,7 @@ export default {
     },
     firstcol: [],
     secondcol: [],
+    sellingproduct: [],
     tags: [
             {name: "청바지", type: "cloth", selected: false},
             {name: "티셔츠", type: "cloth", selected: false},

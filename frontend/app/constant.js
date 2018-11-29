@@ -8,4 +8,5 @@ export default {
     CL: 'clicklike',
     WC: 'writecomment',
     STD: 'settagdata',
+    GSP: 'getsellingproduct',
 }

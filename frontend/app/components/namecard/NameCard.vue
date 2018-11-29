@@ -21,7 +21,7 @@
 
 <script>
     import Constant from "../../constant";
-    import _ from 'lodash'
+    import _ from 'lodash/lodash.min';
     import { mapState } from 'vuex'
     export default {
         name: "NameCard",

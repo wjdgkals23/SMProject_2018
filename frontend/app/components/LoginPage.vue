@@ -7,7 +7,7 @@
     </FlexboxLayout>
 </template>
 <script>
-    import _ from 'lodash'
+    import _ from 'lodash/lodash.min';
     import { mapState, mapMutations } from 'vuex'
     import { TnsOAuthClient, configureTnsOAuth, ITnsOAuthTokenResult } from "nativescript-oauth2";
     import {

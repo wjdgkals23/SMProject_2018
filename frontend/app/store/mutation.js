@@ -36,6 +36,8 @@ export default {
             state.peedmanager = 2;
         else if(payload==3)
             state.peedmanager = 3;
+        else
+            state.peedmanager = 4;
     },
     [Constant.SDP] : (state, payload) => {
         console.log("#########payload ", payload);
@@ -155,5 +157,11 @@ export default {
     },
     [Constant.STD] : (state,payload) => {
         console.log(payload);
+    },
+    [Constant.GSP] : (state,payload) => {
+        console.log(payload);
+        state.sellingproduct = [];
+        state.sellingproduct.push({ title: "하늘색 스트라이프 셔츠", like_count: 3400, price: 48000, src:"~/assets/images/test.jpeg" });
+        state.sellingproduct.push({ title: "트렌치코트 황토색", like_count: 3400, price: 48000, src:"~/assets/images/test2.jpeg" });
     }
 }

@@ -1,12 +1,9 @@
 <template>
     <!-- 전체 피드 -->
-    <GridLayout columns="*" rows="*">
-        <GridLayout rows="*,55">
-            <image-view row="0" firstcol="0" secondcol="1"></image-view>
-            <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
-                <Image src="~/assets/images/btn/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
-            </GridLayout>
-            <bottom-navigation row="1"></bottom-navigation>
+    <GridLayout rows="*">
+        <image-view row="0" firstcol="0" secondcol="1"></image-view>
+        <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
+            <Image src="~/assets/images/btn/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
         </GridLayout>
     </GridLayout>
 </template>
