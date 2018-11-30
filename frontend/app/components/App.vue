@@ -26,9 +26,10 @@
     import _ from 'lodash/lodash.min';
     import { mapState, mapMutations } from 'vuex'
 
-    import { postget } from "../lib/getpost";
+    import { postget, tagget } from "../lib/getpost";
     import {apiPath} from "../lib/httpconfig";
     const platformModule = require("tns-core-modules/platform");
+    const dialogs = require('tns-core-modules/ui/dialogs');
     // const page = require('tns-core-modules/ui/page');
 
     export default {
@@ -48,15 +49,16 @@
             this.actionbarmanager = false;
             if(platformModule.device.os === "Android") {
                 console.log("android");
-                this.apipath = apiPath.android;
+                this.$store.dispatch(Constant.SAP, apiPath.android);
             }
             else {
                 console.log("ios");
-                this.apipath = apiPath.ios;
+                this.$store.dispatch(Constant.SAP, apiPath.ios);
             }
             // this.apipath = apiPath.server;
             this.$store.dispatch(Constant.CLEANPOST);
-            postget(this.apipath, this, this.id_num);
+            postget(this.api, this, this.id_num);
+            tagget(this.api, this);
         },
         computed : _.extend({
             currentView(){
@@ -71,7 +73,10 @@
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;
             }
-        },mapState([ 'peedmanager', 'abmanager', 'id_num' ]))
+        },mapState([ 'peedmanager', 'abmanager', 'id_num', 'api' ])),
+        methods: {
+
+        }
     }
 </script>
 

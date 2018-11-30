@@ -11,7 +11,7 @@ let request = {
     }
 };
 
-function upload(srcs, apipath, textdata) {
+function upload(srcs, apipath, textdata, tagdata) {
 
     let params = [];
 
@@ -19,6 +19,8 @@ function upload(srcs, apipath, textdata) {
 
     //{ name: "fileToUpload", filename: file, mimeType: 'image/jpeg' }
     params.push({ name: "textdata" , value: JSON.stringify(textdata) });
+    params.push({ name: "textdata" , value: JSON.stringify(textdata) });
+    params.push({ name: "tagdata" , value: JSON.stringify(tagdata) });
     for(let item in srcs){
         if(item == 0) {
             console.log(item);
@@ -29,10 +31,11 @@ function upload(srcs, apipath, textdata) {
         }
     }
 
-    let task = session.multipartUpload(params, request);
-    task.on("complete", (res) => {
-        console.log(res);
-    });
+    console.log(params);
+    // let task = session.multipartUpload(params, request);
+    // task.on("complete", (res) => {
+    //     console.log(res);
+    // });
 
 }
 

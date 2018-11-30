@@ -16,7 +16,8 @@
     import ImageView from './imageview/ImageView'
     import UploadPage from './UploadPage'
     import {apiPath} from "../lib/httpconfig";
-    const platformModule = require("tns-core-modules/platform");
+    import { mapState } from 'vuex'
+    import _ from 'lodash/lodash.min';
 
     export default {
         name: "TotalFeed",
@@ -29,12 +30,34 @@
                 post: null,
             }
         },
-        created() {
-
+        mounted() {
+            let that = this;
+            console.log("########TEST");
+            console.log(this.evhp);
+            if(this.evhp == null || this.evname == null) {
+                setTimeout(function() {
+                    prompt('핸드폰번호를 입력해주세요.', 'EX: 01011112222')
+                        .then(result => {
+                            prompt('이름을 입력해주세요.', 'EX: 홍길동')
+                                .then(result2 => {
+                                    that.$store.dispatch(Constant.SEI, { hp: result.text, name: result2.text });
+                                }).catch(err2 => {
+                                console.log(err2);
+                            })
+                        }).catch(err => {
+                        console.log(err);
+                    })
+                }, 100);
+            }
         },
         methods:{
+            getinfo() {
 
-        }
+            }
+        },
+        computed : _.extend({
+
+        },mapState([ 'evhp', 'evname' ])),
     }
 </script>
 

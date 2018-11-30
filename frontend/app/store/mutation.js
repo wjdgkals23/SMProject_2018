@@ -156,6 +156,13 @@ export default {
         state.DetailPageData.comment.push(payload);
     },
     [Constant.STD] : (state,payload) => {
+        for(let item in payload.data){
+            payload.data[item].selected = false;
+        }
+
+        state.tags = payload.data;
+    },
+    [Constant.SETD] : (state,payload) => {
         console.log(payload);
     },
     [Constant.GSP] : (state,payload) => {
@@ -163,5 +170,12 @@ export default {
         state.sellingproduct = [];
         state.sellingproduct.push({ title: "하늘색 스트라이프 셔츠", like_count: 3400, price: 48000, src:"~/assets/images/test.jpeg" });
         state.sellingproduct.push({ title: "트렌치코트 황토색", like_count: 3400, price: 48000, src:"~/assets/images/test2.jpeg" });
+    },
+    [Constant.SAP]  : (state,payload) => {
+        state.api = payload;
+    },
+    [Constant.SEI]  : (state,payload) => {
+        state.evhp = payload.evhp;
+        state.evname = payload.evname;
     }
 }

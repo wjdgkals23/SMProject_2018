@@ -12,7 +12,7 @@
                 <FlexboxLayout flexWrap="wrap" paddingTop="10" paddingLeft="15" paddingRight="15">
                     <CardView elevation="0" :class="devicetag" radius="10" v-for="(item,index) in selectedtag">
                         <StackLayout :class="stylebind(item)" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                            <Label :text="item.name" @tap="deletetag(index)"/>
+                            <Label :text="item.contents" @tap="deletetag(index)"/>
                         </StackLayout>
                     </CardView>
                 </FlexboxLayout>
@@ -26,9 +26,9 @@
                 <GridLayout row="0">
                     <ScrollView>
                         <FlexboxLayout justifyContent="center" flexWrap="wrap" paddingTop="20" paddingLeft="5" paddingRight="5" >
-                            <CardView elevation="0" :class="devicetag" v-for="(item,index) in filteredList">
+                            <CardView v-if="tagshow" elevation="0" :class="devicetag" v-for="(item,index) in filteredList">
                                 <StackLayout :class="stylebind(item)" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                    <Label :text="item.name" @tap="addtag(item, index)"/>
+                                    <Label :text="item.contents" @tap="addtag(item, index)"/>
                                 </StackLayout>
                             </CardView>
                         </FlexboxLayout>
@@ -67,7 +67,7 @@
         computed : _.extend({
             filteredList() {
                 return this.tags.filter(tag => {
-                    return tag.name.toLowerCase().includes(this.searchkeyword.toLowerCase())
+                    return tag.contents.toLowerCase().includes(this.searchkeyword.toLowerCase())
                 })
             },
             tagshow() {
@@ -94,7 +94,7 @@
         methods: {
             async addtag(item) {
                 let index = await this.tags.findIndex((tag)=> {
-                    return tag.name == item.name;
+                    return tag.contents == item.contents;
                 });
                 console.log(index);
                 this.tags.splice(index,1);
@@ -107,7 +107,7 @@
                 this.selectedtag.splice(num,1);
             },
             stylebind(item) {
-                if(item.type == "cloth")
+                if(item.type == "0")
                     return "clothtag"
                 else
                     return "styletag"
@@ -115,11 +115,11 @@
             searchdatabytag() {
                 let data = "";
                 for(let item in this.selectedtag) {
-                    data += this.selectedtag[item].name;
+                    data += this.selectedtag[item].id;
                     if(item != this.selectedtag.length-1)
                         data += ",";
                 }
-                this.$store.dispatch(Constant.STD, data);
+                this.$store.dispatch(Constant.SETD, data);
             }
         },
     }

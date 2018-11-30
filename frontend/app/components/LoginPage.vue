@@ -9,16 +9,6 @@
 <script>
     import _ from 'lodash/lodash.min';
     import { mapState, mapMutations } from 'vuex'
-    import { TnsOAuthClient, configureTnsOAuth, ITnsOAuthTokenResult } from "nativescript-oauth2";
-    import {
-        TnsOaProvider,
-        TnsOaProviderOptionsFacebook,
-        TnsOaProviderFacebook,
-        TnsOaProviderOptionsGoogle,
-        TnsOaProviderGoogle,
-        TnsOaProviderOptionsMicrosoft,
-        TnsOaProviderMicrosoft
-    } from "nativescript-oauth2/providers";
 
     export default {
         name: "LoginPage",

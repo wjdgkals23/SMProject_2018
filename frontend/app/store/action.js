@@ -40,8 +40,20 @@ export default {
         console.log("### SET TAG DATA", payload);
         store.commit(Constant.STD, payload);
     },
+    [Constant.SETD] : (store, payload) => {
+        console.log("### SEND TAG DATA", payload);
+        store.commit(Constant.SETD, payload);
+    },
     [Constant.GSP] : (store, payload) => {
         console.log("### GET SELLING PRODUCT", payload);
         store.commit(Constant.GSP, payload);
+    },
+    [Constant.SAP] : (store, payload) => {
+        console.log("### SET API PATH", payload);
+        store.commit(Constant.SAP, payload);
+    },
+    [Constant.SEI] : (store, payload) => {
+        console.log("### SET EVENT INFO", payload);
+        store.commit(Constant.SEI, payload);
     }
 }

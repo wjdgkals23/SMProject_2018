@@ -26,7 +26,6 @@
     import _ from "lodash";
     import { mapState } from 'vuex';
     const platformModule = require("tns-core-modules/platform");
-    import { apiPath } from "../../lib/httpconfig";
 
     export default {
         name: "ImageCol",
@@ -52,20 +51,12 @@
                 this.$store.dispatch(Constant.SDP, { index: index, colnum: this.colnum } );
             },
             clicklike(index){
-                let api = null;
-                if(platformModule.device.os == "Android") {
-                    api = apiPath.android;
-                }
-                else{
-                    api = apiPath.ios;
-                }
-                // api = apiPath.server;
-                this.$store.dispatch(Constant.CL, { index: index, colnum: this.colnum, api: api } );
+                this.$store.dispatch(Constant.CL, { index: index, colnum: this.colnum, api: this.api } );
             }
         },
         computed : _.extend({
 
-        },mapState([ 'firstcol', 'secondcol' ])),
+        },mapState([ 'firstcol', 'secondcol', 'api' ])),
     }
 </script>
 

@@ -47,7 +47,7 @@
                                         <ScrollView orientation="horizontal" >
                                             <GridLayout rows="100" columns="*">
                                                 <StackLayout orientation="horizontal">
-                                                    <CardView class="cardStyle" elevation="40" radius="15" v-for="item in imagesource">
+                                                    <CardView class="cardStyle2" elevation="0" radius="15" v-for="item in imagesource">
                                                         <GridLayout rows="*" columns="*" margin="0">
                                                             <Image class="img" :src="item.src" stretch="aspectFill" />
                                                         </GridLayout>
@@ -72,7 +72,7 @@
                             <FlexboxLayout flexWrap="wrap" paddingTop="10" paddingLeft="15" paddingRight="15">
                                 <CardView :class="stylebind(item)" elevation="0" radius="10" v-for="(item,index) in selectedtag">
                                     <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.name" @tap="deletetag(index, item.name)"/>
+                                        <Label :text="item.contents" @tap="deletetag(index, item.contents)"/>
                                     </StackLayout>
                                 </CardView>
                             </FlexboxLayout>
@@ -96,9 +96,9 @@
                         <StackLayout row="2">
                             <!-- 태그 리스트 뷰 -->
                             <FlexboxLayout justifyContent="center" flexWrap="wrap" paddingTop="20" >
-                                <CardView elevation="0" v-for="(item,index) in filteredList" paddingTop="20" paddingLeft="15" paddingRight="15">
+                                <CardView v-if="tagshow" elevation="0" v-for="(item,index) in filteredList" paddingTop="20" paddingLeft="15" paddingRight="15">
                                     <StackLayout :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.name" @tap="addtag(item, index)"/>
+                                        <Label :text="item.contents" @tap="addtag(item, index)"/>
                                     </StackLayout>
                                 </CardView>
                             </FlexboxLayout>
@@ -114,7 +114,7 @@
     import BottomNavigation from './navi/BottomNavigation'
     import UploadView from './uploadview/UploadView'
     import UploadTag from './uploadview/UploadTag'
-    import { mapState, mapMutations } from 'vuex'
+    import { mapState } from 'vuex'
     import _ from 'lodash/lodash.min';
 
     import { imgpickerfunc } from '../lib/imgpicker';
@@ -145,7 +145,7 @@
         computed : _.extend({
             filteredList() {
                 return this.tags.filter((tag) => {
-                    return tag.name.toLowerCase().includes(this.searchkeyword.toLowerCase())
+                    return tag.contents.toLowerCase().includes(this.searchkeyword.toLowerCase())
                 })
             },
             tagshow() {
@@ -154,17 +154,17 @@
                 else
                     return true;
             }
-        },mapState([ 'tags' , 'abmanager' ])),
+        },mapState([ 'tags' , 'abmanager', 'api', "id_num" ])),
         mounted() {
             this.tags.sort(tag_sort);
         },
         created(){
-            this.tagdata = this.tags;
+
         },
         methods: {
             async addtag(item) {
                 let index = await this.tags.findIndex((tag)=> {
-                    return tag.name == item.name;
+                    return tag.contents == item.contents;
                 });
                 console.log(index);
                 this.tags.splice(index,1);
@@ -177,7 +177,7 @@
                 this.selectedtag.splice(num,1);
             },
             stylebind(item) {
-                if(item.type == "cloth")
+                if(item.type == "0")
                     return "clothtag"
                 else
                     return "styletag"
@@ -192,14 +192,12 @@
                 let textdata = {
                     title: this.title,
                     content: this.content,
-                    tagdata: this.selectedtag
                 }
-                if (platformModule.device.os === "Android") {
-                    upload(this.imagesource, apiPath.android, textdata);
+                let tagdata = [];
+                for(let item in this.selectedtag) {
+                    tagdata.push({id: this.selectedtag[item].id});
                 }
-                else {
-                    upload(this.imagesource, apiPath.ios, textdata);
-                }
+                upload(this.imagesource, this.api, this.id_num, textdata, tagdata);
             }
         }
     }
@@ -281,13 +279,11 @@
         margin-top: 5px;
     }
 
-    .cardStyle {
-        /*color: #fff;*/
+    .cardStyle2 {
         width: 92%;
+        height: 500px;
         padding: 4%;
-        font-size: 35px;
-        /*font-family: THEmpgtB;*/
-        /*font-family: THELu;*/
+        border-radius: 15px;
     }
 
     .img {

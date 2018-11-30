@@ -55,19 +55,19 @@
         <GridLayout rows="500" columns="*" paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30">
             <ScrollView>
                 <CardView class="cardStyle" radius="15" >
-                        <StackLayout>
-                            <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
-                                <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
-                                    <Label :text="item.id" class="mylight" style="color: #661d7e;"/>
-                                </GridLayout>
-                                <GridLayout row="0" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                    <TextView :text="item.content" class="textview" style="color: #661d7e;"/>
-                                </GridLayout>
-                                <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                    <Image :src="item.src" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
-                                </GridLayout>
+                    <StackLayout>
+                        <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
+                            <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
+                                <Label :text="item.id" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
-                        </StackLayout>
+                            <GridLayout row="0" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
+                                <TextView :text="item.content" class="textview" style="color: #661d7e;"/>
+                            </GridLayout>
+                            <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
+                                <Image :src="item.src" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
+                            </GridLayout>
+                        </GridLayout>
+                    </StackLayout>
                 </CardView>
             </ScrollView>
         </GridLayout>
@@ -77,9 +77,10 @@
 <script>
     import { apiPath } from "../../lib/httpconfig";
     import { imgeditor } from "../../lib/imgpicker";
-    const platformModule = require("tns-core-modules/platform");
     import Constant from "../../constant";
     import {upload, uploadcomment} from "../../lib/senddata";
+
+    const platformModule = require("tns-core-modules/platform");
 
     import _ from 'lodash'
     import { mapState } from 'vuex'
@@ -139,23 +140,13 @@
                 else{
                     if(this.editimage.length != 0){
                         let data = { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src, name: this.editimage[0].name };
-                        if(platformModule.device.os == "Android") {
-                            uploadcomment(apiPath.android, data);
-                        }
-                        else {
-                            uploadcomment(apiPath.ios, data);
-                        }
+                        uploadcomment(this.api, data);
                         this.$store.dispatch(Constant.WC, data);
                         this.cleancomment();
                     }
                     else{
                         let data = { id: this.id, content: this.writecomment, have_img: false };
-                        if(platformModule.device.os == "Android") {
-                            uploadcomment(apiPath.android, data);
-                        }
-                        else {
-                            uploadcomment(apiPath.ios, data);
-                        }
+                        uploadcomment(this.api, data);
                         this.$store.dispatch(Constant.WC, data);
                         this.cleancomment();
                     }
@@ -174,7 +165,7 @@
         computed: _.extend({
             editcnt: function(){
                 return this.editimage.length==0 ? false : true;
-            }},mapState( [ 'id' ] ))
+            }},mapState( [ 'id', 'api' ] ))
     }
 </script>
 

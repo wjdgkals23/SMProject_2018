@@ -8,5 +8,8 @@ export default {
     CL: 'clicklike',
     WC: 'writecomment',
     STD: 'settagdata',
+    SETD: 'sendtagdata',
     GSP: 'getsellingproduct',
+    SAP: 'setapipath',
+    SEI: 'seteventinfo',
 }

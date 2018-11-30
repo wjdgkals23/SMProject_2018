@@ -37,17 +37,7 @@
     export default {
         name: "SellingFeed",
         created() {
-            let apipath = "";
-            if(platformModule.device.os === "Android") {
-                console.log("android");
-                apipath = apiPath.android;
-            }
-            else {
-                console.log("ios");
-                apipath = apiPath.ios;
-            }
-            // apipath = apiPath.server;
-            this.$store.dispatch(Constant.GSP, {api: apipath});
+            this.$store.dispatch(Constant.GSP, {api: this.api});
 
             for(let item in this.sellingproduct) {
                 this.sellingproduct[item].title = this.sellingproduct[item].title.split(" ");
@@ -66,7 +56,7 @@
         },
         computed : _.extend({
 
-        },mapState([ 'sellingproduct' ])),
+        },mapState([ 'sellingproduct', 'api' ])),
     }
 </script>
 
