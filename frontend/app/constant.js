@@ -12,4 +12,5 @@ export default {
     GSP: 'getsellingproduct',
     SAP: 'setapipath',
     SEI: 'seteventinfo',
+    RT: 'researchtag'
 }

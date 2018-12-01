@@ -44,6 +44,36 @@
                 apipath: null,
             }
         },
+        mounted() {
+            let that = this;
+            let phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            let evfunc = function() {
+                setTimeout(function() {
+                    prompt('핸드폰번호를 입력해주세요.', 'EX: 01011112222')
+                        .then(result => {
+                            if(!result.text.match(phoneno)) {
+                                alert("핸드폰 양식에 맞지 않습니다.").then(_ => {
+                                    evfunc();
+                                }).catch(err => {
+                                    console.log(err);
+                                })
+                            }
+                            else{
+                                prompt('이름을 입력해주세요.', 'EX: 홍길동')
+                                    .then(result2 => {
+                                        that.$store.dispatch(Constant.SEI, { hp: result.text, name: result2.text });
+                                    }).catch(err2 => {
+                                    console.log(err2);
+                                })
+                            }
+                        }).catch(err => {
+                        console.log(err);
+                    })
+                }, 0);
+            };
+            // 이벤트 활성화
+            // evfunc();
+        },
         //Server
         created() {
             this.actionbarmanager = false;
@@ -73,7 +103,7 @@
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;
             }
-        },mapState([ 'peedmanager', 'abmanager', 'id_num', 'api' ])),
+        },mapState([ 'peedmanager', 'abmanager', 'id_num', 'api', 'evhp', 'evname' ])),
         methods: {
 
         }

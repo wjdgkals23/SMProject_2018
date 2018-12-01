@@ -37,7 +37,7 @@ export default {
         store.commit(Constant.WC, payload);
     },
     [Constant.STD] : (store, payload) => {
-        console.log("### SET TAG DATA", payload);
+        // console.log("### SET TAG DATA", payload);
         store.commit(Constant.STD, payload);
     },
     [Constant.SETD] : (store, payload) => {
@@ -55,5 +55,9 @@ export default {
     [Constant.SEI] : (store, payload) => {
         console.log("### SET EVENT INFO", payload);
         store.commit(Constant.SEI, payload);
+    },
+    [Constant.RT] : (store, payload) => {
+        console.log("### RESEARCH TAG", payload);
+        store.commit(Constant.RT, payload);
     }
 }

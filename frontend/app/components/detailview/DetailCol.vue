@@ -24,7 +24,7 @@
                 </GridLayout>
             </GridLayout>
         </CardView>
-        <GridLayout class="content" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="8">
+        <GridLayout class="content" paddingTop="16" paddingBottom="16" paddingLeft="16" paddingRight="16">
             <Label class="authortext mytext" :text="first.content" textWrap="true"/>
         </GridLayout>
         <GridLayout rows="20" columns="60,30,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">

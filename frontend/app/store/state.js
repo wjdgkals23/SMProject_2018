@@ -29,6 +29,7 @@ export default {
     peedmanager: 1,
     abmanager: true,
     api: null,
-    evhp: null,
-    evname: null,
+    evhp: "",
+    evname: "",
+    ifm: 1, //interes feed manager
 }

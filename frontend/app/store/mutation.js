@@ -156,14 +156,15 @@ export default {
         state.DetailPageData.comment.push(payload);
     },
     [Constant.STD] : (state,payload) => {
-        for(let item in payload.data){
-            payload.data[item].selected = false;
-        }
+        // for(let item in payload.data){
+        //     payload.data[item].selected = false;
+        // }
 
         state.tags = payload.data;
     },
     [Constant.SETD] : (state,payload) => {
         console.log(payload);
+        state.ifm = 2;
     },
     [Constant.GSP] : (state,payload) => {
         console.log(payload);
@@ -175,7 +176,12 @@ export default {
         state.api = payload;
     },
     [Constant.SEI]  : (state,payload) => {
-        state.evhp = payload.evhp;
-        state.evname = payload.evname;
+        state.evhp = payload.hp;
+        state.evname = payload.name;
+
+        console.log(state.evhp);
+    },
+    [Constant.RT] : (state,payload) => {
+        state.ifm = 1;
     }
 }

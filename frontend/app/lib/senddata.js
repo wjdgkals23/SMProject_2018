@@ -19,7 +19,6 @@ function upload(srcs, apipath, textdata, tagdata) {
 
     //{ name: "fileToUpload", filename: file, mimeType: 'image/jpeg' }
     params.push({ name: "textdata" , value: JSON.stringify(textdata) });
-    params.push({ name: "textdata" , value: JSON.stringify(textdata) });
     params.push({ name: "tagdata" , value: JSON.stringify(tagdata) });
     for(let item in srcs){
         if(item == 0) {

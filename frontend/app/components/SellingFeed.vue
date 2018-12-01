@@ -16,9 +16,9 @@
                                     </StackLayout>
                                 </FlexboxLayout>
                             </StackLayout>
-                            <!--<StackLayout verticalAlignment="bottom" horizontalAlignment="center" paddingBottom="10">-->
-                                <!--<Label class="pricetext" :text="item.price" />-->
-                            <!--</StackLayout>-->
+                            <StackLayout verticalAlignment="bottom" horizontalAlignment="center" paddingBottom="10">
+                                <Label class="pricetext" :text="price(item.price)" />
+                            </StackLayout>
                         </GridLayout>
                     </CardView>
                 </GridLayout>
@@ -52,10 +52,13 @@
                 else{
                     return "mybold";
                 }
+            },
+            price(item) {
+                let regexp = /\B(?=(\d{3})+(?!\d))/g;
+                return "₩ " + item.toString().replace(regexp, ',');
             }
         },
         computed : _.extend({
-
         },mapState([ 'sellingproduct', 'api' ])),
     }
 </script>
