@@ -1,7 +1,7 @@
 <template>
     <!-- 전체 피드 -->
     <GridLayout rows="*">
-        <image-view row="0" firstcol="0" secondcol="1"></image-view>
+        <image-view row="0" first="0" second="1"></image-view>
         <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
             <Image src="~/assets/images/btn/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
         </GridLayout>

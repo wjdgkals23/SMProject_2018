@@ -1,26 +1,20 @@
 import Constant from '../constant'
-import {postget} from "../lib/getpost";
 import axios from 'axios';
-import { apiPath } from "../lib/httpconfig";
+import us from 'underscore/underscore-min';
+import { post_sort_like_count } from "../lib/sortfunc";
 
 
 export default {
     [Constant.GETPOST] : (state, payload) => {
         console.log(payload.data);
         for(let item in payload.data){
+            payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
+            payload.data[item].like_count = payload.data[item].likeCount;
+            state.totalcol.push(payload.data[item]);
             if( item%2 === 0 ) {
-                console.log(payload.data[item].selectLike);
-                payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
-                console.log(payload.data[item].like);
-                // payload.data[item].src = "~/assets/images/test.jpeg";
-                payload.data[item].like_count = payload.data[item].likeCount;
                 state.secondcol.push(payload.data[item]);
             }
             else {
-                console.log(payload.data[item].selectLike);
-                payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
-                console.log(payload.data[item].like);
-                payload.data[item].like_count = payload.data[item].likeCount;
                 state.firstcol.push(payload.data[item]);
             }
         }
@@ -42,6 +36,7 @@ export default {
     [Constant.SDP] : (state, payload) => {
         console.log("#########payload ", payload);
         // CHANGE DB CONNECT
+        state.DetailPageData.id_num = 2;
         state.DetailPageData.id = payload;
         state.DetailPageData.Image.push({src:"~/assets/images/test.jpeg", checked: false });
         state.DetailPageData.Image.push({src:"~/assets/images/source_1.jpg", checked: false });
@@ -183,5 +178,32 @@ export default {
     },
     [Constant.RT] : (state,payload) => {
         state.ifm = 1;
+    },
+    [Constant.PSLC] : (state,payload) => {
+        let temp = us.clone(state.totalcol);
+        temp.sort(post_sort_like_count);
+        state.secondcol.splice(0, payload.second);
+        state.firstcol.splice(0, payload.first);
+        for(let item in temp) {
+            if( item%2 === 0 ) {
+                state.secondcol.push(temp[item]);
+            }
+            else {
+                state.firstcol.push(temp[item]);
+            }
+        }
+    },
+    [Constant.PSD] : (state,payload) => {
+
+        state.secondcol.splice(0, payload.second);
+        state.firstcol.splice(0, payload.first);
+        for(let item in state.totalcol) {
+            if( item%2 === 0 ) {
+                state.secondcol.push(state.totalcol[item]);
+            }
+            else {
+                state.firstcol.push(state.totalcol[item]);
+            }
+        }
     }
 }

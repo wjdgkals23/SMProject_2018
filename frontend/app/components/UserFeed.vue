@@ -18,7 +18,7 @@
                         <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" />
                     </StackLayout>
                 </GridLayout>
-                <image-view v-show="changefd(0)" firstcol="0" secondcol="1"></image-view>
+                <image-view v-show="changefd(0)" first="0" second="1"></image-view>
                 <collabo-list v-show="changefd(1)"></collabo-list>
                 <buy-list v-show="changefd(2)"></buy-list>
             </StackLayout>

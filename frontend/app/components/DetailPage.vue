@@ -1,38 +1,48 @@
 <template>
     <Page :actionBarHidden="abmanager">
-        <ScrollView>
-            <GridLayout columns="*" rows="*" class="mylight" paddingBottom="20">
-                <StackLayout>
-                    <GridLayout columns="*" rows="70">
-                        <GridLayout horizontalAlignment="right" width="15%" margin="0" paddingTop="10">
-                            <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 40px" @tap="resetdetailpagedata(),$navigateBack()" />
-                            <!--<Image src="~/assets/images/btn/cancel.png" stretch="aspectFit" @tap="resetdetailpagedata(),$navigateBack()"/>-->
-                        </GridLayout>
-                    </GridLayout>
-                    <GridLayout columns="*" class="mybold">
-                        <detail-col col="0" :coldata="DetailPageData"></detail-col>
-                        <!-- 이미지 태그 데이터 바인딩 -->
-                    </GridLayout>
-                    <StackLayout>
-                        <name-card></name-card>
-                        <GridLayout verticalAlignment="">
-                            <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                                <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="DetailPageData.like" @tap="clicklike" />
-                                <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!DetailPageData.like" @tap="clicklike" />
-                                <StackLayout paddingTop="14" paddingLeft="5">
-                                    <Label class="mylight likecnt" :text="likecnt" />
-                                </StackLayout>
+        <GridLayout columns="*" :rows="ifsvb">
+            <GridLayout row="0">
+                <ScrollView>
+                    <GridLayout columns="*" rows="*" class="mylight" paddingBottom="20">
+                        <StackLayout>
+                            <GridLayout columns="*" rows="70">
+                                <GridLayout horizontalAlignment="right" width="15%" margin="0" paddingTop="10">
+                                    <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 40px" @tap="resetdetailpagedata(),$navigateBack()" />
+                                    <!--<Image src="~/assets/images/btn/cancel.png" stretch="aspectFit" @tap="resetdetailpagedata(),$navigateBack()"/>-->
+                                </GridLayout>
+                            </GridLayout>
+                            <GridLayout columns="*" class="mybold">
+                                <detail-col col="0" :coldata="DetailPageData"></detail-col>
+                                <!-- 이미지 태그 데이터 바인딩 -->
+                            </GridLayout>
+                            <StackLayout>
+                                <name-card></name-card>
+                                <GridLayout verticalAlignment="">
+                                    <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
+                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="DetailPageData.like" @tap="clicklike" />
+                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!DetailPageData.like" @tap="clicklike" />
+                                        <StackLayout paddingTop="14" paddingLeft="5">
+                                            <Label class="mylight likecnt" :text="likecnt" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </GridLayout>
+                                <!-- 네임카드 좋아요 -->
                             </StackLayout>
-                        </GridLayout>
-                        <!-- 네임카드 좋아요 -->
-                    </StackLayout>
-                    <GridLayout columns="*" class="mytext" paddingTop="10" paddingLeft="8" paddingRight="8">
-                        <detail-comment :imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"></detail-comment>
-                        <!-- 댓글 -->
+                            <GridLayout columns="*" class="mytext" paddingTop="10" paddingLeft="8" paddingRight="8">
+                                <detail-comment :imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"></detail-comment>
+                                <!-- 댓글 -->
+                            </GridLayout>
+                        </StackLayout>
+                        <!-- 작성자 버전업 버튼 -->
                     </GridLayout>
-                </StackLayout>
+                </ScrollView>
             </GridLayout>
-        </ScrollView>
+            <GridLayout class="versionupbtn" row="1" v-show="id_num==DetailPageData.id_num">
+                <GridLayout verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="버전업!" />
+                </GridLayout>
+            </GridLayout>
+        </GridLayout>
     </Page>
 </template>
 
@@ -59,6 +69,14 @@
         computed: _.extend({
             likecnt() {
                 return "좋아요 " + this.DetailPageData.like_count + "개";
+            },
+            ifsvb() {
+                if(this.id_num == this.DetailPageData.id_num) {
+                    return "*, 40"
+                }
+                else {
+                    return "*"
+                }
             }
         },mapState([ 'DetailPageData', 'abmanager', 'id_num' ])),
         methods:{
@@ -86,5 +104,9 @@
     .likecnt {
         font-size: 20%;
         color: #6a1495;
+    }
+    .versionupbtn {
+        background: #6a1495;
+        color: white;
     }
 </style>

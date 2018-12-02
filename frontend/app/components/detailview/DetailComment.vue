@@ -165,7 +165,7 @@
         computed: _.extend({
             editcnt: function(){
                 return this.editimage.length==0 ? false : true;
-            }},mapState( [ 'id', 'api' ] ))
+            }},mapState( [ 'id', 'api', "id_num" ] ))
     }
 </script>
 

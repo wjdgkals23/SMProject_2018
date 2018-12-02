@@ -1,10 +1,23 @@
 <template>
-    <ScrollView>
-        <GridLayout columns="*,*" class="mybold" paddingBottom="15">
-            <image-col :colnum="firstcol" col="0"></image-col>
-            <image-col :colnum="secondcol" col="1"></image-col>
+    <GridLayout rows="40,*">
+        <GridLayout row="0" paddingRight="5" paddingLeft="5" paddingTop="5">
+            <GridLayout horizontalAlignment="right" >
+                <FlexboxLayout>
+                    <Label class="mytext switchtext" text="날짜순" />
+                    <Switch v-model="itemEnabled" @checkedChange="temp" />
+                    <Label class="mytext switchtext" text="인기순" />
+                </FlexboxLayout>
+            </GridLayout>
         </GridLayout>
-    </ScrollView>
+        <GridLayout row="1">
+            <ScrollView>
+                <GridLayout columns="*,*" class="mybold" paddingBottom="15">
+                    <image-col :colnum="first" col="0"></image-col>
+                    <image-col :colnum="second" col="1"></image-col>
+                </GridLayout>
+            </ScrollView>
+        </GridLayout>
+    </GridLayout>
 </template>
 
 <script>
@@ -19,7 +32,10 @@
             // CardView
             ImageCol
         },
-        props: [ 'firstcol', 'secondcol' ],
+        created() {
+            // console.log("#####IMAGEVIEW" + this.first + this.second);
+        },
+        props: [ 'first', 'second' ],
         data() {
             return {
                 msg: 'Hello World!',
@@ -28,11 +44,34 @@
                 ],
                 busy: true,
                 result: null,
+                itemEnabled: false,
             }
         },
+        methods: {
+            temp() {
+                let num = this.firstcol.length;
+                let num2 = this.secondcol.length;
+                let length = {
+                    first: num,
+                    second: num2
+                };
+                if(this.itemEnabled) {
+                    this.$store.dispatch(Constant.PSLC, length);
+                }
+                else {
+                    // await this.$store.dispatch(Constant.CLEANPOST);
+                    this.$store.dispatch(Constant.PSD, length);
+                }
+            }
+        },
+        computed : _.extend({
+        },mapState([ 'firstcol', 'secondcol', 'api' ])),
     }
 </script>
 
 <style scoped>
-
+    .switchtext {
+        color: gray;
+        font-size: 15px;
+    }
 </style>

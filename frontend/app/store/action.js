@@ -59,5 +59,13 @@ export default {
     [Constant.RT] : (store, payload) => {
         console.log("### RESEARCH TAG", payload);
         store.commit(Constant.RT, payload);
+    },
+    [Constant.PSLC] : (store, payload) => {
+        console.log("### POST SORT LIKE COUNT");
+        store.commit(Constant.PSLC, payload);
+    },
+    [Constant.PSD] : (store, payload) => {
+        console.log("### POST SORT DATE");
+        store.commit(Constant.PSD, payload);
     }
 }

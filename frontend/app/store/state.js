@@ -9,6 +9,7 @@ export default {
         major: "Fashion Design"
     //    login init
     },
+    totalcol: [],
     firstcol: [],
     secondcol: [],
     sellingproduct: [],
@@ -23,7 +24,7 @@ export default {
         tag: [],
         like: true,
         like_count: 4334,
-    //    page select init
+    //    page select initm
         version: null,
     },
     peedmanager: 1,

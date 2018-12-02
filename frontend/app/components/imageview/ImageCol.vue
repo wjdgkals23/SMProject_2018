@@ -52,10 +52,20 @@
             },
             clicklike(index){
                 this.$store.dispatch(Constant.CL, { index: index, colnum: this.colnum, api: this.api } );
-            }
+            },
+            // columnlen(index) {
+            //     if(index%3==0) {
+            //         return "2*";
+            //     }
+            //     else if(index%3==1){
+            //         return "*";
+            //     }
+            //     else {
+            //         return "2*";
+            //     }
+            // }
         },
         computed : _.extend({
-
         },mapState([ 'firstcol', 'secondcol', 'api' ])),
     }
 </script>

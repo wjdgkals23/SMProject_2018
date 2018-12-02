@@ -12,5 +12,7 @@ export default {
     GSP: 'getsellingproduct',
     SAP: 'setapipath',
     SEI: 'seteventinfo',
-    RT: 'researchtag'
+    RT: 'researchtag',
+    PSLC: 'postsortlikecount',
+    PSD: 'postsortdate',
 }
