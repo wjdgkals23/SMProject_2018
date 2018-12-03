@@ -5,7 +5,7 @@
                 <Image class="img" src="~/assets/images/buypannel.png"></Image>
             </GridLayout>
             <StackLayout row="1" columns="*" class="mybold" paddingTop="20" verticalAlignment="center" horizontalAlignment="center" >
-                <GridLayout rows="300" columns="260" margin="0" paddingBottom="60" v-for="(item,index) in sellingproduct">
+                <GridLayout rows="310" columns="260" margin="0" paddingBottom="60" v-for="(item,index) in sellingproduct">
                     <CardView elevation="0" radius="15" class="topcardStyle">
                         <GridLayout row="0" paddingTop="5">
                             <Image class="img" :src="item.src" stretch="aspectFill" />
@@ -16,7 +16,7 @@
                                     </StackLayout>
                                 </FlexboxLayout>
                             </StackLayout>
-                            <StackLayout verticalAlignment="bottom" horizontalAlignment="center" paddingBottom="10">
+                            <StackLayout verticalAlignment="bottom" horizontalAlignment="center" paddingBottom="4">
                                 <Label class="pricetext" :text="price(item.price)" />
                             </StackLayout>
                         </GridLayout>

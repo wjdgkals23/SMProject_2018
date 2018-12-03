@@ -6,7 +6,8 @@ import { post_sort_like_count } from "../lib/sortfunc";
 
 export default {
     [Constant.GETPOST] : (state, payload) => {
-        console.log(payload.data);
+        state.secondcol.splice(0, state.secondcol.length);
+        state.firstcol.splice(0, state.firstcol.length);
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;

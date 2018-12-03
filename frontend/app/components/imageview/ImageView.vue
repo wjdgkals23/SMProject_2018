@@ -1,12 +1,23 @@
 <template>
     <GridLayout rows="40,*">
-        <GridLayout row="0" paddingRight="5" paddingLeft="5" paddingTop="5">
-            <GridLayout horizontalAlignment="right" >
-                <FlexboxLayout>
-                    <Label class="mytext switchtext" text="날짜순" />
-                    <Switch v-model="itemEnabled" @checkedChange="temp" />
-                    <Label class="mytext switchtext" text="인기순" />
-                </FlexboxLayout>
+        <GridLayout row="0" columns="*,150" paddingRight="5" paddingLeft="5" paddingcenter="5">
+            <GridLayout col="1" columns="*" horizontalAlignment="right" >
+                <!--<FlexboxLayout>-->
+                    <!--<Label class="mytext switchtext" text="날짜순" />-->
+                    <!--<Switch v-model="itemEnabled" @checkedChange="temp" />-->
+                    <!--<Label class="mytext switchtext" text="인기순" />-->
+                <!--</FlexboxLayout>-->
+                <GridLayout col="0" columns="*,*,*">
+                    <GridLayout col="0" verticalAlignment="center" >
+                        <Label class="mytext switchtext" text="날짜순" />
+                    </GridLayout>
+                    <GridLayout col="1" verticalAlignment="center" >
+                        <Switch v-model="itemEnabled" @checkedChange="temp" />
+                    </GridLayout>
+                    <GridLayout col="2" verticalAlignment="center" >
+                        <Label class="mytext switchtext" text="인기순" />
+                    </GridLayout>
+                </GridLayout>
             </GridLayout>
         </GridLayout>
         <GridLayout row="1">

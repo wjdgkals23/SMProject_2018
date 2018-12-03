@@ -3,6 +3,7 @@ const permissions = require( "nativescript-permissions" );
 const imagepicker = require("nativescript-imagepicker");
 const platformModule = require("tns-core-modules/platform");
 const fs = require("tns-core-modules/file-system");
+const BitmapFactory = require("nativescript-bitmap-factory");
 import { PhotoEditor, PhotoEditorControl } from "nativescript-photo-editor";
 import { fromFileOrResource, fromFile } from "tns-core-modules/image-source";
 const photoEditor = new PhotoEditor();
@@ -27,6 +28,7 @@ function startSelection(context, vue) {
                     let name = "test"+ vue.imagesource.length +".png";
                     let temp_path = fs.path.join(folder.path, name);
                     console.log(temp_path);
+                    console.log();
                     let saved = temp_source.saveToFile(temp_path, "png");
 
                     if(saved){

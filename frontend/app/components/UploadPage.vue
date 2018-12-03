@@ -116,6 +116,7 @@
     import UploadTag from './uploadview/UploadTag'
     import { mapState } from 'vuex'
     import _ from 'lodash/lodash.min';
+    import Constant from '../constant';
 
     import { imgpickerfunc } from '../lib/imgpicker';
     import { upload } from "../lib/senddata";
@@ -190,14 +191,16 @@
             send() {
                 console.log(this.title, this.content);
                 let textdata = {
+                    userId: this.id_num,
                     title: this.title,
-                    content: this.content,
+                    contents: this.content,
                 }
                 let tagdata = [];
                 for(let item in this.selectedtag) {
                     tagdata.push({id: this.selectedtag[item].id});
                 }
-                upload(this.imagesource, this.api, this.id_num, textdata, tagdata);
+
+                upload(this.imagesource, this.api, textdata, tagdata, this);
             }
         }
     }

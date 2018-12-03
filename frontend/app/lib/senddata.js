@@ -2,6 +2,9 @@ const bghttpModule = require("nativescript-background-http");
 const session = bghttpModule.session("image-upload");
 const axios = require("axios");
 
+import Constants from "../constant";
+import {postget} from "./getpost";
+
 let request = {
     url: "",
     method: "POST",
@@ -11,15 +14,15 @@ let request = {
     }
 };
 
-function upload(srcs, apipath, textdata, tagdata) {
+const upload = (srcs, apipath, textdata, tagdata, vue) => {
 
     let params = [];
 
-    request.url = apipath + "/api/test/img";
+    request.url = apipath + "/api/upload_page/upload_post";
 
     //{ name: "fileToUpload", filename: file, mimeType: 'image/jpeg' }
-    params.push({ name: "textdata" , value: JSON.stringify(textdata) });
-    params.push({ name: "tagdata" , value: JSON.stringify(tagdata) });
+    params.push({ name: "postData" , value: JSON.stringify(textdata) });
+    params.push({ name: "tagData" , value: JSON.stringify(tagdata) });
     for(let item in srcs){
         if(item == 0) {
             console.log(item);
@@ -30,13 +33,39 @@ function upload(srcs, apipath, textdata, tagdata) {
         }
     }
 
-    console.log(params);
-    // let task = session.multipartUpload(params, request);
-    // task.on("complete", (res) => {
-    //     console.log(res);
-    // });
+    // console.log(params);
 
-}
+
+
+    let task = session.multipartUpload(params, request);
+
+    task.on("complete", (e) => {
+        console.log(e);
+        console.log("complete");
+        postget(vue.api, vue, vue.id_num);
+        vue.$store.dispatch(Constants.PEEDCH, 4);
+        vue.$navigateBack();
+    });
+    task.on("progress", (e) => {
+        console.log(e);
+    });
+    task.on("error", (e) => {
+        console.log(e);
+        alert('업로드에 실패하였습니다.')
+            .then(() => {
+                console.log("Dialog closed")
+            })
+    });
+    task.on("responded", (e) => {
+        console.log(e);
+
+    });
+    task.on("cancelled", (e) => {
+        console.log(e);
+    });
+    // console.log(result);
+
+};
 
 function uploadcomment(apipath, data) {
     if(data.hasOwnProperty("src")){

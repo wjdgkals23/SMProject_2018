@@ -86,7 +86,10 @@
                 this.$store.dispatch(Constant.SAP, apiPath.ios);
             }
             // this.apipath = apiPath.server;
-            this.$store.dispatch(Constant.CLEANPOST);
+            this.$store.dispatch(Constant.CLEANPOST).then(res => {
+                console.log("#######COMPLETE CLEANPOST");
+                console.log(res);
+            })
             postget(this.api, this, this.id_num);
             tagget(this.api, this);
         },
