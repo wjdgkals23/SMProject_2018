@@ -10,7 +10,7 @@
                 <StackLayout orientation="horizontal">
                     <CardView elevation="40" v-for="(item, index) in imgdata">
                         <GridLayout rows="*" columns="*" >
-                            <Image :src="item.src" stretch="aspectFill" />
+                            <Image :src="item.url" stretch="aspectFill" />
                             <GridLayout verticalAlignment="top" horizontalAlignment="right" paddingTop="5" paddingRight="5" >
                                 <Label class="fa" :text="'fa-check-circle' | fonticon" color="purple" style="font-size: 30px;" v-show="item.checked" @tap="check(index)"/>
                                 <Label class="fa" :text="'fa-check-circle' | fonticon" color="gray" style="font-size: 30px;" v-show="!item.checked" @tap="check(index)"/>
@@ -58,13 +58,13 @@
                     <StackLayout>
                         <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
                             <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
-                                <Label :text="item.id" class="mylight" style="color: #661d7e;"/>
+                                <Label :text="item.com_id" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
                             <GridLayout row="0" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                <TextView :text="item.content" class="textview" style="color: #661d7e;"/>
+                                <TextView :text="item.contents" class="textview" style="color: #661d7e;"/>
                             </GridLayout>
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                <Image :src="item.src" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
+                                <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
@@ -87,17 +87,22 @@
 
     export default {
         name: "DetailComment",
-        props: [ 'imgdata', 'comment', 'postid' ],
+        props: [],
         data: function() {
             return {
                 editimage: [],
                 writecomment: "",
-
+                imadata: "",
+                comment: "",
+                postid: "",
             }
         },
         created() {
+            //:imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"
             console.log("created");
-            console.log(this.id);
+            this.imgdata = this.DetailPageData.Image;
+            this.comment = this.DetailPageData.comment;
+            this.postid = this.DetailPageData.id;
         },
         methods: {
             editphoto(vue, src, index) {
@@ -117,7 +122,7 @@
             check(index){
                 this.imgdata[index].checked = !this.imgdata[index].checked;
                 if(this.imgdata[index].checked == true) {
-                    this.editphoto(this, this.imgdata[index].src, index);
+                    this.editphoto(this, this.imgdata[index].url, index);
                 }
                 else{
                     for(let item in this.editimage){
@@ -165,7 +170,7 @@
         computed: _.extend({
             editcnt: function(){
                 return this.editimage.length==0 ? false : true;
-            }},mapState( [ 'id', 'api', "id_num" ] ))
+            }},mapState( [ 'id', 'api', "id_num", "DetailPageData" ] ))
     }
 </script>
 

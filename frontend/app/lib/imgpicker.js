@@ -3,12 +3,13 @@ const permissions = require( "nativescript-permissions" );
 const imagepicker = require("nativescript-imagepicker");
 const platformModule = require("tns-core-modules/platform");
 const fs = require("tns-core-modules/file-system");
-const BitmapFactory = require("nativescript-bitmap-factory");
+const photoEditor = new PhotoEditor();
+// const Cache = require("tns-core-modules/ui/image-cache").Cache;
+// const cache = new Cache();
+// cache.maxRequests = 3;
+
 import { PhotoEditor, PhotoEditorControl } from "nativescript-photo-editor";
 import { fromFileOrResource, fromFile } from "tns-core-modules/image-source";
-const photoEditor = new PhotoEditor();
-
-let Editcount = 0;
 
 function startSelection(context, vue) {
     context
@@ -83,36 +84,75 @@ function imgpickerfunc(vue) {
 }
 
 function imgeditor(vue, src, index) {
-    const imageSource = fromFileOrResource(src);
+    console.log(src);
+    // let Editcount = 0;
+    // console.log("here~");
+    // // const images = cache.get(src);
+    // // console.log("here!");
+    // // console.log(images);
+    // // if(images) {
+    // //     let temp = ImageSource.fromNativeSource(images);
+    // //     console.log(temp.android);
+    // // }
+    // //
 
-    console.log("ORIG IMAGE: ", imageSource.height, imageSource.width)
+    let temp = ImageSource.fromUrl(src);
 
-    photoEditor.editPhoto({
-        imageSource: imageSource, // originalImage.imageSource,
-        hiddenControls: [
-            // // PhotoEditorControl.Save,
-            // PhotoEditorControl.Clear,
-            // PhotoEditorControl.Draw,
-            // PhotoEditorControl.Text,
-        ],
-    }).then((newImage) => {
-        // console.log("NEW IMAGE: ", newImage.height, newImage.width)
-        // console.log(newImage.saveToFile());
-        let folder = fs.knownFolders.documents();
-        let name = "edit"+ Editcount +".png";
-        let temp_path = fs.path.join(folder.path, name);
-        console.log(temp_path);
-        let saved = newImage.saveToFile(temp_path, "png");
+    temp.then((res) => {
+        let ios_folder = fs.knownFolders.documents().path;
+        let ios_fileName = "test" + ".png";
+        let ios_path = fs.path.join(ios_folder, ios_fileName);
+        let saved = res.saveToFile(ios_path, "png");
+        if(saved) {
+            console.log("download");
+            let temp_source = ImageSource.fromFile(ios_path);
+            photoEditor.editPhoto({
+                imageSource: temp_source, // originalImage.imageSource,
+                hiddenControls: [
+                ],
+            }).then((newImage) => {
+                let name_2 = "complete_edit" + ".png";
+                let temp_path_2 = fs.path.join(ios_folder, name_2);
+                let saved = newImage.saveToFile(temp_path_2, "png");
 
-        if(saved){
-            console.log("download success");
-            vue.editimage.push({ src: temp_path, name: name, index: index });
+                if(saved){
+                    console.log("download success");
+                    vue.editimage.push({ src: temp_path_2, name: name_2, index: index });
+                }
+                // this.editimage.push({ src: newImage, name: "temp.png" });
+            }).catch((e) => {
+                console.error(e);
+            });
         }
-        // this.editimage.push({ src: newImage, name: "temp.png" });
-        Editcount = Editcount + 1;
-    }).catch((e) => {
-        console.error(e);
-    });
+    }).catch((err) => {
+        console.log(err);
+    })
+
+    // if(saved){
+    //     console.log("download success");
+    //     let temp_source = fromFileOrResource(temp_path);
+    //     photoEditor.editPhoto({
+    //         imageSource: temp_source, // originalImage.imageSource,
+    //         hiddenControls: [
+    //         ],
+    //     }).then((newImage) => {
+    //         let name_2 = "complete_edit"+ Editcount +".png";
+    //         let temp_path_2 = fs.path.join(folder.path, name_2);
+    //         let saved = newImage.saveToFile(temp_path_2, "png");
+    //
+    //         if(saved){
+    //             console.log("download success");
+    //             vue.editimage.push({ src: temp_path_2, name: name_2, index: index });
+    //         }
+    //         // this.editimage.push({ src: newImage, name: "temp.png" });
+    //         Editcount = Editcount + 1;
+    //     }).catch((e) => {
+    //         console.error(e);
+    //     });
+    // }
+    // else {
+    //     console.log("download fail");
+    // }
 }
 
 export { imgpickerfunc, imgeditor };

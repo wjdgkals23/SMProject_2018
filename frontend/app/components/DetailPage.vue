@@ -7,12 +7,12 @@
                         <StackLayout>
                             <GridLayout columns="*" rows="70">
                                 <GridLayout horizontalAlignment="right" width="15%" margin="0" paddingTop="10">
-                                    <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 40px" @tap="resetdetailpagedata(),$navigateBack()" />
+                                    <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 40px" @tap="$navigateBack" />
                                     <!--<Image src="~/assets/images/btn/cancel.png" stretch="aspectFit" @tap="resetdetailpagedata(),$navigateBack()"/>-->
                                 </GridLayout>
                             </GridLayout>
                             <GridLayout columns="*" class="mybold">
-                                <detail-col col="0" :coldata="DetailPageData"></detail-col>
+                                <detail-col col="0"></detail-col>
                                 <!-- 이미지 태그 데이터 바인딩 -->
                             </GridLayout>
                             <StackLayout>
@@ -29,7 +29,7 @@
                                 <!-- 네임카드 좋아요 -->
                             </StackLayout>
                             <GridLayout columns="*" class="mytext" paddingTop="10" paddingLeft="8" paddingRight="8">
-                                <detail-comment :imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"></detail-comment>
+                                <detail-comment></detail-comment>
                                 <!-- 댓글 -->
                             </GridLayout>
                         </StackLayout>
@@ -50,6 +50,7 @@
     import DetailCol from "./detailview/DetailCol";
     import DetailComment from './detailview/DetailComment'
     import NameCard from './namecard/NameCard'
+    import App from './App';
     import { mapState, mapMutations } from 'vuex';
     import _ from 'lodash/lodash.min';
     import Constant from "../constant";
@@ -59,6 +60,7 @@
         data: function() {
             return {
                 commentpreview: null,
+                app: App
             }
         },
         created() {

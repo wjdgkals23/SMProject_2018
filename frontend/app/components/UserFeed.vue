@@ -19,8 +19,8 @@
                     </StackLayout>
                 </GridLayout>
                 <image-view v-show="changefd(0)" first="0" second="1"></image-view>
-                <collabo-list v-show="changefd(1)"></collabo-list>
-                <buy-list v-show="changefd(2)"></buy-list>
+                <!--<collabo-list v-show="changefd(1)"></collabo-list>-->
+                <buy-list v-show="changefd(1)"></buy-list>
             </StackLayout>
         </ScrollView>
     </GridLayout>
@@ -41,7 +41,6 @@
             return {
                 items : [
                     "관심 게시물",
-                    "콜라보",
                     "구입 목록"
                 ],
                 selecteditem : 0,

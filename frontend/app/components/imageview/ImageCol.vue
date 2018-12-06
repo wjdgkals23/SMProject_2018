@@ -2,7 +2,7 @@
     <StackLayout paddingBottom="10">
         <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data" >
             <GridLayout rows="*" columns="*" margin="0">
-                <Image class="img" :src="item.url" @tap="setdetailpagedata(index), $navigateTo(page)"/>
+                <Image class="img" :src="item.url" @tap="setdetailpagedata(index)"/>
                 <GridLayout verticalAlignment="bottom">
                     <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
                         <Label class="fa" :text="'fa-thumbs-up' | fonticon" color="gray" v-show="item.like" @tap="clicklike(index)" />
@@ -25,6 +25,8 @@
     import Constant from '../../constant'
     import _ from "lodash";
     import { mapState } from 'vuex';
+    import { detailget } from "../../lib/getpost";
+
     const platformModule = require("tns-core-modules/platform");
 
     export default {
@@ -48,11 +50,11 @@
         },
         methods : {
             setdetailpagedata(index) {
-                this.$store.dispatch(Constant.SDP, { index: index, colnum: this.colnum } );
+                detailget(this.api, this, { postId: this.data[index].postId, userId: this.id_num });
             },
             clicklike(index){
                 this.$store.dispatch(Constant.CL, { index: index, colnum: this.colnum, api: this.api } );
-            },
+            }
             // columnlen(index) {
             //     if(index%3==0) {
             //         return "2*";
@@ -66,7 +68,7 @@
             // }
         },
         computed : _.extend({
-        },mapState([ 'firstcol', 'secondcol', 'api' ])),
+        },mapState([ 'firstcol', 'secondcol', 'api', 'id_num' ])),
     }
 </script>
 

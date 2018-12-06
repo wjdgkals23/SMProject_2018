@@ -13,7 +13,7 @@
         <CardView class="topcardStyle">
             <GridLayout rows="*" columns="*" margin="0">
                 <GridLayout row="0">
-                    <Image class="img" :src="first.src" stretch="aspectFill" />
+                    <Image class="img" :src="first.url" stretch="aspectFill" />
                     <StackLayout>
                         <FlexboxLayout alignItems="flex-start" v-for="(item,index) in first.title">
                             <StackLayout :class="textbind(index)">
@@ -32,7 +32,7 @@
                 <Image class="img" src="~/assets/images/btn/leftarrow.png"></Image>
             </GridLayout>
             <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
-                <Label class="mylight" style="font-size: 25px; color: purple" :text="coldata.version"></Label>
+                <Label class="mylight" style="font-size: 25px; color: purple" :text="DetailPageData.version"></Label>
             </GridLayout>
             <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="center">
                 <Image class="img" src="~/assets/images/btn/rightarrow.png"></Image>
@@ -44,16 +44,16 @@
         <!-- 잔여 이미지 -->
         <GridLayout rows="*,*" columns="*" v-for="item in data">
             <StackLayout class="cardStyle">
-                <Image class="img" :src="item.src" stretch="aspectFill" />
+                <Image class="img" :src="item.url" stretch="aspectFill" />
             </StackLayout>
         </GridLayout>
         <GridLayout rows="*" columns="*">
             <StackLayout row="0">
                 <!-- 태그 리스트 뷰 -->
                 <FlexboxLayout justifyContent="flex-start" flexWrap="wrap"  paddingTop="5" paddingLeft="15" paddingRight="15" >
-                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in coldata.tag" >
+                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in DetailPageData.tag" >
                         <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                            <Label :text="item.name" />
+                            <Label :text="item.contents" />
                         </StackLayout>
                     </CardView>
                 </FlexboxLayout>
@@ -63,22 +63,32 @@
 </template>
 
 <script>
+    import { mapState, mapMutations } from 'vuex';
+    import _ from 'lodash/lodash.min';
+
     export default {
         name: "DetailCol",
-        props: ['coldata'],
+        props: [],
         created() {
+
+        },
+        mounted() {
+            console.log("dDDDD");
+            console.log(this.DetailPageData);
             // console.log(this.coldata.Image[0]);
             this.first = {
-                src: this.coldata.Image[0].src,
-                title: this.coldata.title.split(" "),
-                content: this.coldata.content,
-                author: this.coldata.author
+                url: this.DetailPageData.Image[0].url,
+                title: this.DetailPageData.title.split(" "),
+                content: this.DetailPageData.content,
+                author: this.DetailPageData.author
             }
-            console.log(this.coldata.Image.length);
-            for(let item in this.coldata.Image) {
+            // }
+            // console.log(this.coldata.Image.length);
+
+            for(let item in this.DetailPageData.Image) {
                 console.log(item);
-                if(item !== '0') {
-                    this.data.push(this.coldata.Image[item]);
+                if (item !== '0') {
+                    this.data.push(this.DetailPageData.Image[item]);
                 }
             }
         },
@@ -90,7 +100,7 @@
         },
         methods: {
             stylebind(item) {
-                if(item.type == "cloth")
+                if(item.type == "0")
                     return "clothtag"
                 else
                     return "styletag"
@@ -103,7 +113,20 @@
                     return "mybold";
                 }
             }
-        }
+        },
+        computed: _.extend({
+            likecnt() {
+                return "좋아요 " + this.DetailPageData.like_count + "개";
+            },
+            ifsvb() {
+                if(this.id_num == this.DetailPageData.id_num) {
+                    return "*, 40"
+                }
+                else {
+                    return "*"
+                }
+            }
+        },mapState([ 'DetailPageData'])),
     }
 </script>
 
