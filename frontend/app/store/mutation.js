@@ -2,13 +2,14 @@ import Constant from '../constant'
 import axios from 'axios';
 import us from 'underscore/underscore-min';
 import { post_sort_like_count } from "../lib/sortfunc";
+import { comment_sort_date } from "../lib/sortfunc";
 
 
 export default {
     [Constant.GETPOST] : (state, payload) => {
-        console.log("GETPOST HERE@@@@@@@@2");
         state.secondcol.splice(0, state.secondcol.length);
         state.firstcol.splice(0, state.firstcol.length);
+        state.totalcol.splice(0, state.totalcol.length);
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;
@@ -18,6 +19,38 @@ export default {
             }
             else {
                 state.firstcol.push(payload.data[item]);
+            }
+        }
+    },
+    [Constant.GMP] : (state, payload) => {
+        state.my_post_second.splice(0, state.my_post_second.length);
+        state.my_post_first.splice(0, state.my_post_first.length);
+        state.my_post_total.splice(0, state.my_post_total.length);
+        for(let item in payload.data){
+            payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
+            payload.data[item].like_count = payload.data[item].likeCount;
+            state.my_post_total.push(payload.data[item]);
+            if( item%2 === 0 ) {
+                state.my_post_second.push(payload.data[item]);
+            }
+            else {
+                state.my_post_first.push(payload.data[item]);
+            }
+        }
+    },
+    [Constant.GML] : (state, payload) => {
+        state.my_like_second.splice(0, state.my_like_second.length);
+        state.my_like_first.splice(0, state.my_like_first.length);
+        state.my_like_total.splice(0, state.my_like_total.length);
+        for(let item in payload.data){
+            payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
+            payload.data[item].like_count = payload.data[item].likeCount;
+            state.my_like_total.push(payload.data[item]);
+            if( item%2 === 0 ) {
+                state.my_like_second.push(payload.data[item]);
+            }
+            else {
+                state.my_like_first.push(payload.data[item]);
             }
         }
     },
@@ -42,26 +75,31 @@ export default {
         // namecard
         // post
         console.log(payload);
+        payload.commentAttachment.sort(comment_sort_date);
+        payload.commentList.sort(comment_sort_date);
         state.namecard.name = payload.userData.name;
         state.namecard.email = payload.userData.email;
-        state.DetailPageData.id = payload.postAttachment[0].post_id;
+        state.DetailPageData.author_id = payload.userData.id;
+        state.DetailPageData.id = payload.postDetail.post_id;
         state.DetailPageData.version = payload.maxPostVersion;
         state.DetailPageData.tag = payload.tagList;
         state.DetailPageData.Image = payload.postAttachment;
         state.DetailPageData.title = payload.postDetail.title;
         state.DetailPageData.content = payload.postDetail.contents;
         state.DetailPageData.like_count = payload.postDetail.likeCount;
-        state.DetailPageData.selectLike = payload.postDetail.selectLike;
+        state.DetailPageData.selectLike = (payload.postDetail.selectLike === 1 ? true: false);
         state.DetailPageData.author = payload.userData.name;
         state.DetailPageData.comment = payload.commentList;
         let index = 0;
-        for(let list in payload.commentList){
-            if(payload.commentAttachment[index].comment_id === payload.commentList[list].id){
+        for(let list in state.DetailPageData.comment){
+            if(payload.commentAttachment[index].comment_id === state.DetailPageData.comment[list].id){
+                console.log(state.DetailPageData.comment[list].id);
                 state.DetailPageData.comment[list].url = payload.commentAttachment[index].url;
                 state.DetailPageData.comment[list].have_img = true;
                 index++;
             }
         }
+        console.log("########END");
         // state.DetailPageData.id = payload;
         // state.DetailPageData.Image.push({src:"~/assets/images/test.jpeg", checked: false });
         // state.DetailPageData.Image.push({src:"~/assets/images/source_1.jpg", checked: false });
@@ -85,6 +123,7 @@ export default {
     [Constant.RSDP] : (state, payload) => {
         state.namecard.name = "";
         state.namecard.email = "";
+        state.DetailPageData.author_id = "";
         state.DetailPageData.id = "";
         state.DetailPageData.version = "";
         state.DetailPageData.tag = "";
@@ -99,79 +138,61 @@ export default {
     //Server
     [Constant.CL] : (state, payload) => {
         //FirstCol
-        if(payload.colnum == "1"){
-            let data = {
-                userId: state.id_num,
-                postId: state.firstcol[payload.index].postId,
-            }
-            state.firstcol[payload.index].like = !state.firstcol[payload.index].like;
-            //DELETE
-            if(state.firstcol[payload.index].like) {
-                console.log(data.postId);
-                axios.post(payload.api + "/api/common/delete_like", data).then((res)=> {
-                    if(res.data.message == "success") {
-                        console.log("delete success");
-                        state.firstcol[payload.index].like_count--;
-                    }
-                    else {
-                        console.log("firstcol" + " " + payload.index + "delete_like fail");
-                    }
-                }).catch((err)=> {
-                    console.log(err);
-                })
-            }
-            //INSERT
-            else{
-                console.log(data.postId);
-                axios.post(payload.api + "/api/common/insert_like", data).then((res)=> {
-                    if(res.data.message == "success") {
-                        console.log("insert success");
-                        state.firstcol[payload.index].like_count++;
-                    }
-                    else {
-                        console.log("firstcol" + " " + payload.index + "delete_like fail");
-                    }
-                }).catch((err)=> {
-                    console.log(err);
-                })
-            }
+        let data = "";
+        if(payload.colnum == "1") {
+            data = state.firstcol;
         }
+        else if(payload.colnum == "0") {
+            data = state.secondcol;
+        }
+        else if(payload.colnum == "3") {
+            data = state.my_post_first;
+        }
+        else if(payload.colnum == "2") {
+            data = state.my_post_second;
+        }
+        else if(payload.colnum == "4") {
+            data = state.my_like_second;
+        }
+        else {
+            data = state.my_like_first;
+        }
+
+        let sdata = {
+            userId: state.id_num,
+            postId: data[payload.index].postId,
+        };
+
+        data[payload.index].like = !data[payload.index].like;
+        //DELETE
+        if(data[payload.index].like) {
+            console.log(sdata.postId);
+            axios.post(payload.api + "/api/common/delete_like", sdata).then((res)=> {
+                if(res.data.message == "success") {
+                    console.log("delete success");
+                    data[payload.index].like_count--;
+                }
+                else {
+                    console.log("firstcol" + " " + payload.index + "delete_like fail");
+                }
+            }).catch((err)=> {
+                console.log(err);
+            })
+        }
+        //INSERT
         else{
-            let data = {
-                userId: state.id_num,
-                postId: state.secondcol[payload.index].postId,
-            };
-            state.secondcol[payload.index].like = !state.secondcol[payload.index].like;
-            //DELETE
-            if(state.secondcol[payload.index].like) {
-                console.log(data.postId);
-                axios.post(payload.api + "/api/common/delete_like", data).then((res)=> {
-                    if(res.data.message == "success") {
-                        console.log("delete success");
-                        state.secondcol[payload.index].like_count--;
-                    }
-                    else {
-                        console.log("secondcol" + " " + payload.index + "delete_like fail");
-                    }
-                }).catch((err)=> {
-                    console.log(err);
-                })
-            }
-            //INSERT
-            else{
-                console.log(data.postId);
-                axios.post(payload.api + "/api/common/insert_like", data).then((res)=> {
-                    if(res.data.message == "success") {
-                        console.log("insert success");
-                        state.secondcol[payload.index].like_count++;
-                    }
-                    else{
-                        console.log("secondcol" + " " + payload.index + "insert_like fail");
-                    }
-                }).catch((err)=> {
-                    console.log(err);
-                })
-            }
+            console.log(sdata.postId);
+            axios.post(payload.api + "/api/common/insert_like", sdata).then((res)=> {
+                if(res.data.message == "success") {
+                    console.log("insert success");
+                    data[payload.index].like_count++;
+                }
+                else {
+                    console.log("firstcol" + " " + payload.index + "delete_like fail");
+                }
+            }).catch((err)=> {
+                console.log(err);
+            })
         }
     },
     [Constant.WC] : (state,payload) => {
@@ -193,6 +214,8 @@ export default {
         state.sellingproduct = [];
         state.sellingproduct.push({ title: "하늘색 스트라이프 셔츠", like_count: 3400, price: 48000, src:"~/assets/images/test.jpeg" });
         state.sellingproduct.push({ title: "트렌치코트 황토색", like_count: 3400, price: 48000, src:"~/assets/images/test2.jpeg" });
+        state.sellingproduct.push({ title: "하늘색 스트라이프 셔츠", like_count: 3400, price: 48000, src:"~/assets/images/source_1.jpg" });
+
     },
     [Constant.SAP]  : (state,payload) => {
         state.api = payload;
@@ -230,6 +253,42 @@ export default {
             else {
                 state.firstcol.push(state.totalcol[item]);
             }
+        }
+    },
+    [Constant.DCL] : (state,payload) => {
+        let sdata = {
+            userId: state.id_num,
+            postId: state.DetailPageData.id,
+        };
+
+        state.DetailPageData.selectLike = !state.DetailPageData.selectLike;
+        //DELETE
+        if(payload.type === "delete") {
+            axios.post(state.api + "/api/common/delete_like", sdata).then((res)=> {
+                if(res.data.message == "success") {
+                    console.log("delete success");
+                    state.DetailPageData.like_count--;
+                }
+                else {
+                    console.log("delete_like fail");
+                }
+            }).catch((err)=> {
+                console.log(err);
+            })
+        }
+        //INSERT
+        else{
+            axios.post(state.api + "/api/common/insert_like", sdata).then((res)=> {
+                if(res.data.message == "success") {
+                    console.log("insert success");
+                    state.DetailPageData.like_count++;
+                }
+                else {
+                    console.log("delete_like fail");
+                }
+            }).catch((err)=> {
+                console.log(err);
+            })
         }
     }
 }

@@ -86,7 +86,6 @@
                 this.$store.dispatch(Constant.SAP, apiPath.ios);
             }
             // this.apipath = apiPath.server;
-            postget(this.api, this, this.id_num);
             tagget(this.api, this);
         },
         computed : _.extend({

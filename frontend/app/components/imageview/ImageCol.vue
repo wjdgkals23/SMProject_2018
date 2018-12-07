@@ -37,9 +37,25 @@
                 console.log("0" , this.colnum);
                 this.data = this.secondcol;
             }
-            else{
+            else if(this.colnum === "1"){
                 console.log("1", this.colnum);
                 this.data = this.firstcol;
+            }
+            else if(this.colnum === "2"){
+                console.log("2", this.colnum);
+                this.data = this.my_post_second;
+            }
+            else if(this.colnum === "3"){
+                console.log("3", this.colnum);
+                this.data = this.my_post_first;
+            }
+            else if(this.colnum === "4"){
+                console.log("4", this.colnum);
+                this.data = this.my_like_second;
+            }
+            else {
+                console.log("5", this.colnum);
+                this.data = this.my_like_first;
             }
         },
         data: function() {
@@ -68,7 +84,7 @@
             // }
         },
         computed : _.extend({
-        },mapState([ 'firstcol', 'secondcol', 'api', 'id_num' ])),
+        },mapState([ 'firstcol', 'secondcol', 'api', 'id_num', 'my_post_first', 'my_post_second', 'my_like_first', 'my_like_second' ])),
     }
 </script>
 

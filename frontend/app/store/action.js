@@ -67,5 +67,17 @@ export default {
     [Constant.PSD] : (store, payload) => {
         console.log("### POST SORT DATE");
         store.commit(Constant.PSD, payload);
+    },
+    [Constant.GMP] : (store, payload) => {
+        console.log("### GET MY POST");
+        store.commit(Constant.GMP, payload);
+    },
+    [Constant.GML] : (store, payload) => {
+        console.log("### GET MY LIKE");
+        store.commit(Constant.GML, payload);
+    },
+    [Constant.DCL] : (store, payload) => {
+        console.log("### DETAIL PAGE CLICK LIKE");
+        store.commit(Constant.DCL, payload);
     }
 }

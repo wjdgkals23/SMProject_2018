@@ -18,9 +18,10 @@
                         <Label class="fa" :text="'fa-sort-down' | fonticon" color="purple" />
                     </StackLayout>
                 </GridLayout>
-                <image-view v-show="changefd(0)" first="0" second="1"></image-view>
+                <image-view v-show="changefd(0)" first="2" second="3"></image-view>
+                <image-view v-show="changefd(1)" first="4" second="5"></image-view>
                 <!--<collabo-list v-show="changefd(1)"></collabo-list>-->
-                <buy-list v-show="changefd(1)"></buy-list>
+                <buy-list v-show="changefd(2)"></buy-list>
             </StackLayout>
         </ScrollView>
     </GridLayout>
@@ -33,6 +34,11 @@
     import BuyList from './userview/BuyList'
     import CollaboList from './userview/CollaboList'
     const platformModule = require("tns-core-modules/platform");
+
+    import { mapState } from 'vuex'
+    import _ from 'lodash/lodash.min';
+
+    import { mylikeget, mypostget } from "../lib/getpost";
     // import Upload
     export default {
         name: "UserFeed",
@@ -40,12 +46,17 @@
         data() {
             return {
                 items : [
+                    "내 게시물",
                     "관심 게시물",
                     "구입 목록"
                 ],
                 selecteditem : 0,
                 buffer : null,
             }
+        },
+        created() {
+            mypostget(this.api, this, this.id_num);
+            mylikeget(this.api, this, this.id_num);
         },
         methods:{
             change() {
@@ -60,7 +71,7 @@
                 return this.selecteditem == val;
             },
         },
-        computed: {
+        computed : _.extend({
             dropdownstyle() {
                 if(platformModule.device.os == "Android") {
                     return "dropdown mylight"
@@ -77,7 +88,7 @@
                     return "75"
                 }
             }
-        }
+        },mapState([ 'evhp', 'evname', 'api', 'id_num' ])),
     }
 </script>
 

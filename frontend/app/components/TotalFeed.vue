@@ -22,6 +22,9 @@
     export default {
         name: "TotalFeed",
         components: { ImageView, BottomNavigation, UploadPage },
+        created() {
+            postget(this.api, this, this.id_num);
+        },
         data() {
             return {
                 msg: 'Hello World!',
@@ -37,7 +40,7 @@
         },
         computed : _.extend({
 
-        },mapState([ 'evhp', 'evname' ])),
+        },mapState([ 'evhp', 'evname', 'api', 'id_num' ])),
     }
 </script>
 

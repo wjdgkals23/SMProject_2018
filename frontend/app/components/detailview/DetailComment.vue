@@ -56,15 +56,20 @@
             <ScrollView>
                 <CardView class="cardStyle" radius="15" >
                     <StackLayout>
-                        <GridLayout rows="*,*" columns="3*,6*" v-for="(item, index) in comment" paddingBottom="5">
+                        <!--3*,5*,*-->
+                        <GridLayout rows="*,*" columns="3*,5*,*" v-for="(item, index) in comment" paddingBottom="5">
                             <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
-                                <Label :text="item.com_id" class="mylight" style="color: #661d7e;"/>
+                                <Label :text="item.name" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
-                            <GridLayout row="0" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
+                            <GridLayout row="0" col="1" paddingTop="3" paddingRight="2" paddingLeft="5" paddingBottom="3">
                                 <TextView :text="item.contents" class="textview" style="color: #661d7e;"/>
                             </GridLayout>
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
+                            </GridLayout>
+                            <GridLayout row="0" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="3">
+                                <Label class="mytext" text="버전 1" style="color: purple; font-size: 13%" />
+                                <!--v-show="item.checked" @tap="check(index)"-->
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
@@ -79,11 +84,10 @@
     import { imgeditor } from "../../lib/imgpicker";
     import Constant from "../../constant";
     import {upload, uploadcomment} from "../../lib/senddata";
-
-    const platformModule = require("tns-core-modules/platform");
-
     import _ from 'lodash'
     import { mapState } from 'vuex'
+
+    const platformModule = require("tns-core-modules/platform");
 
     export default {
         name: "DetailComment",
@@ -100,6 +104,8 @@
         created() {
             //:imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"
             console.log("created");
+            console.log(this.DetailPageData.author_id);
+            console.log(this.id_num === this.DetailPageData.author_id);
             this.imgdata = this.DetailPageData.Image;
             this.comment = this.DetailPageData.comment;
             this.postid = this.DetailPageData.id;
@@ -144,13 +150,13 @@
                 }
                 else{
                     if(this.editimage.length != 0){
-                        let data = { id: this.id, content: this.writecomment, have_img: true, src: this.editimage[0].src, name: this.editimage[0].name };
+                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: true, url: this.editimage[0].src, name: this.id };
                         uploadcomment(this.api, data);
                         this.$store.dispatch(Constant.WC, data);
                         this.cleancomment();
                     }
                     else{
-                        let data = { id: this.id, content: this.writecomment, have_img: false };
+                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: false, name: this.id };
                         uploadcomment(this.api, data);
                         this.$store.dispatch(Constant.WC, data);
                         this.cleancomment();
@@ -165,12 +171,26 @@
                     if(this.imgdata[item].checked == true)
                         this.imgdata[item].checked = false;
                 }
-            }
+            },
+            commentch(type) {
+                if(type === 1)
+                    return true;
+                else
+                    return false;
+            },
+
         },
         computed: _.extend({
             editcnt: function(){
                 return this.editimage.length==0 ? false : true;
-            }},mapState( [ 'id', 'api', "id_num", "DetailPageData" ] ))
+            },
+            commenttype() {
+                return this.id_num === this.DetailPageData.author_id ? "3*,5*,*" : "3*,5*";
+            },
+            versionch() {
+                return this.id_num === this.DetailPageData.author_id;
+            }
+        },mapState( [ 'id', 'api', "id_num", "DetailPageData" ] ))
     }
 </script>
 

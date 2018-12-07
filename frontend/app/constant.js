@@ -15,4 +15,7 @@ export default {
     RT: 'researchtag',
     PSLC: 'postsortlikecount',
     PSD: 'postsortdate',
+    GMP: 'getmypost',
+    GML: 'getmylike',
+    DCL: 'detailpageclicklike',
 }

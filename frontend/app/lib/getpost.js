@@ -13,6 +13,30 @@ function postget(apiPath, vue, id_num) {
     );
 }
 
+function mylikeget(apiPath, vue, id_num) {
+    console.log("mypostget");
+    axios.get(apiPath + "/api/my_page/liked_list", {params: { user_id: id_num }})
+        .then((response)=>{
+            console.log(response);
+            vue.$store.dispatch(Constant.GML, response);
+        }).catch((error) => {
+            console.log(error);
+        }
+    );
+}
+
+function mypostget(apiPath, vue, id_num) {
+    console.log("mylikeget");
+    axios.get(apiPath + "/api/my_page/my_post", {params: { user_id: id_num }})
+        .then((response)=>{
+            console.log(response);
+            vue.$store.dispatch(Constant.GMP, response);
+        }).catch((error) => {
+            console.log(error);
+        }
+    );
+}
+
 function tagget(apiPath, vue) {
     console.log("tagget");
     axios.get(apiPath + "/api/common/get_tag")
@@ -35,4 +59,4 @@ function detailget(apiPath, vue, data) {
     })
 }
 
-export { postget, tagget, detailget }
+export { postget, tagget, detailget, mylikeget, mypostget }

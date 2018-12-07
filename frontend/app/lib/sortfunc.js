@@ -12,4 +12,11 @@ let post_sort_like_count = function(a,b) {
         return 1;
 }
 
-export { tag_sort, post_sort_like_count };
+let comment_sort_date = function(a,b) {
+    if(a.created_time > b.created_time)
+        return 1;
+    else
+        return -1;
+}
+
+export { tag_sort, post_sort_like_count, comment_sort_date };

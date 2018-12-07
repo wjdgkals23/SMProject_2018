@@ -19,8 +19,8 @@
                                 <name-card></name-card>
                                 <GridLayout verticalAlignment="">
                                     <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="DetailPageData.like" @tap="clicklike" />
-                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="!DetailPageData.like" @tap="clicklike" />
+                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="!DetailPageData.selectLike" @tap="clicklike" />
+                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="DetailPageData.selectLike" @tap="clicklike" />
                                         <StackLayout paddingTop="14" paddingLeft="5">
                                             <Label class="mylight likecnt" :text="likecnt" />
                                         </StackLayout>
@@ -37,8 +37,8 @@
                     </GridLayout>
                 </ScrollView>
             </GridLayout>
-            <GridLayout class="versionupbtn" row="1" v-show="id_num==DetailPageData.id_num">
-                <GridLayout verticalAlignment="center" horizontalAlignment="center">
+            <GridLayout class="versionupbtn" row="1" v-show="id_num==DetailPageData.author_id">
+                <GridLayout verticalAlignment="center" horizontalAlignment="center" @tap="$navigateTo(versionup)">
                     <Label text="버전업!" />
                 </GridLayout>
             </GridLayout>
@@ -48,8 +48,9 @@
 
 <script>
     import DetailCol from "./detailview/DetailCol";
-    import DetailComment from './detailview/DetailComment'
-    import NameCard from './namecard/NameCard'
+    import DetailComment from './detailview/DetailComment';
+    import NameCard from './namecard/NameCard';
+    import VersionUpPage from './VersionUpPage';
     import App from './App';
     import { mapState, mapMutations } from 'vuex';
     import _ from 'lodash/lodash.min';
@@ -60,7 +61,8 @@
         data: function() {
             return {
                 commentpreview: null,
-                app: App
+                app: App,
+                versionup: VersionUpPage
             }
         },
         created() {
@@ -73,29 +75,26 @@
                 return "좋아요 " + this.DetailPageData.like_count + "개";
             },
             ifsvb() {
-                if(this.id_num == this.DetailPageData.id_num) {
+                if(this.id_num == this.DetailPageData.author_id) {
                     return "*, 40"
                 }
                 else {
                     return "*"
                 }
-            }
+            },
         },mapState([ 'DetailPageData', 'abmanager', 'id_num' ])),
         methods:{
             resetdetailpagedata() {
                 this.$store.dispatch(Constant.RSDP);
             },
             clicklike(){
-                // let data = {
-                //     id: this.id_num,
-                //     post_id: this.
-                // }
-                this.DetailPageData.like = !this.DetailPageData.like;
-                if(!this.DetailPageData.like) {
-                    this.DetailPageData.like_count += 1;
+                if(this.DetailPageData.selectLike) {
+                    //delete like
+                    this.$store.dispatch(Constant.DCL, {type:"delete"});
                 }
                 else{
-                    this.DetailPageData.like_count -= 1;
+                    //insert like
+                    this.$store.dispatch(Constant.DCL, {type:"insert"});
                 }
             }
         }

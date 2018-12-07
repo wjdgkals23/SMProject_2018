@@ -2,10 +2,10 @@
     <Page :actionBarHidden="abmanager">
         <ScrollView>
             <GridLayout columns="*" rows="*" class="mylight" paddingBottom="30">
-                <GridLayout rows="*,*" columns="*" style="margin-top:30px">
+                <GridLayout rows="*" columns="*" style="margin-top:30px">
                     <!--<upload-view row="0" ></upload-view>-->
                     <!--<bottom-navigation row="2" colSpan="2"></bottom-navigation>-->
-                    <GridLayout row="0" rows="*,*" columns="*">
+                    <GridLayout row="0" rows="*,40,*" columns="*">
                         <!-- 뒤로 가기 및 업로드 -->
                         <GridLayout row="0" rows="*" columns="*,*">
                             <GridLayout row="0" col="0" verticalAlignment="top" horizontalAlignment="left" width="10%">
@@ -20,8 +20,7 @@
                             </GridLayout>
                         </GridLayout>
                         <!-- 제목 및 내용 작성 -->
-                        <StackLayout row="1" backgroundColor="white" padding="10" id="upload">
-                            <TextField v-model="title" :text="title" hint="제목" editable="true" class="titlestyle"/>
+                        <StackLayout row="2" backgroundColor="white" padding="10" id="upload">
                             <CardView class="cardStyle" elevation="0" radius="15">
                                 <GridLayout rows="*" margin="0">
                                     <GridLayout verticalAlignment="top">
@@ -62,48 +61,6 @@
                     </GridLayout>
 
                     <!--<upload-tag row="1" ></upload-tag>-->
-                    <GridLayout row="1" rows="*,60,*">
-                        <!-- 선택된 태그 -->
-                        <StackLayout row="0">
-                            <!-- 태그 리스트 뷰 -->
-                            <StackLayout col="0" paddingTop="10" horizontalAlignment="center">
-                                <Label text="선택된 태그" style="font-size: 20px; color: purple;"/>
-                            </StackLayout>
-                            <FlexboxLayout flexWrap="wrap" paddingTop="10" paddingLeft="15" paddingRight="15">
-                                <CardView :class="stylebind(item)" elevation="0" radius="10" v-for="(item,index) in selectedtag">
-                                    <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.contents" @tap="deletetag(index, item.contents)"/>
-                                    </StackLayout>
-                                </CardView>
-                            </FlexboxLayout>
-
-                        </StackLayout>
-
-                        <!-- 태그 검색바 -->
-                        <GridLayout row="1" columns="*,4*" paddingTop="15" width="100%">
-                            <StackLayout col="0" paddingTop="10" horizontalAlignment="center">
-                                <Label text="태그" style="font-size: 20px; color: purple;"/>
-                            </StackLayout>
-                            <StackLayout col="1" horizontalAlignment="left">
-                                <CardView elevation="0">
-                                    <StackLayout>
-                                        <SearchBar v-model="searchkeyword" verticalAlignment="center" :text="uploadcontent" editable="true" class="tagsearch"/>
-                                    </StackLayout>
-                                </CardView>
-                            </StackLayout>
-                        </GridLayout>
-
-                        <StackLayout row="2">
-                            <!-- 태그 리스트 뷰 -->
-                            <FlexboxLayout justifyContent="center" flexWrap="wrap" paddingTop="20" >
-                                <CardView v-if="tagshow" elevation="0" v-for="(item,index) in filteredList" paddingTop="20" paddingLeft="15" paddingRight="15">
-                                    <StackLayout :class="stylebind(item)" radius="10" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                        <Label :text="item.contents" @tap="addtag(item, index)"/>
-                                    </StackLayout>
-                                </CardView>
-                            </FlexboxLayout>
-                        </StackLayout>
-                    </GridLayout>
                 </GridLayout>
             </GridLayout>
         </ScrollView>
@@ -111,77 +68,25 @@
 </template>
 
 <script>
-    import UploadView from './uploadview/UploadView'
-    import UploadTag from './uploadview/UploadTag'
-    import { mapState } from 'vuex'
-    import _ from 'lodash/lodash.min';
-    import Constant from '../constant';
-
     import { imgpickerfunc } from '../lib/imgpicker';
-    import { upload } from "../lib/senddata";
-    import axios from 'axios';
-    import { apiPath } from "../lib/httpconfig";
-    import { tag_sort } from "../lib/sortfunc";
-
-    const platformModule = require("tns-core-modules/platform");
+    import { versionup } from "../lib/senddata";
+    import { mapState, mapMutations } from 'vuex';
+    import _ from 'lodash/lodash.min';
 
     export default {
-        name: "UploadPage",
-        components: { UploadView, UploadTag },
-        data: function() {
+        name: "VersionUpPage",
+        data() {
             return {
-                selectedtag: [],
-                searchkeyword: "",
-                tagdata: null,
                 title: "",
                 content: "",
-                uploadcontent: "",
                 titlestyle: "style1",
                 imagesource: [],
-                counter: 0,
             }
         },
-        name: "UploadTag",
         computed : _.extend({
-            filteredList() {
-                return this.tags.filter((tag) => {
-                    return tag.contents.toLowerCase().includes(this.searchkeyword.toLowerCase())
-                })
-            },
-            tagshow() {
-                if(this.searchkeyword == "")
-                    return false;
-                else
-                    return true;
-            }
-        },mapState([ 'tags' , 'abmanager', 'api', "id_num" ])),
-        mounted() {
-            this.tags.sort(tag_sort);
-        },
-        created(){
 
-        },
+        },mapState([ 'tags' , 'abmanager', 'api', "id_num", "DetailPageData" ])),
         methods: {
-            async addtag(item) {
-                let index = await this.tags.findIndex((tag)=> {
-                    return tag.contents == item.contents;
-                });
-                console.log(index);
-                this.tags.splice(index,1);
-                this.selectedtag.push(item);
-            },
-            deletetag(num, name) {
-                let item = this.selectedtag[num];
-                this.tags.push(item);
-                this.tags.sort(tag_sort);
-                this.selectedtag.splice(num,1);
-            },
-            stylebind(item) {
-                if(item.type == "0")
-                    return "clothtag"
-                else
-                    return "styletag"
-            },
             uploadimage() {
                 let that = this;
                 return (imgpickerfunc(that));
@@ -190,18 +95,12 @@
             send() {
                 console.log(this.title, this.content);
                 let textdata = {
-                    userId: this.id_num,
-                    title: this.title,
+                    postId: this.DetailPageData.id,
                     contents: this.content,
                 }
-                let tagdata = [];
-                for(let item in this.selectedtag) {
-                    tagdata.push({id: this.selectedtag[item].id});
-                }
-
-                upload(this.imagesource, this.api, textdata, tagdata, this);
+                versionup(this.imagesource, this.api, textdata, this);
             }
-        }
+        },
     }
 </script>
 

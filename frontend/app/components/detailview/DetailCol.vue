@@ -27,7 +27,7 @@
         <GridLayout class="content" paddingTop="16" paddingBottom="16" paddingLeft="16" paddingRight="16">
             <Label class="authortext mytext" :text="first.content" textWrap="true"/>
         </GridLayout>
-        <GridLayout rows="20" columns="60,30,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">
+        <GridLayout rows="30" columns="60,40,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">
             <GridLayout row="0" col="0" verticalAlignment="center" horizontalAlignment="center">
                 <Image class="img" src="~/assets/images/btn/leftarrow.png"></Image>
             </GridLayout>
