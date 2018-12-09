@@ -21,12 +21,10 @@
             </GridLayout>
         </GridLayout>
         <GridLayout row="1">
-            <ScrollView>
                 <GridLayout columns="*,*" class="mybold" paddingBottom="15">
                     <image-col :colnum="first" col="0"></image-col>
                     <image-col :colnum="second" col="1"></image-col>
                 </GridLayout>
-            </ScrollView>
         </GridLayout>
     </GridLayout>
 </template>

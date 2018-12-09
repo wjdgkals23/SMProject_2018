@@ -6,8 +6,8 @@
                     <GridLayout columns="*" rows="*" class="mylight" paddingBottom="20">
                         <StackLayout>
                             <GridLayout columns="*" rows="70">
-                                <GridLayout horizontalAlignment="right" width="15%" margin="0" paddingTop="10">
-                                    <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 40px" @tap="$navigateBack" />
+                                <GridLayout horizontalAlignment="right" width="15%" margin="0" paddingTop="20">
+                                    <Label class="fa" :text="'fa-times-circle' | fonticon" color="purple" style="font-size: 35px" @tap="$navigateBack" />
                                     <!--<Image src="~/assets/images/btn/cancel.png" stretch="aspectFit" @tap="resetdetailpagedata(),$navigateBack()"/>-->
                                 </GridLayout>
                             </GridLayout>

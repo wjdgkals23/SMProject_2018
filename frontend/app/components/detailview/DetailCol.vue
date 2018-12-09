@@ -1,7 +1,14 @@
 <template>
     <StackLayout>
+        <StackLayout paddingTop="0" paddingBottom="8" paddingLeft="16" paddingRight="0">
+            <FlexboxLayout alignItems="flex-start" v-for="(item,index) in first.title">
+                <StackLayout :class="textbind(index)">
+                    <Label :order="index" class="titletext" :text="item" />
+                </StackLayout>
+            </FlexboxLayout>
+        </StackLayout>
         <!-- 작가 -->
-        <GridLayout rows="60" columns="80,*"class="content" paddingTop="0" paddingBottom="8" paddingLeft="16" paddingRight="8">
+        <GridLayout rows="50" columns="80,*"class="content" paddingTop="0" paddingBottom="8" paddingLeft="16" paddingRight="8">
             <GridLayout row="0" col="0">
                 <Image class="img" src="~/assets/images/default_user.png"></Image>
             </GridLayout>
@@ -14,13 +21,6 @@
             <GridLayout rows="*" columns="*" margin="0">
                 <GridLayout row="0">
                     <Image class="img" :src="first.url" stretch="aspectFill" />
-                    <StackLayout>
-                        <FlexboxLayout alignItems="flex-start" v-for="(item,index) in first.title">
-                            <StackLayout :class="textbind(index)">
-                                <Label :order="index" class="titletext" :text="item" />
-                            </StackLayout>
-                        </FlexboxLayout>
-                    </StackLayout>
                 </GridLayout>
             </GridLayout>
         </CardView>
@@ -38,7 +38,7 @@
                 <Button text="다음버전" @tap="getnext"/>
             </GridLayout>
         </GridLayout>
-        <GridLayout rows="150" verticalAlignment="center" horizontalAlignment="center">
+        <GridLayout v-if="DetailPageData.version !== 1" rows="150" verticalAlignment="center" horizontalAlignment="center">
             <Image class="img" src="~/assets/images/versionpannel.png"></Image>
         </GridLayout>
         <!-- 잔여 이미지 -->
@@ -157,8 +157,6 @@
 <style scoped>
     .topcardStyle {
         /*color: #fff;*/
-        width: 92%;
-        padding: 4%;
         font-size: 35px;
         /*font-family: THEmpgtB;*/
         /*font-family: THELu;*/

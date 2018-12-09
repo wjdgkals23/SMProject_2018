@@ -5,7 +5,7 @@
         <!--</ActionBar>-->
         <!--<ActivityIndicator :busy=busy @busyChange="onBusyChanged" />-->
         <GridLayout columns="*" rows="*" paddingTop="">
-            <GridLayout rows="*,55">
+            <GridLayout row="0" rows="*,55">
                 <component row="0" :is="currentView"></component>
                 <bottom-navigation row="1"></bottom-navigation>
             </GridLayout>
