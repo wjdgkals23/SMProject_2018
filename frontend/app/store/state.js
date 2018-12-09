@@ -34,7 +34,9 @@ export default {
         like_count: 4334,
     //    page select initm
         version: null,
+        maxversion: null,
     },
+    chcomment: [],
     peedmanager: 1,
     abmanager: true,
     api: null,

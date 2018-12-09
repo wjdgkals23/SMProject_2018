@@ -50,13 +50,25 @@ function tagget(apiPath, vue) {
 
 function detailget(apiPath, vue, data) {
     console.log("detailget");
-    axios.get(apiPath + "/api/detail_page/get_post_detail", {params: { postId: data.postId, userId: data.userId, postVersion: -1 }})
-        .then((response) => {
-            vue.$store.dispatch(Constant.SDP, response.data);
-            vue.$navigateTo(vue.page);
-        }).catch(err => {
+    if(!data.hasOwnProperty("version")) {
+        axios.get(apiPath + "/api/detail_page/get_post_detail", {params: { postId: data.postId, userId: data.userId, postVersion: -1 }})
+            .then((response) => {
+                vue.$store.dispatch(Constant.SDP, response.data);
+                vue.$navigateTo(vue.page);
+            }).catch(err => {
             console.log(err);
-    })
+        })
+    }
+    else {
+        axios.get(apiPath + "/api/detail_page/get_post_detail", {params: { postId: data.postId, userId: data.userId, postVersion: data.version }})
+            .then((response) => {
+                vue.$store.dispatch(Constant.SDP, response.data);
+                vue.$navigateBack();
+                vue.$navigateTo(vue.page);
+            }).catch(err => {
+            console.log(err);
+        })
+    }
 }
 
 export { postget, tagget, detailget, mylikeget, mypostget }

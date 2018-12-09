@@ -1,7 +1,26 @@
 <template>
     <Page :actionBarHidden="abmanager">
         <ScrollView>
-            <GridLayout columns="*" rows="*" class="mylight" paddingBottom="30">
+            <StackLayout class="mylight" paddingBottom="30">
+                <GridLayout paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30" v-for="(item, index) in chcomment">
+                    <CardView class="cardStyle" radius="15">
+                        <StackLayout>
+                            <GridLayout rows="*,*" columns="3*,5*" paddingBottom="5">
+                                <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
+                                    <Label :text="item.name" class="mylight" style="color: #661d7e;"/>
+                                </GridLayout>
+                                <GridLayout row="0" col="1" paddingTop="3" paddingRight="2" paddingLeft="5" paddingBottom="3">
+                                    <TextView :text="item.contents" class="textview" style="color: #661d7e;"/>
+                                </GridLayout>
+                                <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
+                                    <Image :src="item.url" v-show="item.have_img" horizontalAlignment="center" verticalAlignment="center" />
+                                </GridLayout>
+                            </GridLayout>
+                            <!--3*,5*,*-->
+                        </StackLayout>
+                    </CardView>
+                </GridLayout>
+
                 <GridLayout rows="*" columns="*" style="margin-top:30px">
                     <!--<upload-view row="0" ></upload-view>-->
                     <!--<bottom-navigation row="2" colSpan="2"></bottom-navigation>-->
@@ -62,7 +81,7 @@
 
                     <!--<upload-tag row="1" ></upload-tag>-->
                 </GridLayout>
-            </GridLayout>
+            </StackLayout>
         </ScrollView>
     </Page>
 </template>
@@ -83,9 +102,12 @@
                 imagesource: [],
             }
         },
+        created() {
+            console.log(this.chcomment);
+        },
         computed : _.extend({
 
-        },mapState([ 'tags' , 'abmanager', 'api', "id_num", "DetailPageData" ])),
+        },mapState([ 'tags' , 'abmanager', 'api', "id_num", "DetailPageData", "chcomment" ])),
         methods: {
             uploadimage() {
                 let that = this;
@@ -190,5 +212,10 @@
     .img {
         border-radius: 15px;
         margin-right: 5px;
+    }
+
+    .textview {
+        background-color: transparent;
+        border-color: transparent;
     }
 </style>

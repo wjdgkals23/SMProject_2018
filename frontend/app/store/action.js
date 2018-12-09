@@ -24,6 +24,10 @@ export default {
         console.log("### SET DETAIL PAGE");
         store.commit(Constant.SDP, payload);
     },
+    [Constant.SDP_V] : (store, payload) => {
+        console.log("### SET DETAIL PAGE");
+        store.commit(Constant.SDP, payload);
+    },
     [Constant.RSDP] : (store, payload) => {
         console.log("### RESET DETAIL PAGE");
         store.commit(Constant.RSDP, payload);
@@ -79,5 +83,9 @@ export default {
     [Constant.DCL] : (store, payload) => {
         console.log("### DETAIL PAGE CLICK LIKE");
         store.commit(Constant.DCL, payload);
+    },
+    [Constant.CC] : (store, payload) => {
+        console.log("CHECK COMMENT");
+        store.commit(Constant.CC, payload);
     }
 }

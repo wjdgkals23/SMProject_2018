@@ -29,13 +29,13 @@
         </GridLayout>
         <GridLayout rows="30" columns="60,40,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">
             <GridLayout row="0" col="0" verticalAlignment="center" horizontalAlignment="center">
-                <Image class="img" src="~/assets/images/btn/leftarrow.png"></Image>
+                <Button text="이전버전" @tap="getprev"/>
             </GridLayout>
             <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
                 <Label class="mylight" style="font-size: 25px; color: purple" :text="DetailPageData.version"></Label>
             </GridLayout>
             <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="center">
-                <Image class="img" src="~/assets/images/btn/rightarrow.png"></Image>
+                <Button text="다음버전" @tap="getnext"/>
             </GridLayout>
         </GridLayout>
         <GridLayout rows="150" verticalAlignment="center" horizontalAlignment="center">
@@ -65,6 +65,9 @@
 <script>
     import { mapState, mapMutations } from 'vuex';
     import _ from 'lodash/lodash.min';
+    import Constant from '../../constant';
+    import { detailget } from "../../lib/getpost";
+    import DetailPage from '../DetailPage';
 
     export default {
         name: "DetailCol",
@@ -96,6 +99,7 @@
             return {
                 data: [],
                 first: {},
+                page: DetailPage
             }
         },
         methods: {
@@ -112,6 +116,26 @@
                 else{
                     return "mybold";
                 }
+            },
+            getprev() {
+                if(this.DetailPageData.version-1 === 0) {
+                    alert("첫 번째 버전입니다").then(() => {
+                       console.log("first version");
+                    });
+                }
+                else {
+                    detailget(this.api, this, { postId: this.DetailPageData.id, userId: this.id_num, version: this.DetailPageData.version-1 });
+                }
+            },
+            getnext() {
+                if(this.DetailPageData.version === this.DetailPageData.maxversion) {
+                    alert("마지막 버전 입니다.").then(() => {
+                        console.log("last version");
+                    });
+                }
+                else {
+                    detailget(this.api, this, { postId: this.DetailPageData.id, userId: this.id_num, version: this.DetailPageData.version+1 });
+                }
             }
         },
         computed: _.extend({
@@ -126,7 +150,7 @@
                     return "*"
                 }
             }
-        },mapState([ 'DetailPageData'])),
+        },mapState([ 'DetailPageData', 'api', 'id_num' ])),
     }
 </script>
 

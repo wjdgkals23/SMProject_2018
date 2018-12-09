@@ -3,6 +3,7 @@ export default {
     GETPOST: 'getpost',
     CLEANPOST: 'cleanpost',
     PEEDCH: 'peedch',
+    SDP_V: 'setdetailpagedata_version',
     SDP: 'setdetailpagedata', //Set Detail Page
     RSDP: 'resetdetailpagedata',
     CL: 'clicklike',
@@ -18,4 +19,5 @@ export default {
     GMP: 'getmypost',
     GML: 'getmylike',
     DCL: 'detailpageclicklike',
+    CC: 'checkcomment',
 }

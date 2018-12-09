@@ -68,7 +68,8 @@
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
                             </GridLayout>
                             <GridLayout row="0" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="3">
-                                <Label class="mytext" text="버전 1" style="color: purple; font-size: 13%" />
+                                <Image src="~/assets/images/btn/white_check.png" v-if="!commentch(item.select_type)" @tap="commentcheck(index)"/>
+                                <Image src="~/assets/images/btn/check.png" v-if="commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <!--v-show="item.checked" @tap="check(index)"-->
                             </GridLayout>
                         </GridLayout>
@@ -178,6 +179,9 @@
                 else
                     return false;
             },
+            commentcheck(ind) {
+                this.$store.dispatch(Constant.CC, { index: ind } );
+            }
 
         },
         computed: _.extend({

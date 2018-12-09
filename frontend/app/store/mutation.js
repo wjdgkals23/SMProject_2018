@@ -75,13 +75,15 @@ export default {
         // namecard
         // post
         console.log(payload);
+        state.chcomment.splice(0,state.chcomment.length);
         payload.commentAttachment.sort(comment_sort_date);
         payload.commentList.sort(comment_sort_date);
         state.namecard.name = payload.userData.name;
         state.namecard.email = payload.userData.email;
         state.DetailPageData.author_id = payload.userData.id;
         state.DetailPageData.id = payload.postDetail.post_id;
-        state.DetailPageData.version = payload.maxPostVersion;
+        state.DetailPageData.maxversion = payload.maxPostVersion;
+        state.DetailPageData.version = payload.postAttachment[0].version;
         state.DetailPageData.tag = payload.tagList;
         state.DetailPageData.Image = payload.postAttachment;
         state.DetailPageData.title = payload.postDetail.title;
@@ -290,5 +292,22 @@ export default {
                 console.log(err);
             })
         }
+    },
+    [Constant.CC] : (state, payload) => {
+        state.DetailPageData.comment[payload.index].select_type = Math.abs(1-state.DetailPageData.comment[payload.index].select_type);
+        if(state.DetailPageData.comment[payload.index].select_type === 1) {
+            state.chcomment.push(state.DetailPageData.comment[payload.index]);
+        }
+        else {
+            if(state.chcomment.length > 0 ){
+                for(let item in state.chcomment) {
+                    if(state.DetailPageData.comment[payload.index].id === state.chcomment[item].id) {
+                        state.chcomment.splice(item, 1);
+                    }
+                }
+            }
+        }
+
+        console.log(state.chcomment.length);
     }
 }
