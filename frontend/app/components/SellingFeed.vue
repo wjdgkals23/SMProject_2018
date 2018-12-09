@@ -1,14 +1,14 @@
 <template>
     <ScrollView>
-        <GridLayout rows="150,*">
+        <GridLayout rows="150,30,*">
             <GridLayout row="0">
                 <Image class="img" src="~/assets/images/buypannel.png"></Image>
             </GridLayout>
-            <StackLayout row="1" columns="*" class="mybold" paddingTop="20" verticalAlignment="center" horizontalAlignment="center" >
+            <StackLayout row="2" columns="*" class="mybold" paddingTop="20" verticalAlignment="center" horizontalAlignment="center" >
                 <GridLayout rows="310" columns="260" margin="0" paddingBottom="60" >
-                    <CardView elevation="0" radius="15" class="topcardStyle" @swipe="act_swipe">
-                        <GridLayout row="0" paddingTop="5" @tap="$navigateTo(page)">
-                            <Image class="img" :src="items.src" stretch="aspectFill" />
+                    <CardView elevation="0" radius="15" class="topcardStyle" @swipe="act_swipe" @tap="$navigateTo(page)">
+                        <GridLayout row="0" paddingTop="5">
+                            <Image class="img" :src="items.src" stretch="aspectFill"/>
                             <StackLayout paddingLeft="15" paddingTop="15">
                                 <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
                                     <StackLayout :class="textbind(ind)">

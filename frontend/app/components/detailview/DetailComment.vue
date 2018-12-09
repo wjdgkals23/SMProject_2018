@@ -53,11 +53,11 @@
         </GridLayout>
         <!-- 댓글 리스트 -->
         <GridLayout rows="500" columns="*" paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30">
-            <ScrollView>
-                <CardView class="cardStyle" radius="15" >
+            <CardView class="cardStyle" radius="15" >
+                <ScrollView>
                     <StackLayout>
                         <!--3*,5*,*-->
-                        <GridLayout rows="*,*" columns="3*,5*,*" v-for="(item, index) in comment" paddingBottom="5">
+                        <GridLayout rows="*,*" :columns="commentcol" v-for="(item, index) in comment" paddingBottom="5">
                             <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
                                 <Label :text="item.name" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
@@ -67,15 +67,15 @@
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
                             </GridLayout>
-                            <GridLayout row="0" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="3">
+                            <GridLayout v-if="id_num === DetailPageData.author_id" row="0" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="3">
                                 <Image src="~/assets/images/btn/white_check.png" v-if="!commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <Image src="~/assets/images/btn/check.png" v-if="commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <!--v-show="item.checked" @tap="check(index)"-->
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
-                </CardView>
-            </ScrollView>
+                </ScrollView>
+            </CardView>
         </GridLayout>
     </StackLayout>
 </template>
@@ -193,6 +193,14 @@
             },
             versionch() {
                 return this.id_num === this.DetailPageData.author_id;
+            },
+            commentcol() {
+                if(this.id_num === this.DetailPageData.author_id){
+                    return "3*,5*,*";
+                }
+                else {
+                    return "3*,5*";
+                }
             }
         },mapState( [ 'id', 'api', "id_num", "DetailPageData" ] ))
     }

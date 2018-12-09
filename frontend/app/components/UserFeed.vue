@@ -22,6 +22,7 @@
                 <image-view v-show="changefd(1)" first="4" second="5"></image-view>
                 <!--<collabo-list v-show="changefd(1)"></collabo-list>-->
                 <buy-list v-show="changefd(2)"></buy-list>
+                <collabo-list v-show="changefd(3)"></collabo-list>
             </StackLayout>
         </ScrollView>
     </GridLayout>
@@ -48,7 +49,8 @@
                 items : [
                     "내 게시물",
                     "관심 게시물",
-                    "구입 목록"
+                    "구입 목록",
+                    "콜라보"
                 ],
                 selecteditem : 0,
                 buffer : null,

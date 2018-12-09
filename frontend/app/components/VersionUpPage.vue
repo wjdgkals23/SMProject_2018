@@ -2,29 +2,10 @@
     <Page :actionBarHidden="abmanager">
         <ScrollView>
             <StackLayout class="mylight" paddingBottom="30">
-                <GridLayout paddingTop="6" paddingLeft="8" paddingRight="8" paddingBottom="30" v-for="(item, index) in chcomment">
-                    <CardView class="cardStyle" radius="15">
-                        <StackLayout>
-                            <GridLayout rows="*,*" columns="3*,5*" paddingBottom="5">
-                                <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
-                                    <Label :text="item.name" class="mylight" style="color: #661d7e;"/>
-                                </GridLayout>
-                                <GridLayout row="0" col="1" paddingTop="3" paddingRight="2" paddingLeft="5" paddingBottom="3">
-                                    <TextView :text="item.contents" class="textview" style="color: #661d7e;"/>
-                                </GridLayout>
-                                <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
-                                    <Image :src="item.url" v-show="item.have_img" horizontalAlignment="center" verticalAlignment="center" />
-                                </GridLayout>
-                            </GridLayout>
-                            <!--3*,5*,*-->
-                        </StackLayout>
-                    </CardView>
-                </GridLayout>
-
                 <GridLayout rows="*" columns="*" style="margin-top:30px">
                     <!--<upload-view row="0" ></upload-view>-->
                     <!--<bottom-navigation row="2" colSpan="2"></bottom-navigation>-->
-                    <GridLayout row="0" rows="*,40,*" columns="*">
+                    <GridLayout row="0" rows="*,auto,*" columns="*">
                         <!-- 뒤로 가기 및 업로드 -->
                         <GridLayout row="0" rows="*" columns="*,*">
                             <GridLayout row="0" col="0" verticalAlignment="top" horizontalAlignment="left" width="10%">
@@ -37,6 +18,9 @@
                                     <Image verticalAlignment="center" src="~/assets/images/btn/upload.png" stretch="aspectFit" @tap="send"/>
                                 </StackLayout>
                             </GridLayout>
+                        </GridLayout>
+                        <GridLayout row="1" v-if="chcomment.length !== 0" paddingTop="16" paddingLeft="8" paddingRight="8" paddingBottom="8" horizontalAlignment="center" verticalAlignment="center">
+                            <Label class="mybold" style="font-size: 20%; color: purple;" text="선택한 댓글 보기" @tap="$showModal(page)"/>
                         </GridLayout>
                         <!-- 제목 및 내용 작성 -->
                         <StackLayout row="2" backgroundColor="white" padding="10" id="upload">
@@ -91,6 +75,7 @@
     import { versionup } from "../lib/senddata";
     import { mapState, mapMutations } from 'vuex';
     import _ from 'lodash/lodash.min';
+    import CommentList from './detailview/CommentList'
 
     export default {
         name: "VersionUpPage",
@@ -100,6 +85,7 @@
                 content: "",
                 titlestyle: "style1",
                 imagesource: [],
+                page: CommentList
             }
         },
         created() {

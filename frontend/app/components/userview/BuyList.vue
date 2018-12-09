@@ -1,7 +1,7 @@
 <template>
     <StackLayout>
         <CardView class="cardStyle" elevation="20" radius="10" v-for="item in buylist">
-            <GridLayout rows="90" columns="*" paddingTop="0" paddingBottom="8" paddingLeft="10" paddingRight="10">
+            <GridLayout rows="auto" columns="*" paddingTop="0" paddingBottom="8" paddingLeft="10" paddingRight="10">
                 <GridLayout rows="3*,2*" columns="14*,*">
                     <GridLayout row="0" col="0">
                         <Label :text="item.name"></Label>

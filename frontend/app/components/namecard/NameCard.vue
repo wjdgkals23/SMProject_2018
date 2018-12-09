@@ -12,7 +12,7 @@
                     <Label class="mytext info" :text="namecard.major"></Label>
                 </StackLayout>
                 <GridLayout col="1" paddingTop="5" horizontalAlignment="left" verticalAlignment="center">
-                    <Image class="img" src="~/assets/images/author.png"></Image>
+                    <Image class="img" src="~/assets/images/default_user.png"></Image>
                 </GridLayout>
             </GridLayout>
         </GridLayout>

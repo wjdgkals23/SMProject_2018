@@ -3,7 +3,7 @@
         <!-- 작가 -->
         <GridLayout rows="60" columns="80,*"class="content" paddingTop="0" paddingBottom="8" paddingLeft="16" paddingRight="8">
             <GridLayout row="0" col="0">
-                <Image class="img" src="~/assets/images/author.png"></Image>
+                <Image class="img" src="~/assets/images/default_user.png"></Image>
             </GridLayout>
             <GridLayout row="0" col="1" verticalAlignment="center">
                 <Label class="authortext mylight" :text="first.author" textWrap="true"/>
