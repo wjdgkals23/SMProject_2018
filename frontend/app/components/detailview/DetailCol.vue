@@ -27,15 +27,15 @@
         <GridLayout class="content" paddingTop="16" paddingBottom="16" paddingLeft="16" paddingRight="16">
             <Label class="authortext mytext" :text="first.content" textWrap="true"/>
         </GridLayout>
-        <GridLayout rows="30" columns="60,40,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">
+        <GridLayout rows="30" columns="60,auto,60" verticalAlignment="center" horizontalAlignment="center" paddingBottom="8">
             <GridLayout row="0" col="0" verticalAlignment="center" horizontalAlignment="center">
-                <Button text="이전버전" @tap="getprev"/>
+                <Image src="~/assets/images/btn/versionleft.png" stretch="aspectFit"  @tap="getprev" />
             </GridLayout>
             <GridLayout row="0" col="1" verticalAlignment="center" horizontalAlignment="center">
-                <Label class="mylight" style="font-size: 25px; color: purple" :text="DetailPageData.version"></Label>
+                <Label class="mylight" style="font-size: 20%; color: purple" :text="versiontext"></Label>
             </GridLayout>
             <GridLayout row="0" col="2" verticalAlignment="center" horizontalAlignment="center">
-                <Button text="다음버전" @tap="getnext"/>
+                <Image src="~/assets/images/btn/versionright.png" stretch="aspectFit"  @tap="getnext" />
             </GridLayout>
         </GridLayout>
         <GridLayout v-if="DetailPageData.version !== 1" rows="150" verticalAlignment="center" horizontalAlignment="center">
@@ -149,6 +149,9 @@
                 else {
                     return "*"
                 }
+            },
+            versiontext() {
+                return this.DetailPageData.version + " 번째 업그레이드"
             }
         },mapState([ 'DetailPageData', 'api', 'id_num' ])),
     }

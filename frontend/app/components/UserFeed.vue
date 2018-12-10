@@ -2,7 +2,16 @@
     <GridLayout columns="*" rows="*">
         <ScrollView orientation="vertical" row="0">
             <StackLayout backgroundColor="#ffffff">
-                <name-card></name-card>
+                <GridLayout rows="70">
+                    <CardView>
+                        <GridLayout style="background: #ffffff;" paddingTop="15" paddingBottom="15" verticalAlignment="center" horizontalAlignment="center">
+                            <GridLayout verticalAlignment="center" horizontalAlignment="center">
+                                <Label class="headtext" text="마이피드" style="color: #6a1495; font-size: 25%; width: 100%; text-align: center;"/>
+                            </GridLayout>
+                        </GridLayout>
+                    </CardView>
+                </GridLayout>
+                <name-card :namecard="mynamecard"></name-card>
                 <GridLayout :rows="height" columns="*" paddingTop="3" verticalAlignment="center" horizontalAlignment="center">
                     <StackLayout orientation="horizontal" row="0" col="0">
                         <!--<DropDown :class="dropdownstyle"-->
@@ -90,7 +99,7 @@
                     return "75"
                 }
             }
-        },mapState([ 'evhp', 'evname', 'api', 'id_num' ])),
+        },mapState([ 'evhp', 'evname', 'api', 'id_num', 'mynamecard' ])),
     }
 </script>
 

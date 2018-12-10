@@ -1,48 +1,50 @@
 <template>
     <!-- 전체 피드 -->
-    <GridLayout rows="60,*">
+    <GridLayout rows="70,*">
         <CardView row="0">
-            <GridLayout style="background: #ffffff;" paddingTop="20" paddingBottom="5">
-                <Image class="img" src="~/assets/images/voda60.png" stretch="aspectFit"></Image>
+            <GridLayout style="background: #ffffff;" paddingTop="20" paddingBottom="10">
+                <Image class="img" src="~/assets/images/title.png" stretch="aspectFit"></Image>
             </GridLayout>
         </CardView>
-        <ScrollView row="1">
-            <GridLayout rows="15,auto,*">
-                <GridLayout row="1" rows="80,30,*">
-                    <GridLayout row="0" paddingTop="0" paddingLeft="13" paddingRight="13">
-                        <Image class="img" src="~/assets/images/totalslash.png" stretch="aspectFit"></Image>
-                        <GridLayout verticalAlignment="center" horizontalAlignment="center" rows="*,*">
-                            <GridLayout row="0" verticalAlignment="center" horizontalAlignment="center">
-                                <Label class="mytext" style="font-size: 25%; color: #651493" text="12월 첫째 주"/>
-                            </GridLayout>
-                            <GridLayout row="1" verticalAlignment="center" horizontalAlignment="center">
-                                <Label class="mybold" style="font-size: 25%; color: #651493" text="TOP 3"/>
-                            </GridLayout>
-                        </GridLayout>
-                    </GridLayout>
-                    <StackLayout row="2" columns="*" class="mybold" paddingTop="20" verticalAlignment="center" horizontalAlignment="center" >
-                        <GridLayout rows="230" columns="230" margin="0" paddingBottom="30" >
-                            <CardView elevation="0" radius="15" class="topcardStyle">
-                                <GridLayout row="0" paddingTop="5">
-                                    <Image class="img" :src="items.src" stretch="aspectFill"/>
-                                    <StackLayout paddingLeft="15" paddingTop="15">
-                                        <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
-                                            <StackLayout :class="textbind(ind)">
-                                                <Label :order="ind" class="titletext" :text="text" />
-                                            </StackLayout>
-                                        </FlexboxLayout>
-                                    </StackLayout>
+        <GridLayout row="1">
+            <ScrollView>
+                <GridLayout rows="15,auto,*">
+                    <GridLayout row="1" rows="80,30,*">
+                        <GridLayout row="0" paddingTop="0" paddingLeft="13" paddingRight="13">
+                            <Image class="img" src="~/assets/images/totalslash.png" stretch="aspectFit"></Image>
+                            <GridLayout verticalAlignment="center" horizontalAlignment="center" rows="*,*">
+                                <GridLayout row="0" verticalAlignment="center" horizontalAlignment="center">
+                                    <Label class="mytext" style="font-size: 25%; color: #651493" text="12월 첫째 주"/>
                                 </GridLayout>
-                            </CardView>
+                                <GridLayout row="1" verticalAlignment="center" horizontalAlignment="center">
+                                    <Label class="mybold" style="font-size: 25%; color: #651493" text="TOP 3"/>
+                                </GridLayout>
+                            </GridLayout>
                         </GridLayout>
-                    </StackLayout>
+                        <StackLayout row="2" columns="*" class="mybold" paddingTop="20" verticalAlignment="center" horizontalAlignment="center" >
+                            <GridLayout rows="230" columns="230" margin="0" paddingBottom="30" >
+                                <CardView elevation="0" radius="15" class="topcardStyle">
+                                    <GridLayout row="0" paddingTop="5">
+                                        <Image class="img" :src="items.src" stretch="aspectFill"/>
+                                        <StackLayout paddingLeft="15" paddingTop="15">
+                                            <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
+                                                <StackLayout :class="textbind(ind)">
+                                                    <Label :order="ind" class="titletext" :text="text" />
+                                                </StackLayout>
+                                            </FlexboxLayout>
+                                        </StackLayout>
+                                    </GridLayout>
+                                </CardView>
+                            </GridLayout>
+                        </StackLayout>
+                    </GridLayout>
+                    <image-view row="2" first="0" second="1"></image-view>
                 </GridLayout>
-                <image-view row="2" first="0" second="1"></image-view>
-                <GridLayout row="2" verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
-                    <Image src="~/assets/images/btn/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
-                </GridLayout>
+            </ScrollView>
+            <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
+                <Image src="~/assets/images/btn/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
             </GridLayout>
-        </ScrollView>
+        </GridLayout>
     </GridLayout>
 </template>
 

@@ -2,12 +2,19 @@ export default {
     id_num: 2,
     id: "super",
     // login init
-    namecard: {
+    mynamecard: {
         name: "정연호",
         email: "wjddusgh@gmail.com",
         university: "Sejong Univ",
         major: "Fashion Design"
     //    login init
+    },
+    namecard: {
+        name: "정연호",
+        email: "wjddusgh@gmail.com",
+        university: "Sejong Univ",
+        major: "Fashion Design"
+        //    login init
     },
     totalcol: [],
     firstcol: [],

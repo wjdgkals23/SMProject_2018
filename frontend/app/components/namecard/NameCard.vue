@@ -25,9 +25,7 @@
     import { mapState } from 'vuex'
     export default {
         name: "NameCard",
-        computed: _.extend({
-
-            },mapState( [ 'namecard' ] ))
+        props: [ "namecard" ]
     }
 </script>
 

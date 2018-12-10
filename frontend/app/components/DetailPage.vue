@@ -16,14 +16,19 @@
                                 <!-- 이미지 태그 데이터 바인딩 -->
                             </GridLayout>
                             <StackLayout>
-                                <name-card></name-card>
-                                <GridLayout verticalAlignment="">
-                                    <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="!DetailPageData.selectLike" @tap="clicklike" />
-                                        <Label class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="DetailPageData.selectLike" @tap="clicklike" />
-                                        <StackLayout paddingTop="14" paddingLeft="5">
-                                            <Label class="mylight likecnt" :text="likecnt" />
-                                        </StackLayout>
+                                <name-card :namecard="namecard"></name-card>
+                                <GridLayout rows="65">
+                                    <StackLayout orientation="horizontal" paddingLeft="16" paddingRight="16">
+                                        <Label verticalAlignment="center" class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="!DetailPageData.selectLike" @tap="clicklike" />
+                                        <Label verticalAlignment="center" class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="purple" v-show="DetailPageData.selectLike" @tap="clicklike" />
+                                        <GridLayout paddingTop="14" paddingLeft="5">
+                                            <GridLayout verticalAlignment="center" horizontalAlignment="left" >
+                                                <Label class="mylight likecnt" :text="likecnt" />
+                                            </GridLayout>
+                                            <GridLayout verticalAlignment="center" horizontalAlignment="right" >
+                                                <Image src="~/assets/images/btn/collabo.png" stretch="aspectFit" @tap="$navigateTo(page)"/>
+                                            </GridLayout>
+                                        </GridLayout>
                                     </StackLayout>
                                 </GridLayout>
                                 <!-- 네임카드 좋아요 -->
@@ -51,10 +56,12 @@
     import DetailComment from './detailview/DetailComment';
     import NameCard from './namecard/NameCard';
     import VersionUpPage from './VersionUpPage';
+    import CollaboPage from './CollaboPage';
     import App from './App';
     import { mapState, mapMutations } from 'vuex';
     import _ from 'lodash/lodash.min';
     import Constant from "../constant";
+
     export default {
         name: "DetailPage",
         components: { DetailCol, DetailComment, NameCard },
@@ -62,7 +69,8 @@
             return {
                 commentpreview: null,
                 app: App,
-                versionup: VersionUpPage
+                versionup: VersionUpPage,
+                page: CollaboPage,
             }
         },
         created() {
@@ -82,7 +90,7 @@
                     return "*"
                 }
             },
-        },mapState([ 'DetailPageData', 'abmanager', 'id_num' ])),
+        },mapState([ 'DetailPageData', 'abmanager', 'id_num', 'namecard' ])),
         methods:{
             resetdetailpagedata() {
                 this.$store.dispatch(Constant.RSDP);

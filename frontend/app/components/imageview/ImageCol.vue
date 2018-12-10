@@ -22,6 +22,7 @@
 
 <script>
     import DetailPage from '../DetailPage'
+    import Temp from '../Temp';
     import Constant from '../../constant'
     import _ from "lodash";
     import { mapState } from 'vuex';
@@ -62,6 +63,7 @@
             return {
                 data: [],
                 page: DetailPage,
+                loading: Temp,
             }
         },
         methods : {
