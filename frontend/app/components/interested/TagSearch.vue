@@ -11,32 +11,35 @@
             <FlexboxLayout flexWrap="wrap" paddingTop="10" paddingLeft="15" paddingRight="15">
                 <CardView elevation="0" :class="devicetag" radius="10" v-for="(item,index) in selectedtag">
                     <StackLayout :class="stylebind(item)" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                        <Label :text="item.contents" @tap="deletetag(index)"/>
+                        <Label :text="tagcontent(item.contents)" @tap="deletetag(index)"/>
                     </StackLayout>
                 </CardView>
             </FlexboxLayout>
+            <StackLayout paddingLeft="15" paddingRight="15" class="hr-light m-x-4" style="color: purple;"></StackLayout>
         </StackLayout>
         <GridLayout row="3" style="width: 90%" paddingTop="20" verticalAlignment="center" horizontalAlignment="center">
             <SearchBar borderColor="purple" textFieldBackgroundColor="white" v-model="searchkeyword"></SearchBar>
             <!--style="background: #e0d0ea; border-radius: 5px;"-->
         </GridLayout>
         <!-- 태그 리스트 뷰 -->
-        <GridLayout row="4" rows="*,55" paddingBottom="15">
+        <GridLayout row="4" rows="*,45" paddingBottom="15">
             <GridLayout row="0">
                 <ScrollView>
                     <FlexboxLayout justifyContent="center" flexWrap="wrap" paddingTop="20" paddingLeft="5" paddingRight="5" >
-                        <CardView v-if="tagshow" elevation="0" :class="devicetag" v-for="(item,index) in filteredList">
-                            <StackLayout :class="stylebind(item)" paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                                <Label :text="item.contents" @tap="addtag(item, index)"/>
-                            </StackLayout>
-                        </CardView>
+                        <GridLayout columns="auto" paddingTop="10" paddingLeft="5" paddingRight="5" v-for="(item,index) in filteredList">
+                            <CardView borderColor="purple" :class="stylebind(item),devicetag" v-if="tagshow" radius="10" elevation="0">
+                                <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
+                                    <Label :text="tagcontent(item.contents)" @tap="addtag(item, index)"/>
+                                </StackLayout>
+                            </CardView>
+                        </GridLayout>
                     </FlexboxLayout>
                 </ScrollView>
             </GridLayout>
-            <StackLayout verticalAlignment="top" horizontalAlignment="center" row="1" >
-                <Image src="~/assets/images/btn/white_check.png" v-if="!checkshow"/>
-                <Image src="~/assets/images/btn/check.png" v-if="checkshow" @tap="searchdatabytag"/>
-            </StackLayout>
+            <GridLayout verticalAlignment="top" horizontalAlignment="center" row="1" >
+                <Image src="~/assets/images/btn/tag_search_white.png" v-if="!checkshow"/>
+                <Image src="~/assets/images/btn/tag_search_purple.png" v-if="checkshow" @tap="searchdatabytag"/>
+            </GridLayout>
         </GridLayout>
     </GridLayout>
 </template>
@@ -45,7 +48,8 @@
     import { mapState, mapMutations } from 'vuex'
     import _ from 'lodash/lodash.min'
     import Constant from '../../constant'
-    import {tag_sort} from "../../lib/sortfunc";
+    import { tag_sort } from "../../lib/sortfunc";
+    import { tagpostget } from "../../lib/getpost";
 
     const platform = require("tns-core-modules/platform");
 
@@ -86,7 +90,7 @@
                     return ""
                 }
             }
-        },mapState([ 'tags' ])),
+        },mapState([ 'tags', 'id_num', 'api' ])),
         methods: {
             async addtag(item) {
                 let index = await this.tags.findIndex((tag)=> {
@@ -103,19 +107,20 @@
                 this.selectedtag.splice(num,1);
             },
             stylebind(item) {
-                if(item.type == "0")
+                if(item.type == "1")
                     return "clothtag"
                 else
                     return "styletag"
             },
             searchdatabytag() {
-                let data = "";
+                let data = [];
                 for(let item in this.selectedtag) {
-                    data += this.selectedtag[item].id;
-                    if(item != this.selectedtag.length-1)
-                        data += ",";
+                    data.push(this.selectedtag[item].id);
                 }
-                this.$store.dispatch(Constant.SETD, data);
+                tagpostget(this.api, this, this.id_num, data);
+            },
+            tagcontent(con) {
+                return "#" + con;
             }
         },
     }
@@ -149,7 +154,6 @@
         margin: 10px;
         font-size: 12px;
         border-radius: 10px;
-        border-color: purple;
         /*box-shadow: 3px mediumpurple;*/
     }
 </style>

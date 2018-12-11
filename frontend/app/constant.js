@@ -20,4 +20,6 @@ export default {
     GML: 'getmylike',
     DCL: 'detailpageclicklike',
     CC: 'checkcomment',
+    GETTOP3: 'gettop3',
+    LOGIN: 'login',
 }

@@ -2,11 +2,35 @@ import axios from "axios";
 import Constant from "../constant";
 
 function postget(apiPath, vue, id_num) {
-    console.log("postget");
+    // console.log("postget");
     axios.get(apiPath + "/api/total_feed/get_feed", {params: { user_id: id_num }})
         .then((response)=>{
-            console.log(response);
+            // console.log(response);
             vue.$store.dispatch(Constant.GETPOST, response);
+        }).catch((error) => {
+            console.log(error);
+        }
+    );
+}
+
+function top3get(apiPath, vue, id_num) {
+    console.log("top3get");
+    axios.get(apiPath + "/api/total_feed/get_top3", {params: { user_id: id_num }})
+        .then((response)=>{
+            // console.log(response);
+            vue.$store.dispatch(Constant.GETTOP3, response);
+        }).catch((error) => {
+            console.log(error);
+        }
+    );
+}
+
+function tagpostget(apiPath, vue, id_num, data) {
+    console.log("tagpostget");
+    axios.get(apiPath + "/api/tag_feed/get_feed", {params: { user_id: id_num, tag_list: data }})
+        .then((response)=>{
+            // console.log(response);
+            vue.$store.dispatch(Constant.SETD, response);
         }).catch((error) => {
             console.log(error);
         }
@@ -71,4 +95,4 @@ function detailget(apiPath, vue, data) {
     }
 }
 
-export { postget, tagget, detailget, mylikeget, mypostget }
+export { postget, tagget, detailget, mylikeget, mypostget, top3get, tagpostget }

@@ -6,6 +6,13 @@ import { comment_sort_date } from "../lib/sortfunc";
 
 
 export default {
+    [Constant.LOGIN] : (state, payload) => {
+        console.log(payload);
+        state.id_num = payload[0].id;
+        state.mynamecard.name = payload[0].name;
+        state.mynamecard.email = payload[0].email;
+        state.peedmanager = 1;
+    },
     [Constant.GETPOST] : (state, payload) => {
         state.secondcol.splice(0, state.secondcol.length);
         state.firstcol.splice(0, state.firstcol.length);
@@ -21,6 +28,11 @@ export default {
                 state.firstcol.push(payload.data[item]);
             }
         }
+    },
+    [Constant.GETTOP3] : (state, payload) => {
+        console.log("GETTOP3 ITEM");
+        state.top3 = payload.data;
+        console.log(state.top3);
     },
     [Constant.GMP] : (state, payload) => {
         state.my_post_second.splice(0, state.my_post_second.length);
@@ -68,13 +80,12 @@ export default {
             state.peedmanager = 3;
         else
             state.peedmanager = 4;
+
+        state.ifm = 1;
     },
     [Constant.SDP] : (state, payload) => {
-        console.log("#########payload ");
-        // CHANGE DB CONNECT
-        // namecard
-        // post
-        console.log(payload);
+        console.log("#########상세페이지 ");
+        console.log(payload.commentList);
         state.chcomment.splice(0,state.chcomment.length);
         payload.commentAttachment.sort(comment_sort_date);
         payload.commentList.sort(comment_sort_date);
@@ -91,6 +102,11 @@ export default {
         state.DetailPageData.like_count = payload.postDetail.likeCount;
         state.DetailPageData.selectLike = (payload.postDetail.selectLike === 1 ? true: false);
         state.DetailPageData.author = payload.userData.name;
+        // for(let temp in payload.commentList) {
+        //     if(state.DetailPageData.version === state.DetailPageData[temp].version) {
+        //
+        //     }
+        // }
         state.DetailPageData.comment = payload.commentList;
         let index = 0;
         for(let list in state.DetailPageData.comment){
@@ -101,26 +117,6 @@ export default {
                 index++;
             }
         }
-        console.log("########END");
-        // state.DetailPageData.id = payload;
-        // state.DetailPageData.Image.push({src:"~/assets/images/test.jpeg", checked: false });
-        // state.DetailPageData.Image.push({src:"~/assets/images/source_1.jpg", checked: false });
-        // state.DetailPageData.Image.push({src:"~/assets/images/source_2.jpg", checked: false});
-        // state.DetailPageData.author = "Jeong Yeon Ho";
-        // state.DetailPageData.like_count = 3004;
-        // state.DetailPageData.title = "오버사이즈 체크 스트라이프 셔츠"
-        // state.DetailPageData.content = "오버사이즈 스트라이프 셔츠에요 이쁘죠 맞아요 존나 잘만듬요. 깔끔함이 포인트 입니다."
-        // state.DetailPageData.tag = [
-        //     {name: "청바지", type: "cloth"},
-        //     {name: "티셔츠", type: "cloth"},
-        //     {name: "코트", type: "cloth"},
-        //     {name: "슬랙스", type: "cloth"},
-        //     {name: "후드코트", type: "cloth"},
-        //     {name: "걸리쉬", type: "style"},
-        // ];
-        // state.DetailPageData.version = 1;
-        // state.DetailPageData.comment.push({ id: "nayekim", content: "왼쪽 가슴 아래에 포켓하나 더 있으면 좋을거같아요!!", have_img: true, src: "~/assets/images/source_1.jpg"});
-        // state.DetailPageData.comment.push({ id: "hamin jeong", content: "잘 만드셨네요!!!!", have_img: false });
     },
     [Constant.RSDP] : (state, payload) => {
         state.namecard.name = "";
@@ -208,7 +204,21 @@ export default {
         state.tags = payload.data;
     },
     [Constant.SETD] : (state,payload) => {
-        console.log(payload);
+        console.log(payload.data);
+        state.secondcol.splice(0, state.secondcol.length);
+        state.firstcol.splice(0, state.firstcol.length);
+        state.totalcol.splice(0, state.totalcol.length);
+        for(let item in payload.data){
+            payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
+            payload.data[item].like_count = payload.data[item].likeCount;
+            state.totalcol.push(payload.data[item]);
+            if( item%2 === 0 ) {
+                state.secondcol.push(payload.data[item]);
+            }
+            else {
+                state.firstcol.push(payload.data[item]);
+            }
+        }
         state.ifm = 2;
     },
     [Constant.GSP] : (state,payload) => {

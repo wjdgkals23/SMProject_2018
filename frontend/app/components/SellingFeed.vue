@@ -1,28 +1,44 @@
 <template>
     <ScrollView>
-        <GridLayout rows="150,30,*">
-            <GridLayout row="0">
-                <Image class="img" src="~/assets/images/buypannel.png"></Image>
-            </GridLayout>
-            <StackLayout row="2" columns="*" class="mybold" paddingTop="20" verticalAlignment="center" horizontalAlignment="center" >
-                <GridLayout rows="310" columns="260" margin="0" paddingBottom="60" >
-                    <CardView elevation="0" radius="15" class="topcardStyle" @swipe="act_swipe" @tap="$navigateTo(page)">
-                        <GridLayout row="0" paddingTop="5">
-                            <Image class="img" :src="items.src" stretch="aspectFill"/>
-                            <StackLayout paddingLeft="15" paddingTop="15">
-                                <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
-                                    <StackLayout :class="textbind(ind)">
-                                        <Label :order="ind" class="titletext" :text="text" />
-                                    </StackLayout>
-                                </FlexboxLayout>
-                            </StackLayout>
-                            <StackLayout verticalAlignment="bottom" horizontalAlignment="center" paddingBottom="4">
-                                <Label class="pricetext" :text="price(items.price)" />
-                            </StackLayout>
-                        </GridLayout>
-                    </CardView>
+        <GridLayout rows="60,*">
+            <CardView row="0">
+                <GridLayout style="background: #ffffff;" paddingTop="15" paddingBottom="5">
+                    <Image class="img" src="~/assets/images/title.png" stretch="aspectFit"></Image>
                 </GridLayout>
-            </StackLayout>
+            </CardView>
+            <GridLayout row="1" rows="140,10,*,40">
+                <GridLayout row="0">
+                    <Image class="img" src="~/assets/images/buypannel.png"></Image>
+                </GridLayout>
+                <StackLayout row="2" columns="auto" class="mybold" paddingTop="10" verticalAlignment="center" horizontalAlignment="center" >
+                    <GridLayout rows="260" columns="30,220,30" margin="0" paddingBottom="30" >
+                        <GridLayout paddingRight="5" col="0" verticalAlignment="center" horizontalAlignment="center">
+                            <Image class="img" src="~/assets/images/btn/leftarrow.png" @tap="act_swipe(1)" stretch="aspectFit"/>
+                        </GridLayout>
+                        <CardView col="1" elevation="0" radius="15" class="topcardStyle" >
+                            <GridLayout row="0" paddingTop="5">
+                                <Image class="img" :src="items.src" stretch="aspectFill"/>
+                                <StackLayout paddingLeft="15" paddingTop="15">
+                                    <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
+                                        <StackLayout :class="textbind(ind)">
+                                            <Label :order="ind" class="titletext" :text="text" />
+                                        </StackLayout>
+                                    </FlexboxLayout>
+                                </StackLayout>
+                                <StackLayout verticalAlignment="bottom" horizontalAlignment="center" paddingBottom="4">
+                                    <Label class="pricetext" :text="price(items.price)" />
+                                </StackLayout>
+                            </GridLayout>
+                        </CardView>
+                        <GridLayout paddingLeft="5" col="2" verticalAlignment="center" horizontalAlignment="center">
+                            <Image class="img" src="~/assets/images/btn/rightarrow.png" @tap="act_swipe(0)" stretch="aspectFit"/>
+                        </GridLayout>
+                    </GridLayout>
+                </StackLayout>
+                <GridLayout row="3" verticalAlignment="top" horizontalAlignment="center">
+                    <Image class="img" src="~/assets/images/btn/sale_button.png" stretch="aspectFit" @tap="$navigateTo(page)" />
+                </GridLayout>
+            </GridLayout>
         </GridLayout>
     </ScrollView>
 </template>
@@ -71,8 +87,7 @@
                 return "₩ " + item.toString().replace(regexp, ',');
             },
             act_swipe(args) {
-                console.log(args.direction);
-                if(args.direction === 1) {
+                if(args === 1) {
                     if(this.number === 0) {
                         this.number = this.sellingproduct.length-1;
                         this.items = this.sellingproduct[this.number];

@@ -7,10 +7,15 @@ import {postget} from "../lib/getpost";
 export default {
     [Constant.LOGIN] : (store, payload) => {
         // 로그인 정보 보내고 받고 처리
+        store.commit(Constant.LOGIN, payload);
     },
     [Constant.GETPOST] : (store, payload) => {
         console.log("### GETPOST");
         store.commit(Constant.GETPOST, payload);
+    },
+    [Constant.GETTOP3] : (store, payload) => {
+        console.log("### GETTOP3");
+        store.commit(Constant.GETTOP3, payload);
     },
     [Constant.CLEANPOST] : (store) => {
         console.log("### CLEANPOST");

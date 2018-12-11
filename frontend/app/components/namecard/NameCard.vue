@@ -8,8 +8,6 @@
                 <StackLayout col="0" paddingLeft="30" horizontalAlignment="left" verticalAlignment="center">
                     <Label class="mylight name" :text="namecard.name"></Label>
                     <Label class="mytext info" :text="namecard.email"></Label>
-                    <Label class="mytext info" :text="namecard.university"></Label>
-                    <Label class="mytext info" :text="namecard.major"></Label>
                 </StackLayout>
                 <GridLayout col="1" paddingTop="5" horizontalAlignment="left" verticalAlignment="center">
                     <Image class="img" src="~/assets/images/default_user.png"></Image>

@@ -5,9 +5,9 @@
         <!--</ActionBar>-->
         <!--<ActivityIndicator :busy=busy @busyChange="onBusyChanged" />-->
         <GridLayout columns="*" rows="*" paddingTop="">
-            <GridLayout row="0" rows="*,55">
+            <GridLayout row="0" :rows="approw">
                 <component row="0" :is="currentView"></component>
-                <bottom-navigation row="1"></bottom-navigation>
+                <bottom-navigation v-if="peedmanager !== 0" row="1"></bottom-navigation>
             </GridLayout>
         </GridLayout>
     </Page>
@@ -26,7 +26,7 @@
     import _ from 'lodash/lodash.min';
     import { mapState, mapMutations } from 'vuex'
 
-    import { postget, tagget } from "../lib/getpost";
+    import { tagget, top3get } from "../lib/getpost";
     import {apiPath} from "../lib/httpconfig";
     const platformModule = require("tns-core-modules/platform");
     const dialogs = require('tns-core-modules/ui/dialogs');
@@ -45,34 +45,7 @@
             }
         },
         mounted() {
-            let that = this;
-            let phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-            let evfunc = function() {
-                setTimeout(function() {
-                    prompt('핸드폰번호를 입력해주세요.', 'EX: 01011112222')
-                        .then(result => {
-                            if(!result.text.match(phoneno)) {
-                                alert("핸드폰 양식에 맞지 않습니다.").then(_ => {
-                                    evfunc();
-                                }).catch(err => {
-                                    console.log(err);
-                                })
-                            }
-                            else{
-                                prompt('이름을 입력해주세요.', 'EX: 홍길동')
-                                    .then(result2 => {
-                                        that.$store.dispatch(Constant.SEI, { hp: result.text, name: result2.text });
-                                    }).catch(err2 => {
-                                    console.log(err2);
-                                })
-                            }
-                        }).catch(err => {
-                        console.log(err);
-                    })
-                }, 0);
-            };
-            // 이벤트 활성화
-            // evfunc();
+
         },
         //Server
         created() {
@@ -87,19 +60,30 @@
             }
             // this.apipath = apiPath.server;
             tagget(this.api, this);
+            // top3get(this.api, this, this.id_num);
+
         },
         computed : _.extend({
             currentView(){
-                if(this.peedmanager == 1)
+                if(this.peedmanager === 1)
                     return TotalFeed;
-                else if(this.peedmanager == 2)
+                else if(this.peedmanager === 2)
                     return InterestFeed;
-                else if(this.peedmanager == 3)
+                else if(this.peedmanager === 3)
                     return SellingFeed;
-                else
+                else if(this.peedmanager === 4)
                     return UserFeed;
+                else
+                    return LoginPage;
                 // else if(this.peedmanager == 3)
                 //     return UploadPage;
+            },
+            approw() {
+                if(this.peedmanager == 0){
+                    return "*,55"
+                }
+                else
+                    return "*,55"
             }
         },mapState([ 'peedmanager', 'abmanager', 'id_num', 'api', 'evhp', 'evname' ])),
         methods: {

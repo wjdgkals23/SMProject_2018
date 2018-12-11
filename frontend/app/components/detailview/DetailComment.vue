@@ -57,7 +57,7 @@
                 <ScrollView>
                     <StackLayout>
                         <!--3*,5*,*-->
-                        <GridLayout rows="*,*" :columns="commentcol" v-for="(item, index) in comment" paddingBottom="5">
+                        <GridLayout rows="*,*" columns="3*,5*,*" v-for="(item, index) in comment" paddingBottom="5">
                             <GridLayout row="0" col="0" rowspan="2" paddingTop="3" paddingRight="2" paddingLeft="2" paddingBottom="3" horizontalAlignment="center" verticalAlignment="center">
                                 <Label :text="item.name" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
@@ -67,9 +67,13 @@
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
                             </GridLayout>
-                            <GridLayout v-if="id_num === DetailPageData.author_id" row="1" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
+                            <GridLayout v-show="id_num === DetailPageData.author_id" row="1" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
                                 <Image src="~/assets/images/ncommentch.png" v-if="!commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <Image src="~/assets/images/commentch.png" v-if="commentch(item.select_type)" @tap="commentcheck(index)"/>
+                                <!--v-show="item.checked" @tap="check(index)"-->
+                            </GridLayout>
+                            <GridLayout row="0" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
+                                <Label class="mybold" style="font-size: 10%; color: purple;" :text="versiontext(item.version)"/>
                                 <!--v-show="item.checked" @tap="check(index)"-->
                             </GridLayout>
                         </GridLayout>
@@ -104,9 +108,6 @@
         },
         created() {
             //:imgdata="commentpreview" :comment="DetailPageData.comment" :postid="DetailPageData.id"
-            console.log("created");
-            console.log(this.DetailPageData.author_id);
-            console.log(this.id_num === this.DetailPageData.author_id);
             this.imgdata = this.DetailPageData.Image;
             this.comment = this.DetailPageData.comment;
             this.postid = this.DetailPageData.id;
@@ -181,8 +182,10 @@
             },
             commentcheck(ind) {
                 this.$store.dispatch(Constant.CC, { index: ind } );
+            },
+            versiontext(text) {
+                return "버전" + text;
             }
-
         },
         computed: _.extend({
             editcnt: function(){
@@ -194,14 +197,6 @@
             versionch() {
                 return this.id_num === this.DetailPageData.author_id;
             },
-            commentcol() {
-                if(this.id_num === this.DetailPageData.author_id){
-                    return "3*,5*,*";
-                }
-                else {
-                    return "3*,5*";
-                }
-            }
         },mapState( [ 'id', 'api', "id_num", "DetailPageData" ] ))
     }
 </script>

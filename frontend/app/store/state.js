@@ -1,7 +1,13 @@
 export default {
     id_num: 2,
     id: "super",
-    // login init
+    // login init,
+    collabo: {
+        name: "정하민",
+        email: "wjdgkals23@naver.com",
+        university: "Sejong Univ",
+        major: "Digtal Contents"
+    },
     mynamecard: {
         name: "정연호",
         email: "wjddusgh@gmail.com",
@@ -16,6 +22,7 @@ export default {
         major: "Fashion Design"
         //    login init
     },
+    top3: [],
     totalcol: [],
     firstcol: [],
     secondcol: [],

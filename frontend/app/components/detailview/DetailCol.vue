@@ -50,10 +50,13 @@
         <GridLayout rows="*" columns="*">
             <StackLayout row="0">
                 <!-- 태그 리스트 뷰 -->
+                <GridLayout rows="20" verticalAlignment="center" horizontalAlignment="left" paddingLeft="15" >
+                    <Image src="~/assets/images/icon/tag.png"/>
+                </GridLayout>
                 <FlexboxLayout justifyContent="flex-start" flexWrap="wrap"  paddingTop="5" paddingLeft="15" paddingRight="15" >
-                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in DetailPageData.tag" >
+                    <CardView :class="stylebind(item)" radius="10" v-for="(item,index) in DetailPageData.tag">
                         <StackLayout paddingTop="5" paddingBottom="5" paddingLeft="15" paddingRight="15">
-                            <Label :text="item.contents" />
+                            <Label :text="tagcontent(item.contents)" />
                         </StackLayout>
                     </CardView>
                 </FlexboxLayout>
@@ -136,6 +139,9 @@
                 else {
                     detailget(this.api, this, { postId: this.DetailPageData.id, userId: this.id_num, version: this.DetailPageData.version+1 });
                 }
+            },
+            tagcontent(con) {
+                return "#" + con;
             }
         },
         computed: _.extend({
@@ -202,7 +208,7 @@
         background-color: purple;
         margin: 10px;
         font-size: 12px;
-        border-radius: 10px;
+        border-radius: 50%;
     }
 
     .styletag {
