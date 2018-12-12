@@ -47,7 +47,7 @@
                 <Image class="img" :src="item.url" stretch="aspectFill" />
             </StackLayout>
         </GridLayout>
-        <GridLayout rows="*" columns="*">
+        <GridLayout rows="*" columns="*" paddingTop="10">
             <StackLayout row="0">
                 <!-- 태그 리스트 뷰 -->
                 <GridLayout rows="20" verticalAlignment="center" horizontalAlignment="left" paddingLeft="15" >

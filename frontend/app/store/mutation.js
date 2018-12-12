@@ -86,6 +86,8 @@ export default {
     [Constant.SDP] : (state, payload) => {
         console.log("#########상세페이지 ");
         console.log(payload.commentList);
+        console.log("#########상세페이지 ");
+        console.log(payload.commentAttachment);
         state.chcomment.splice(0,state.chcomment.length);
         payload.commentAttachment.sort(comment_sort_date);
         payload.commentList.sort(comment_sort_date);
@@ -109,12 +111,17 @@ export default {
         // }
         state.DetailPageData.comment = payload.commentList;
         let index = 0;
-        for(let list in state.DetailPageData.comment){
-            if(payload.commentAttachment[index].comment_id === state.DetailPageData.comment[list].id){
-                console.log(state.DetailPageData.comment[list].id);
-                state.DetailPageData.comment[list].url = payload.commentAttachment[index].url;
-                state.DetailPageData.comment[list].have_img = true;
-                index++;
+        if(payload.commentAttachment.length != 0) {
+            for(let list in state.DetailPageData.comment){
+                if(payload.commentAttachment[index].comment_id === state.DetailPageData.comment[list].id){
+                    console.log(state.DetailPageData.comment[list].id);
+                    state.DetailPageData.comment[list].url = payload.commentAttachment[index].url;
+                    state.DetailPageData.comment[list].have_img = true;
+                    index++;
+                    if(index === payload.commentAttachment.length) {
+                        break;
+                    }
+                }
             }
         }
     },
@@ -304,20 +311,29 @@ export default {
         }
     },
     [Constant.CC] : (state, payload) => {
-        state.DetailPageData.comment[payload.index].select_type = Math.abs(1-state.DetailPageData.comment[payload.index].select_type);
-        if(state.DetailPageData.comment[payload.index].select_type === 1) {
-            state.chcomment.push(state.DetailPageData.comment[payload.index]);
-        }
-        else {
-            if(state.chcomment.length > 0 ){
-                for(let item in state.chcomment) {
-                    if(state.DetailPageData.comment[payload.index].id === state.chcomment[item].id) {
-                        state.chcomment.splice(item, 1);
+        axios.post(state.api + "/api/detail_page/comment_select", {
+            selectData: {
+                selectType: Math.abs(1-state.DetailPageData.comment[payload.index].select_type),
+                id: state.DetailPageData.comment[payload.index].id
+            }
+        }).then((res) => {
+            if(res.data){
+                state.DetailPageData.comment[payload.index].select_type = Math.abs(1-state.DetailPageData.comment[payload.index].select_type);
+                if(state.DetailPageData.comment[payload.index].select_type === 1) {
+                    state.chcomment.push(state.DetailPageData.comment[payload.index]);
+                }
+                else {
+                    if(state.chcomment.length > 0 ){
+                        for(let item in state.chcomment) {
+                            if(state.DetailPageData.comment[payload.index].id === state.chcomment[item].id) {
+                                state.chcomment.splice(item, 1);
+                            }
+                        }
                     }
                 }
             }
-        }
-
-        console.log(state.chcomment.length);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 }

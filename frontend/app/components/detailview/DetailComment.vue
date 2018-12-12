@@ -67,7 +67,7 @@
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
                             </GridLayout>
-                            <GridLayout v-show="id_num === DetailPageData.author_id" row="1" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
+                            <GridLayout v-show="id_num === DetailPageData.author_id && id_num !== item.user_id" row="1" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
                                 <Image src="~/assets/images/ncommentch.png" v-if="!commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <Image src="~/assets/images/commentch.png" v-if="commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <!--v-show="item.checked" @tap="check(index)"-->
@@ -152,15 +152,13 @@
                 }
                 else{
                     if(this.editimage.length != 0){
-                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: true, url: this.editimage[0].src, name: this.id };
-                        uploadcomment(this.api, data);
-                        this.$store.dispatch(Constant.WC, data);
+                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: true, url: this.editimage[0].src, name: this.id, version: this.DetailPageData.version };
+                        uploadcomment(this.api, data, this);
                         this.cleancomment();
                     }
                     else{
-                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: false, name: this.id };
-                        uploadcomment(this.api, data);
-                        this.$store.dispatch(Constant.WC, data);
+                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: false, name: this.id, version: this.DetailPageData.version };
+                        uploadcomment(this.api, data, this);
                         this.cleancomment();
                     }
                 //    { id: "nayekim", content: "왼쪽 가슴 아래에 포켓하나 더 있으면 좋을거같아요!!", have_img: true, src: "~/assets/images/source_1.jpg"}
