@@ -11,7 +11,9 @@
                         </GridLayout>
                     </CardView>
                 </GridLayout>
-                <name-card :namecard="mynamecard"></name-card>
+                <GridLayout @tap="$navigateTo(page)">
+                    <name-card :namecard="mynamecard"></name-card>
+                </GridLayout>
                 <GridLayout :rows="height" columns="*" paddingTop="3" verticalAlignment="center" horizontalAlignment="center">
                     <StackLayout orientation="horizontal" row="0" col="0">
                         <!--<DropDown :class="dropdownstyle"-->
@@ -34,6 +36,9 @@
                 <collabo-list v-show="changefd(3)"></collabo-list>
             </StackLayout>
         </ScrollView>
+        <GridLayout verticalAlignment="bottom" horizontalAlignment="right" width="15%" margin="15">
+            <Image src="~/assets/images/btn/plus.png" stretch="aspectFit" @tap="$navigateTo(uploadpage)"/>
+        </GridLayout>
     </GridLayout>
 </template>
 
@@ -43,6 +48,8 @@
     import ImageView from './imageview/ImageView'
     import BuyList from './userview/BuyList'
     import CollaboList from './userview/CollaboList'
+    import UploadPage from './UploadPage'
+    import DetailNameCard from './namecard/DetailNameCard'
     const platformModule = require("tns-core-modules/platform");
 
     import { mapState } from 'vuex'
@@ -63,6 +70,8 @@
                 ],
                 selecteditem : 0,
                 buffer : null,
+                uploadpage: UploadPage,
+                page: DetailNameCard
             }
         },
         created() {

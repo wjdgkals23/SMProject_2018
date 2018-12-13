@@ -11,6 +11,7 @@ export default {
     mynamecard: {
         name: "정연호",
         email: "wjddusgh@gmail.com",
+        phone: "01094659404",
         university: "Sejong Univ",
         major: "Fashion Design"
     //    login init
@@ -18,6 +19,7 @@ export default {
     namecard: {
         name: "정연호",
         email: "wjddusgh@gmail.com",
+        phone: "01094659404",
         university: "Sejong Univ",
         major: "Fashion Design"
         //    login init
@@ -51,7 +53,7 @@ export default {
         maxversion: null,
     },
     chcomment: [],
-    peedmanager: 1,
+    peedmanager: 0,
     abmanager: true,
     api: null,
     evhp: "",

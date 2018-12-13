@@ -16,7 +16,9 @@
                                 <!-- 이미지 태그 데이터 바인딩 -->
                             </GridLayout>
                             <StackLayout>
-                                <name-card :namecard="namecard"></name-card>
+                                <GridLayout @tap="$navigateTo(another)">
+                                    <name-card :namecard="namecard"></name-card>
+                                </GridLayout>
                                 <GridLayout rows="65">
                                     <StackLayout orientation="horizontal" paddingLeft="16" paddingRight="16">
                                         <Label verticalAlignment="center" class="fa" style="font-size: 40%;" :text="'fa-thumbs-up' | fonticon" color="#b4b9c1" v-show="!DetailPageData.selectLike" @tap="clicklike" />
@@ -57,6 +59,7 @@
     import NameCard from './namecard/NameCard';
     import VersionUpPage from './VersionUpPage';
     import CollaboPage from './CollaboPage';
+    import AnotherUserPage from './AnotherUserPage';
     import App from './App';
     import { mapState, mapMutations } from 'vuex';
     import _ from 'lodash/lodash.min';
@@ -71,6 +74,7 @@
                 app: App,
                 versionup: VersionUpPage,
                 page: CollaboPage,
+                another: AnotherUserPage
             }
         },
         created() {

@@ -32,7 +32,7 @@
                                 </GridLayout>
                             </CardView>
                             <!-- 이미지 업로드 -->
-                            <GridLayout rows="*" columns="65,*">
+                            <GridLayout rows="*" columns="75,*">
                                 <GridLayout row="0" col="0" rows="*" columns="*" verticalAlignment="center" horizontalAlignment="center" paddingLeft="5" paddingRight="5">
                                     <StackLayout row="0" col="0" style="border-bottom: solid 1px purple">
                                         <Image src="~/assets/images/btn/imageupload.png" stretch="aspectFit" @tap="uploadimage"/>
@@ -192,11 +192,12 @@
                 let textdata = {
                     userId: this.id_num,
                     title: this.title,
-                    contents: this.content,
+                    content: this.content,
                 }
                 let tagdata = [];
                 for(let item in this.selectedtag) {
                     tagdata.push({id: this.selectedtag[item].id});
+                    this.tags.push(item);
                 }
 
                 upload(this.imagesource, this.api, textdata, tagdata, this);

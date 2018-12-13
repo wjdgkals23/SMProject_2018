@@ -62,7 +62,7 @@
                                 <Label :text="item.name" class="mylight" style="color: #661d7e;"/>
                             </GridLayout>
                             <GridLayout row="0" col="1" paddingTop="3" paddingRight="2" paddingLeft="5" paddingBottom="3">
-                                <TextView :text="item.contents" class="textview" style="color: #661d7e;"/>
+                                <TextView editable="false" :text="item.contents" class="textview" style="color: #661d7e;"/>
                             </GridLayout>
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />

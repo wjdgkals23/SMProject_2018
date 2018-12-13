@@ -11,7 +11,8 @@ let request = {
     headers: {
         "Content-Type": "application/octet-stream",
         "File-Name": "upload-image"
-    }
+    },
+    utf8: true
 };
 
 const upload = (srcs, apipath, textdata, tagdata, vue) => {

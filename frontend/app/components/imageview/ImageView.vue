@@ -7,7 +7,7 @@
                     <!--<Switch v-model="itemEnabled" @checkedChange="temp" />-->
                     <!--<Label class="mytext switchtext" text="인기순" />-->
                 <!--</FlexboxLayout>-->
-                <GridLayout col="0" columns="*,*,*">
+                <GridLayout col="0" columns="*,*,*" v-show="peedmanager === 1">
                     <GridLayout col="0" verticalAlignment="center" >
                         <Label class="mytext switchtext" text="날짜순" />
                     </GridLayout>
@@ -21,10 +21,11 @@
             </GridLayout>
         </GridLayout>
         <GridLayout row="1">
-                <GridLayout columns="*,*" class="mybold" paddingBottom="15">
-                    <image-col :colnum="first" col="0"></image-col>
-                    <image-col :colnum="second" col="1"></image-col>
+                <GridLayout rows="*,10" columns="*,*" class="mybold" paddingBottom="15">
+                    <image-col :colnum="first" row="0" col="0"></image-col>
+                    <image-col :colnum="second" row="0" col="1"></image-col>
                 </GridLayout>
+                <GridLayout row="1"></GridLayout>
         </GridLayout>
     </GridLayout>
 </template>
@@ -74,7 +75,7 @@
             }
         },
         computed : _.extend({
-        },mapState([ 'firstcol', 'secondcol', 'api' ])),
+        },mapState([ 'firstcol', 'secondcol', 'api', 'peedmanager' ])),
     }
 </script>
 

@@ -24,9 +24,9 @@
         data() {
             return {
                 buylist: [
-                    { name: "temp" },
-                    { name: "temp" },
-                    { name: "temp" },
+                    // { name: "temp" },
+                    // { name: "temp" },
+                    // { name: "temp" },
                 ]
             }
         }

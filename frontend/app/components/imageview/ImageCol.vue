@@ -1,6 +1,6 @@
 <template>
     <StackLayout paddingBottom="10">
-        <CardView class="cardStyle" elevation="40" radius="15" v-for="(item,index) in data" >
+        <CardView class="cardStyle" elevation="20" radius="15" v-for="(item,index) in data" >
             <GridLayout rows="*" columns="*" margin="0">
                 <Image class="img" :src="item.url" @tap="setdetailpagedata(index)"/>
                 <GridLayout verticalAlignment="bottom">
@@ -11,12 +11,17 @@
                     </StackLayout>
                 </GridLayout>
                 <GridLayout verticalAlignment="top">
-                    <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="8" paddingRight="16">
-                        <Label class="titletext" :text="item.title" textWrap="true"/>
+                    <StackLayout paddingLeft="15" paddingTop="15">
+                        <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in item.title">
+                            <StackLayout :class="textbind(ind)">
+                                <Label :order="ind" class="titletext" :text="text" />
+                            </StackLayout>
+                        </FlexboxLayout>
                     </StackLayout>
                 </GridLayout>
             </GridLayout>
         </CardView>
+        <GridLayout rows="10"></GridLayout>
     </StackLayout>
 </template>
 
@@ -72,6 +77,14 @@
             },
             clicklike(index){
                 this.$store.dispatch(Constant.CL, { index: index, colnum: this.colnum, api: this.api } );
+            },
+            textbind(index) {
+                if(index == 0){
+                    return "mytext";
+                }
+                else{
+                    return "mybold";
+                }
             }
             // columnlen(index) {
             //     if(index%3==0) {
@@ -106,7 +119,7 @@
     }
 
     .titletext {
-        color: #ffffff;
+        color: purple;
         font-size: 20%;
         margin: 0;
     }

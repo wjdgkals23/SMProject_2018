@@ -20,6 +20,7 @@ export default {
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;
+            payload.data[item].title = payload.data[item].title.split(" ");
             state.totalcol.push(payload.data[item]);
             if( item%2 === 0 ) {
                 state.secondcol.push(payload.data[item]);
@@ -41,6 +42,7 @@ export default {
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;
+            payload.data[item].title = payload.data[item].title.split(" ");
             state.my_post_total.push(payload.data[item]);
             if( item%2 === 0 ) {
                 state.my_post_second.push(payload.data[item]);
@@ -57,6 +59,7 @@ export default {
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;
+            payload.data[item].title = payload.data[item].title.split(" ");
             state.my_like_total.push(payload.data[item]);
             if( item%2 === 0 ) {
                 state.my_like_second.push(payload.data[item]);
@@ -85,9 +88,8 @@ export default {
     },
     [Constant.SDP] : (state, payload) => {
         console.log("#########상세페이지 ");
-        console.log(payload.commentList);
+        console.log(payload.postDetail);
         console.log("#########상세페이지 ");
-        console.log(payload.commentAttachment);
         state.chcomment.splice(0,state.chcomment.length);
         payload.commentAttachment.sort(comment_sort_date);
         payload.commentList.sort(comment_sort_date);
@@ -111,16 +113,14 @@ export default {
         // }
         state.DetailPageData.comment = payload.commentList;
         let index = 0;
-        if(payload.commentAttachment.length != 0) {
-            for(let list in state.DetailPageData.comment){
-                if(payload.commentAttachment[index].comment_id === state.DetailPageData.comment[list].id){
-                    console.log(state.DetailPageData.comment[list].id);
-                    state.DetailPageData.comment[list].url = payload.commentAttachment[index].url;
-                    state.DetailPageData.comment[list].have_img = true;
-                    index++;
-                    if(index === payload.commentAttachment.length) {
-                        break;
-                    }
+        for(let list in state.DetailPageData.comment){
+            if(payload.commentAttachment[index].comment_id === state.DetailPageData.comment[list].id){
+                console.log(state.DetailPageData.comment[list].id);
+                state.DetailPageData.comment[list].url = payload.commentAttachment[index].url;
+                state.DetailPageData.comment[list].have_img = true;
+                index++;
+                if(index === payload.commentAttachment.length) {
+                    break;
                 }
             }
         }
@@ -231,9 +231,8 @@ export default {
     [Constant.GSP] : (state,payload) => {
         console.log(payload);
         state.sellingproduct = [];
-        state.sellingproduct.push({ title: "하늘색 스트라이프 셔츠", like_count: 3400, price: 48000, src:"~/assets/images/test.jpeg" });
-        state.sellingproduct.push({ title: "트렌치코트 황토색", like_count: 3400, price: 48000, src:"~/assets/images/test2.jpeg" });
         state.sellingproduct.push({ title: "하늘색 스트라이프 셔츠", like_count: 3400, price: 48000, src:"~/assets/images/source_1.jpg" });
+        state.sellingproduct.push({ title: "네이비 드레스", like_count: 3400, price: 48000, src:"~/assets/images/dress.png" });
 
     },
     [Constant.SAP]  : (state,payload) => {

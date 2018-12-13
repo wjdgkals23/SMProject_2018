@@ -1,14 +1,14 @@
 <template>
     <GridLayout class="coverImage" rows="3*,2*">
         <GridLayout class="coverImage2" row="1" rows="*,*,*,*">
-            <GridLayout paddingLeft="15" paddingRight="15" row="0" verticalAlignment="center" horizontalAlignment="center">
-                <TextField style="color: #6a1495; font-size: 15%; width: 100%;" v-model="hp" hint="핸드폰 ex) 000-0000-0000" maxLength="20" />
+            <GridLayout paddingLeft="20" paddingRight="20" row="0" verticalAlignment="center" horizontalAlignment="center">
+                <TextField style="border-bottom-width: 4px; border-color: purple; color: #6a1495; font-size: 15%; width: 100%;" v-model="hp" hint="핸드폰 ex) 000-0000-0000" maxLength="20" />
             </GridLayout>
-            <GridLayout paddingLeft="15" paddingRight="15" row="1" verticalAlignment="center" horizontalAlignment="center">
-                <TextField autocapitalizationType="none" style="color: #6a1495; font-size: 15%; width: 100%;" v-model="email" hint="이메일" maxLength="30" />
+            <GridLayout paddingLeft="20" paddingRight="20" row="1" verticalAlignment="center" horizontalAlignment="center">
+                <TextField autocapitalizationType="none" style="border-bottom-width: 4px; border-color: purple; color: #6a1495; font-size: 15%; width: 100%;" v-model="email" hint="이메일" maxLength="30" />
             </GridLayout>
-            <GridLayout paddingLeft="15" paddingRight="15" row="2" verticalAlignment="center" horizontalAlignment="center">
-                <TextField style="color: #6a1495; font-size: 15%; width: 100%;" v-model="name" hint="이름" maxLength="10" />
+            <GridLayout paddingLeft="20" paddingRight="20" row="2" verticalAlignment="center" horizontalAlignment="center">
+                <TextField style="border-bottom-width: 4px; border-color: purple; color: #6a1495; font-size: 15%; width: 100%;" v-model="name" hint="이름" maxLength="10" />
             </GridLayout>
             <GridLayout row="3">
                 <Image src="~/assets/images/btn/start.png" stretch="aspectFit" @tap="insertuser"></Image>
@@ -47,23 +47,36 @@
             },
             insertuser() {
                 if(this.checkinfo()){
-                    axios.post(this.api + "/api/common/insert_user", {
-                        userData: {
-                            email: this.email,
-                            name: this.name,
+                    axios.get(this.api + "/api/common/get_user_data", {params: {
                             phone: this.hp
-                        }
-                    }).then((res) => {
-                        if(res) {
-                            axios.get(this.api + "/api/common/get_user_data", {params: {
-                                    phone: this.hp
-                                }}).then((res) => {
-                                    console.log("SUCCESS LOGIN");
-                                    this.$store.dispatch(Constant.LOGIN, res.data);
-                            }).catch((err) => {
-                                console.log(err);
-                            })
-                        }
+                        }}).then((res) => {
+                            console.log(res);
+                            if(res.data.length !== 0) {
+                                console.log("SUCCESS LOGIN");
+                                this.$store.dispatch(Constant.LOGIN, res.data);
+                            }
+                            else {
+                                axios.post(this.api + "/api/common/insert_user", {
+                                    userData: {
+                                        email: this.email,
+                                        name: this.name,
+                                        phone: this.hp
+                                    }
+                                }).then((res) => {
+                                    if(res) {
+                                        axios.get(this.api + "/api/common/get_user_data", {params: {
+                                                phone: this.hp
+                                            }}).then((res) => {
+                                            console.log("SUCCESS LOGIN");
+                                            this.$store.dispatch(Constant.LOGIN, res.data);
+                                        }).catch((err) => {
+                                            console.log(err);
+                                        })
+                                    }
+                                });
+                            }
+                    }).catch((err) => {
+                        console.log(err);
                     });
                 }
                 else{
@@ -87,6 +100,6 @@
         background-size: cover;
     }
     .coverImage2 {
-        background-color: #eee5f7;
+
     }
 </style>

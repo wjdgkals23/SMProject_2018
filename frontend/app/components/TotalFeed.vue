@@ -1,6 +1,6 @@
 <template>
     <!-- 전체 피드 -->
-    <GridLayout rows="60,*">
+    <GridLayout rows="50,*">
         <CardView row="0">
             <GridLayout style="background: #ffffff;" paddingTop="15" paddingBottom="5">
                 <Image class="img" src="~/assets/images/title.png" stretch="aspectFit"></Image>
@@ -21,23 +21,27 @@
                                 </GridLayout>
                             </GridLayout>
                         </GridLayout>
-                        <StackLayout row="2" columns="auto" class="mybold" paddingTop="0" verticalAlignment="center" horizontalAlignment="center" >
+                        <StackLayout row="2" class="mybold" paddingTop="0" verticalAlignment="center" horizontalAlignment="center" >
                             <GridLayout rows="auto" columns="30,180,30" margin="0" paddingBottom="60" >
                                 <GridLayout paddingRight="5" col="0" verticalAlignment="center" horizontalAlignment="center">
                                     <Image class="img" src="~/assets/images/btn/leftarrow.png" @tap="act_swipe(1)" stretch="aspectFit"/>
                                 </GridLayout>
-                                <CardView col="1" elevation="0" radius="15" class="topcardStyle" >
-                                    <GridLayout row="0" paddingTop="5">
-                                        <Image class="img" :src="items.url" stretch="aspectFill"/>
-                                        <StackLayout paddingLeft="15" paddingTop="15">
-                                            <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
-                                                <StackLayout :class="textbind(ind)">
-                                                    <Label :order="ind" class="titletext" :text="text" />
-                                                </StackLayout>
-                                            </FlexboxLayout>
-                                        </StackLayout>
-                                    </GridLayout>
-                                </CardView>
+                                <StackLayout col="1">
+                                    <GridLayout rows="10"></GridLayout>
+                                    <CardView elevation="10" radius="15" class="cardStyle" >
+                                        <GridLayout row="0">
+                                            <Image class="img" :src="items.url" stretch="aspectFill"/>
+                                            <StackLayout paddingLeft="15" paddingTop="15">
+                                                <FlexboxLayout alignItems="flex-start" v-for="(text,ind) in items.title">
+                                                    <StackLayout :class="textbind(ind)">
+                                                        <Label :order="ind" class="titletext" :text="text" />
+                                                    </StackLayout>
+                                                </FlexboxLayout>
+                                            </StackLayout>
+                                        </GridLayout>
+                                    </CardView>
+                                    <GridLayout rows="10"></GridLayout>
+                                </StackLayout>
                                 <GridLayout paddingLeft="5" col="2" verticalAlignment="center" horizontalAlignment="center">
                                     <Image class="img" src="~/assets/images/btn/rightarrow.png" @tap="act_swipe(0)" stretch="aspectFit"/>
                                 </GridLayout>
@@ -70,7 +74,6 @@
         components: { ImageView, BottomNavigation, UploadPage },
         created() {
             postget(this.api, this, this.id_num);
-            top3get(this.api, this, this.id_num);
 
             this.$store.dispatch(Constant.GSP, {api: this.api});
 
@@ -147,6 +150,14 @@
         /*color: #fff;*/
         /*width: 70%;*/
         padding: 4%;
+        font-size: 35px;
+        /*font-family: THEmpgtB;*/
+        /*font-family: THELu;*/
+    }
+
+    .cardStyle {
+        /*color: #fff;*/
+        width: 92%;
         font-size: 35px;
         /*font-family: THEmpgtB;*/
         /*font-family: THELu;*/

@@ -9,7 +9,7 @@
                     <Label class="mylight name" :text="namecard.name"></Label>
                     <Label class="mytext info" :text="namecard.email"></Label>
                 </StackLayout>
-                <GridLayout col="1" paddingTop="5" horizontalAlignment="left" verticalAlignment="center">
+                <GridLayout paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" col="1" horizontalAlignment="left" verticalAlignment="center">
                     <Image class="img" src="~/assets/images/default_user.png"></Image>
                 </GridLayout>
             </GridLayout>
@@ -21,9 +21,16 @@
     import Constant from "../../constant";
     import _ from 'lodash/lodash.min';
     import { mapState } from 'vuex'
+
+    import DetailNameCard from './DetailNameCard'
     export default {
         name: "NameCard",
-        props: [ "namecard" ]
+        props: [ "namecard" ],
+        data() {
+            return {
+
+            }
+        }
     }
 </script>
 

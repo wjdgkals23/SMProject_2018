@@ -1,8 +1,8 @@
 <template>
     <Page :actionBarHidden="abmanager">
         <ScrollView>
-            <StackLayout>
-                <GridLayout rows="60">
+            <StackLayout paddingTop="5" paddingBottom="30">
+                <GridLayout rows="70">
                     <CardView>
                         <GridLayout columns="auto,auto,*" style="background: #ffffff;" paddingTop="15" paddingBottom="15">
                             <GridLayout paddingLeft="10" col="0" verticalAlignment="center" horizontalAlignment="left" paddingRight="10">
@@ -17,15 +17,15 @@
                         </GridLayout>
                     </CardView>
                 </GridLayout>
-                <GridLayout rows="20,30,20">
+                <GridLayout rows="20,60,20">
                     <GridLayout row="1" paddingLeft="20" paddingRight="20">
-                        <TextField hint="디자이너에게 협업을 제안해보세요." class="tfstyle" style.placeholderColor="#b36a1495" ></TextField>
+                        <TextField style="font-size: 23%;" hint="디자이너에게 협업을 제안해보세요." class="tfstyle" style.placeholderColor="#b36a1495" ></TextField>
                     </GridLayout>
                 </GridLayout>
                 <GridLayout rows="auto">
                     <GridLayout row="0" paddingTop="8" paddingLeft="16" paddingRight="16">
                         <CardView class="cardStyle" radius="10">
-                            <StackLayout>
+                            <StackLayout paddingBottom="20">
                                 <GridLayout paddingTop="10" rows="auto,auto">
                                     <Label row="0" paddingLeft="10" class="mytext" text="* 개인 / 기업소개" style="color: #6a1495; font-size: 15%; width: 100%; text-align: left;"/>
                                     <GridLayout paddingLeft="16" paddingRight="16" row="1" rows="80">
@@ -40,7 +40,7 @@
                                 </GridLayout>
                                 <GridLayout paddingTop="10" rows="auto,auto">
                                     <Label row="0" paddingLeft="10" class="mytext" text="* 연락처" style="color: #6a1495; font-size: 15%; width: 100%; text-align: left;"/>
-                                    <GridLayout paddingLeft="16" paddingRight="16" paddingBottom="16" row="1" rows="30">
+                                    <GridLayout paddingLeft="16" paddingRight="16" paddingBottom="16" row="1" rows="50">
                                         <TextView hint="입력해주세요." textWrap="true" class="tfstyle" style.placeholderColor="#b36a1495" ></TextView>
                                     </GridLayout>
                                 </GridLayout>
@@ -48,7 +48,9 @@
                         </CardView>
                     </GridLayout>
                 </GridLayout>
-                <name-card :namecard="mynamecard"></name-card>
+                <GridLayout paddingTop="10" paddingBottom="40" paddingLeft="10" paddingRight="10">
+                    <name-card :namecard="mynamecard"></name-card>
+                </GridLayout>
             </StackLayout>
         </ScrollView>
     </Page>

@@ -7,6 +7,7 @@ const photoEditor = new PhotoEditor();
 // const Cache = require("tns-core-modules/ui/image-cache").Cache;
 // const cache = new Cache();
 // cache.maxRequests = 3;
+let ch = 0;
 
 import { PhotoEditor, PhotoEditorControl } from "nativescript-photo-editor";
 import { fromFileOrResource, fromFile } from "tns-core-modules/image-source";
@@ -26,13 +27,14 @@ function startSelection(context, vue) {
                     console.log("android platform");
                     let temp_source = ImageSource.fromFile(selected_item.android);
                     let folder = fs.knownFolders.documents();
-                    let name = "test"+ vue.imagesource.length +".png";
+                    let name = "test"+ ch +".png";
                     let temp_path = fs.path.join(folder.path, name);
                     console.log(temp_path);
                     console.log();
                     let saved = temp_source.saveToFile(temp_path, "png");
 
                     if(saved){
+                        ch++;
                         console.log("download success");
                         vue.imagesource.push({ src: temp_path, name: name });
                     }
@@ -41,12 +43,13 @@ function startSelection(context, vue) {
                     console.log("ios platform");
                     ImageSource.fromAsset(selected_item).then((image) => {
                         let ios_folder = fs.knownFolders.documents().path;
-                        let ios_fileName = "test"+ vue.imagesource.length +".png";
+                        let ios_fileName = "test"+ ch +".png";
                         let ios_path = fs.path.join(ios_folder, ios_fileName);
                         let ios_saved = image.saveToFile(ios_path, "png");
                         // const ios_base64 = image.toBase64String("png", 50)
                         if(ios_saved){
                             console.log("download success");
+                            ch++;
                             vue.imagesource.push({ src: ios_path, name: ios_fileName });
                         }
                     })
@@ -83,6 +86,8 @@ function imgpickerfunc(vue) {
     }
 }
 
+let ech = 0;
+
 function imgeditor(vue, src, index) {
     console.log(src);
     // let Editcount = 0;
@@ -100,7 +105,7 @@ function imgeditor(vue, src, index) {
 
     temp.then((res) => {
         let ios_folder = fs.knownFolders.documents().path;
-        let ios_fileName = "test" + ".png";
+        let ios_fileName = "test" + ech + ".png";
         let ios_path = fs.path.join(ios_folder, ios_fileName);
         let saved = res.saveToFile(ios_path, "png");
         if(saved) {
@@ -111,11 +116,12 @@ function imgeditor(vue, src, index) {
                 hiddenControls: [
                 ],
             }).then((newImage) => {
-                let name_2 = "complete_edit" + ".png";
+                let name_2 = "complete_edit" + ech + ".png";
                 let temp_path_2 = fs.path.join(ios_folder, name_2);
                 let saved = newImage.saveToFile(temp_path_2, "png");
 
                 if(saved){
+                    ech++;
                     console.log("download success");
                     vue.editimage.push({ src: temp_path_2, name: name_2, index: index });
                 }
