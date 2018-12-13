@@ -1,20 +1,22 @@
 <template>
-    <CardView class="cardStyle" elevation="30" row="0" col="0" radius="15" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="16">
-        <GridLayout rows="110" columns="*">
-            <AbsoluteLayout horizontalAlignment="center" verticalAlignment="center" style="z-index: -1;">
-                <!--<Image src="~/assets/images/btn/leftarrow.png"></Image>-->
-            </AbsoluteLayout>
-            <GridLayout row="0" col="0" columns="2*,*" style="z-index: 1;">
-                <StackLayout col="0" paddingLeft="30" horizontalAlignment="left" verticalAlignment="center">
-                    <Label class="mylight name" :text="namecard.name"></Label>
-                    <Label class="mytext info" :text="namecard.email"></Label>
-                </StackLayout>
-                <GridLayout paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" col="1" horizontalAlignment="left" verticalAlignment="center">
-                    <Image class="img" src="~/assets/images/default_user.png"></Image>
+    <StackLayout>
+        <CardView class="cardStyle" elevation="10" row="0" col="0" radius="15" paddingTop="16" paddingLeft="10" paddingRight="10" paddingBottom="16">
+            <StackLayout>
+                <GridLayout rows="110" columns="*">
+                    <GridLayout row="0" col="0" columns="2*,*" style="z-index: 1;">
+                        <StackLayout col="0" paddingLeft="30" horizontalAlignment="left" verticalAlignment="center">
+                            <Label class="mylight name" :text="namecard.name"></Label>
+                            <Label class="mytext info" :text="namecard.email"></Label>
+                        </StackLayout>
+                        <GridLayout paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" col="1" horizontalAlignment="left" verticalAlignment="center">
+                            <Image class="img" src="~/assets/images/default_user.png"></Image>
+                        </GridLayout>
+                    </GridLayout>
                 </GridLayout>
-            </GridLayout>
-        </GridLayout>
-    </CardView>
+            </StackLayout>
+        </CardView>
+        <GridLayout rows="10"></GridLayout>
+    </StackLayout>
 </template>
 
 <script>

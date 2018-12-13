@@ -116,15 +116,13 @@
     import { mapState } from 'vuex'
     import _ from 'lodash/lodash.min';
     import Constant from '../constant';
-
     import { imgpickerfunc } from '../lib/imgpicker';
     import { upload } from "../lib/senddata";
     import axios from 'axios';
     import { apiPath } from "../lib/httpconfig";
     import { tag_sort } from "../lib/sortfunc";
-
+    import us from 'underscore/underscore-min';
     const platformModule = require("tns-core-modules/platform");
-
     export default {
         name: "UploadPage",
         components: { UploadView, UploadTag },
@@ -139,12 +137,13 @@
                 titlestyle: "style1",
                 imagesource: [],
                 counter: 0,
+                tagdatas: ""
             }
         },
         name: "UploadTag",
         computed : _.extend({
             filteredList() {
-                return this.tags.filter((tag) => {
+                return this.tagdatas.filter((tag) => {
                     return tag.contents.toLowerCase().includes(this.searchkeyword.toLowerCase())
                 })
             },
@@ -159,21 +158,21 @@
             this.tags.sort(tag_sort);
         },
         created(){
-
+            this.tagdatas = us.clone(this.tags)
         },
         methods: {
             async addtag(item) {
-                let index = await this.tags.findIndex((tag)=> {
+                let index = await this.tagdatas.findIndex((tag)=> {
                     return tag.contents == item.contents;
                 });
                 console.log(index);
-                this.tags.splice(index,1);
+                this.tagdatas.splice(index,1);
                 this.selectedtag.push(item);
             },
             deletetag(num, name) {
                 let item = this.selectedtag[num];
-                this.tags.push(item);
-                this.tags.sort(tag_sort);
+                this.tagdatas.push(item);
+                this.tagdatas.sort(tag_sort);
                 this.selectedtag.splice(num,1);
             },
             stylebind(item) {
@@ -197,9 +196,8 @@
                 let tagdata = [];
                 for(let item in this.selectedtag) {
                     tagdata.push({id: this.selectedtag[item].id});
-                    this.tags.push(item);
+                    // this.tags.push(item);
                 }
-
                 upload(this.imagesource, this.api, textdata, tagdata, this);
             }
         }
@@ -223,7 +221,6 @@
         border-radius: 15px;
         /*padding-top: ;*/
     }
-
     .clothtag {
         border-color: purple;
         color: white;
@@ -232,7 +229,6 @@
         font-size: 12px;
         border-radius: 10px;
     }
-
     .styletag {
         border-color: purple;
         color: purple;
@@ -242,7 +238,6 @@
         border-radius: 10px;
         /*box-shadow: 3px mediumpurple;*/
     }
-
     .selectedtag {
         border-color: purple;
         color: white;
@@ -250,7 +245,6 @@
         margin: 10px;
         font-size: 12px;
     }
-
     #upload {
         font-family: THEmpgtB;
         font-family: THELu;
@@ -281,14 +275,12 @@
         padding: 5px;
         margin-top: 5px;
     }
-
     .cardStyle2 {
         width: 92%;
         height: 500px;
         padding: 4%;
         border-radius: 15px;
     }
-
     .img {
         border-radius: 15px;
         margin-right: 5px;

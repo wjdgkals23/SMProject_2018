@@ -61,7 +61,6 @@
             // this.apipath = apiPath.server;
             this.$store.dispatch(Constant.SAP, apiPath.server);
             tagget(this.api, this);
-            top3get(this.api, this, this.id_num);
             // top3get(this.api, this, this.id_num);
 
         },

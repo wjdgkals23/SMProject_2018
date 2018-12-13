@@ -94,7 +94,7 @@
 
 <style scoped>
     .coverImage {
-        background-image: url('https://s3.ap-northeast-2.amazonaws.com/smproject2018/background.png');
+        background-image: url('https://raw.githubusercontent.com/wjdgkals23/SMProject_2018/master/frontend/app/assets/images/loginimage.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;

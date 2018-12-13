@@ -43,6 +43,7 @@ const upload = (srcs, apipath, textdata, tagdata, vue) => {
     task.on("complete", (e) => {
         console.log(e);
         console.log("complete");
+        // vue.$store.dispatch(Constants.PEEDCH, 3);
         vue.$store.dispatch(Constants.PEEDCH, 4);
         vue.$navigateBack();
     });

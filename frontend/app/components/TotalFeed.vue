@@ -74,6 +74,7 @@
         components: { ImageView, BottomNavigation, UploadPage },
         created() {
             postget(this.api, this, this.id_num);
+            top3get(this.api, this, this.id_num);
 
             this.$store.dispatch(Constant.GSP, {api: this.api});
 

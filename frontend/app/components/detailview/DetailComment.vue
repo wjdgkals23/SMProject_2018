@@ -152,12 +152,12 @@
                 }
                 else{
                     if(this.editimage.length != 0){
-                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: true, url: this.editimage[0].src, name: this.id, version: this.DetailPageData.version };
+                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: true, url: this.editimage[0].src, name: this.mynamecard.name, version: this.DetailPageData.version };
                         uploadcomment(this.api, data, this);
                         this.cleancomment();
                     }
                     else{
-                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: false, name: this.id, version: this.DetailPageData.version };
+                        let data = { id: this.id_num, post_id: this.DetailPageData.id, com_id: this.id, contents: this.writecomment, have_img: false, name: this.mynamecard.name, version: this.DetailPageData.version };
                         uploadcomment(this.api, data, this);
                         this.cleancomment();
                     }
@@ -195,7 +195,7 @@
             versionch() {
                 return this.id_num === this.DetailPageData.author_id;
             },
-        },mapState( [ 'id', 'api', "id_num", "DetailPageData" ] ))
+        },mapState( [ 'id', 'api', "id_num", "DetailPageData", "mynamecard" ] ))
     }
 </script>
 
