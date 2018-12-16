@@ -13,10 +13,10 @@ let post_sort_like_count = function(a,b) {
 }
 
 let comment_sort_date = function(a,b) {
-    if(a.created_time > b.created_time)
-        return 1;
-    else
+    if(a.updated_time > b.updated_time)
         return -1;
+    else
+        return 1;
 }
 
 export { tag_sort, post_sort_like_count, comment_sort_date };

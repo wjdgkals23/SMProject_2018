@@ -2,9 +2,9 @@
     <GridLayout columns="*" rows="*">
         <ScrollView orientation="vertical" row="0">
             <StackLayout backgroundColor="#ffffff">
-                <GridLayout rows="70">
+                <GridLayout rows="55">
                     <CardView>
-                        <GridLayout style="background: #ffffff;" paddingTop="15" paddingBottom="15" verticalAlignment="center" horizontalAlignment="center">
+                        <GridLayout style="background: #ffffff;" paddingTop="15" paddingBottom="0" verticalAlignment="center" horizontalAlignment="center">
                             <GridLayout verticalAlignment="center" horizontalAlignment="center">
                                 <Label class="headtext" text="태그 검색" style="color: #6a1495; font-size: 25%; width: 100%; text-align: center;"/>
                             </GridLayout>

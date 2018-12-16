@@ -53,7 +53,7 @@ export default {
         maxversion: null,
     },
     chcomment: [],
-    peedmanager: 1,
+    peedmanager: 0,
     abmanager: true,
     api: null,
     evhp: "",

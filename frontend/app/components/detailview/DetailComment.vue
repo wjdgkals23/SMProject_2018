@@ -67,7 +67,7 @@
                             <GridLayout row="1" col="1" paddingTop="3" paddingRight="5" paddingLeft="2" paddingBottom="3">
                                 <Image :src="item.url" v-show="item.have_img" width="80%" horizontalAlignment="center" verticalAlignment="center" />
                             </GridLayout>
-                            <GridLayout v-show="id_num === DetailPageData.author_id && id_num !== item.user_id" row="1" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
+                            <GridLayout row="1" col="2" rowspan="2" horizontalAlignment="center" verticalAlignment="center" paddingRight="10">
                                 <Image src="~/assets/images/ncommentch.png" v-if="!commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <Image src="~/assets/images/commentch.png" v-if="commentch(item.select_type)" @tap="commentcheck(index)"/>
                                 <!--v-show="item.checked" @tap="check(index)"-->

@@ -14,9 +14,11 @@ export default {
         state.peedmanager = 1;
     },
     [Constant.GETPOST] : (state, payload) => {
+        payload.data.sort(comment_sort_date);
         state.secondcol.splice(0, state.secondcol.length);
         state.firstcol.splice(0, state.firstcol.length);
         state.totalcol.splice(0, state.totalcol.length);
+        console.log(payload.data[0]);
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;
@@ -36,6 +38,7 @@ export default {
         console.log(state.top3);
     },
     [Constant.GMP] : (state, payload) => {
+        payload.data.sort(comment_sort_date);
         state.my_post_second.splice(0, state.my_post_second.length);
         state.my_post_first.splice(0, state.my_post_first.length);
         state.my_post_total.splice(0, state.my_post_total.length);
@@ -53,6 +56,7 @@ export default {
         }
     },
     [Constant.GML] : (state, payload) => {
+        payload.data.sort(comment_sort_date);
         state.my_like_second.splice(0, state.my_like_second.length);
         state.my_like_first.splice(0, state.my_like_first.length);
         state.my_like_total.splice(0, state.my_like_total.length);
@@ -218,6 +222,7 @@ export default {
         for(let item in payload.data){
             payload.data[item].like = payload.data[item].selectLike == 0 ? true : false;
             payload.data[item].like_count = payload.data[item].likeCount;
+            payload.data[item].title = payload.data[item].title.split(" ");
             state.totalcol.push(payload.data[item]);
             if( item%2 === 0 ) {
                 state.secondcol.push(payload.data[item]);
