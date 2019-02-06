@@ -38,14 +38,14 @@
 * NativeScript 오픈소스 중 nativescript-background-http를 활용하여 복수 이미지를 formdata로 전송할 수 있고(이 형태로 무조건 전송해야한다.)
 * params 변수를 통해 텍스트 데이터 또한 전송이 가능하다.
 * app/lib/senddata.js 를 보면 활용예시를 알 수 있다.
-* 주의 : utf8을 headers의 파라미터로 하고 true 값을 주어야 한글이 깨지지않고 DB에 저장된다.
+* 주의 : headers의 속성중 utf8에 true 값을 주어야 한글이 깨지지않고 DB에 저장된다.
 
 ### 2-2. 서버 데이터 정리 방식
 1. axios를 통해 받아온 데이터를 정리하는 방식은 Vuex를 사용하고 있기 때문에 결국 mutation.js 함수를 호출하여 정리하여야한다.
 2. Vue 컴포넌트에서 app/lib/getpost.js 의 함수를 호출할 때 Vue 컴포넌트의 this값을 같이 넘겨준다.
 3. axios 요청을 통해 완료가 되었을 때 then을 이용한 프로미스 함수 처리 부분에서 this.$store.dispatch 를 이용하여 app/store/action.js에 접근하고
 app/store/mutation.js 를 호출하여 상태 변형을 진행한다.
-* 참고 : 초기 앱의 데이터를 요청하는 방식은 Vue의 라이프사이클 중 created 를 이용하면 좋다. (그 이유는 Vue 컴포넌트의 data 부분이 활성화가 되는 최초시점이기 때문이다.)
+* 참고 : 초기 앱의 데이터를 요청하는 방식은 Vue의 라이프사이클 중 created 를 이용하면 좋다. (created는 Vue 라이프사이클에서 컴포넌트의 data 부분이 활성화가 되는 최초시점이기 때문이다.)
 
 ### 2-3. 데이터 수신 완료 후 화면 전환
 1. 2-2 에서 넘겨준 this 값을 이용해 화면전환을 진행할 수 있다.
