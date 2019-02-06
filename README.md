@@ -5,10 +5,10 @@
 # Settings (MAC OS)
 
 ## 공통부분
-Nodejs (8 버전 이상으로 설치)
-NativeCli (npm install -g nativescript)
+- Nodejs (8 버전 이상으로 설치)
+- Native-cli (npm install -g nativescript)
 
-### 아이폰 빌드 셋팅
+### 아이폰 빌드 셋팅 (순서대로 진행)
 1. sudo gem install xcodeproj
 2. sudo gem install cocoapods
 3. pod setup
@@ -19,7 +19,7 @@ NativeCli (npm install -g nativescript)
 1. brew tap caskroom/versions (brew cask 명령어를 통해 저장소를 생성하며 관리)
 2. brew cask install java8
 3. vi ~/.bash_profile 에 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) 기입
-4. brew cask install android-sdk (해당 방식보다는 안드로이드 스튜디오를 설치하는 방식을 따라하는 것을 추천한다.)
+4. brew cask install android-sdk (해당 방식보다는 안드로이드 스튜디오를 설치하는 과정에서 sdk를 설치하는 것을 추천한다.)
 5. vi ~/.bash_profile 에 export ANDROID_HOME=/usr/local/share/android-sdk
 
 
